@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Configure your radio authentication info as needed -->
+  <node name="radio_monitor" pkg="base_station" type="radio_monitor.py" output="screen">  
+    <rosparam>
+        radio_0:
+          host: '192.168.1.200'
+          user: 'ubnt'
+          pw:   'rover'  
+          
+        radio_1:  
+          host: '127.0.0.1'
+          user: 'ubnt'
+          pw:   'rover'  
+    </rosparam>    
+  </node>
+
+</launch>
