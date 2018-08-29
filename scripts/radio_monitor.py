@@ -65,18 +65,18 @@ def get_signal(ssh):
 
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-# get_n_connected_devs():
+# get_n_wlan_cons():
 #
 #    Read the number of devices paired to the radio.
 #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--  
-def get_n_connected_devs(ssh):   
+def get_n_wlan_cons(ssh):   
   try:
     # Call mca-status to get radio information
-    stdin, stdout, stderr = ssh.exec_command("mca-status | grep n_connected_devices", timeout=tmout)
+    stdin, stdout, stderr = ssh.exec_command("mca-status | grep wlanConnections", timeout=tmout)
     
     # Process resulting string to get value of signal strength      
-    n_connected_devs = [int(s) for s in re.findall(r'[-]?[\d]+', stdout.read())][0]    
-    return n_connected_devs
+    n_wlan_cons = [int(s) for s in re.findall(r'[-]?[\d]+', stdout.read())][0]    
+    return n_wlan_cons
     
   except:
     return None
@@ -125,12 +125,12 @@ def main():
       # If ssh all gucci, grab and publish radio status information
       else:
         signal_strength = get_signal(ssh[i])
-        n_connected_devs = get_n_connected_devs(ssh[i])
+        n_wlan_cons = get_n_wlan_cons(ssh[i])
         
-        if signal_strength is not None and n_connected_devs is not None:
+        if signal_strength is not None and n_wlan_cons is not None:
 	        msg = RadioStatus()
 	        msg.radio_id = i
-	        msg.n_connected_devs = n_connected_devs
+	        msg.n_wlan_cons = n_wlan_cons
 	        msg.signal = signal_strength
 	        msg.ssh_active = True
 	        pub.publish(msg) 
