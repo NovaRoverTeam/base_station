@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="media">
+    <file>icons/lighting_icon&amp;16.png</file>
+    <file>icons/save_icon&amp;16.png</file>
+    <file>icons/wrench_icon&amp;16.png</file>
+    <file>icons/playback_rec_icon&amp;16.png</file>
+    <file>icons/attention_icon&amp;16.png</file>
+    <file>icons/wireless_signal_icon&amp;16.png</file>
+    <file>icons/playback_stop_icon&amp;16.png</file>
+    <file>nova_logo.png</file>
+    <file>icons/playback_play_icon&amp;16.png</file>
+  </qresource>
+</RCC>
