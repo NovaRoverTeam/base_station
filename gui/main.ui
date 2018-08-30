@@ -1013,9 +1013,9 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
-          <widget class="QWidget" name="page_setup" native="true">
+          <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QLabel" name="label_12">
@@ -1070,25 +1070,6 @@
             </item>
            </layout>
           </widget>
-          <widget class="vertical_stack" name="page">
-           <property name="QIA2_LAST_STATE" stdset="0">
-            <number>0</number>
-           </property>
-           <widget class="QPushButton" name="pushButton_4">
-            <property name="geometry">
-             <rect>
-              <x>300</x>
-              <y>290</y>
-              <width>99</width>
-              <height>27</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_2"/>
          </widget>
         </item>
         <item>
@@ -1497,7 +1478,7 @@
              </font>
             </property>
             <property name="text">
-             <string>-37.957375°</string>
+             <string>-37.957375</string>
             </property>
            </widget>
           </item>
@@ -1538,7 +1519,7 @@
              </font>
             </property>
             <property name="text">
-             <string>145.237815°</string>
+             <string>145.237815</string>
             </property>
            </widget>
           </item>
@@ -1665,6 +1646,9 @@
            <layout class="QVBoxLayout" name="Bearing">
             <item>
              <widget class="QDial" name="dial_bearing">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="maximum">
                <number>360</number>
               </property>
@@ -1711,7 +1695,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>45°</string>
+                 <string>45</string>
                 </property>
                </widget>
               </item>
@@ -1762,6 +1746,19 @@
                <string>C: Sensitivity</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -2173,12 +2170,6 @@
    <class>KLed</class>
    <extends>QWidget</extends>
    <header>kled.h</header>
-  </customwidget>
-  <customwidget>
-   <class>vertical_stack</class>
-   <extends>QWidget</extends>
-   <header>vertical_stack.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
