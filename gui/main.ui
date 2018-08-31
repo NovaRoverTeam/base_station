@@ -406,8 +406,8 @@
             </property>
             <property name="color">
              <color>
-              <red>255</red>
-              <green>0</green>
+              <red>0</red>
+              <green>255</green>
               <blue>0</blue>
              </color>
             </property>
@@ -519,8 +519,8 @@
             </property>
             <property name="color">
              <color>
-              <red>255</red>
-              <green>0</green>
+              <red>0</red>
+              <green>255</green>
               <blue>0</blue>
              </color>
             </property>
@@ -629,8 +629,8 @@
             </property>
             <property name="color">
              <color>
-              <red>255</red>
-              <green>0</green>
+              <red>0</red>
+              <green>255</green>
               <blue>0</blue>
              </color>
             </property>
@@ -739,8 +739,8 @@
             </property>
             <property name="color">
              <color>
-              <red>255</red>
-              <green>0</green>
+              <red>0</red>
+              <green>255</green>
               <blue>0</blue>
              </color>
             </property>
@@ -846,8 +846,8 @@
             </property>
             <property name="color">
              <color>
-              <red>255</red>
-              <green>0</green>
+              <red>0</red>
+              <green>255</green>
               <blue>0</blue>
              </color>
             </property>
@@ -1031,6 +1031,49 @@
              </widget>
             </item>
             <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>64</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Sandstorm</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>64</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>2019 Rover</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>64</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Simulator</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
              <spacer name="verticalSpacer_4">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -1043,30 +1086,125 @@
               </property>
              </spacer>
             </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_ert">
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>Sandstorm</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_2">
-                <property name="text">
-                 <string>2019 Rover</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_3">
-                <property name="text">
-                 <string>Simulator</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLabel" name="label_122">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Extreme Retrieval and Delivery</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_43">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_camera_view">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_162">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Camera View</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_73">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_auto">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_129">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Autonomous</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_48">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_debug">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_124">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Debug</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_45">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>
@@ -1142,17 +1280,22 @@
             </item>
             <item>
              <property name="text">
-              <string>Debug</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
               <string>Extreme Retrieval</string>
              </property>
             </item>
             <item>
              <property name="text">
+              <string>Camera View</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>Autonomous</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Debug</string>
              </property>
             </item>
            </widget>

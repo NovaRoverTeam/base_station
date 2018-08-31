@@ -3,13 +3,18 @@
 from PyQt4 import QtCore, QtGui
 import sys
 from main import Ui_MainWindow
+import pygst
+pygst.require("0.10")
+import gst
+import pygtk
+import gtk
 
 def rosbag_start(toggled):
   if toggled:
     print("gon rosbag now")
   else:
     print("dun rosbaggin")
-
+    
 
 def main():
   app = QtGui.QApplication(sys.argv)
@@ -17,7 +22,7 @@ def main():
   
   ui = Ui_MainWindow()
   ui.setupUi(window)
-  
+    
   ui.tool_rosbag_start.toggled.connect(rosbag_start)
   ui.progress_radio0.setProperty("value", -45)
   
