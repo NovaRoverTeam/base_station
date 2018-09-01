@@ -1,0 +1,9 @@
+
+int8 cam_id 
+bool on
+
+---
+
+bool success   
+string message 
+

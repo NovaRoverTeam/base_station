@@ -11,7 +11,9 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 from base_station.msg import RadioStatus # Import custom msg
 
-tmout = 1.5 # Timeout (in seconds) for ssh channel
+loop_hz = 1      # ROS loop rate in Hz, coupled with tmout time below
+tmout = 0.5      # Timeout (in seconds) for ssh channel
+min_signal = -96 # Minimum signal strength, dB
 
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -89,7 +91,7 @@ def get_n_wlan_cons(ssh):
 #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
 def main():
   rospy.init_node('radio_monitor')
-  rate = rospy.Rate(0.3)
+  rate = rospy.Rate(loop_hz)
   
   pub = rospy.Publisher('radio_status', RadioStatus, queue_size=1)
   
@@ -120,6 +122,7 @@ def main():
         
         msg = RadioStatus()
         msg.radio_id = i
+        msg.signal = min_signal
         pub.publish(msg)    
 	      
       # If ssh all gucci, grab and publish radio status information
