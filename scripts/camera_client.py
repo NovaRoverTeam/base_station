@@ -9,8 +9,8 @@ import gst
 import pygtk
 import gtk
 
-from base_station.srv import * # Import custom msg
-from core_rover.msg import CameraStatus
+from nova_common.srv import * # Import custom msg
+from nova_common.msg import CameraStatus
 
 
 class ServiceHandler:

@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 import rospy
-from base_station.msg import RadioStatus # Import custom msgs/srvs
-from base_station.srv import *
-from core_rover.msg import CameraStatus
+from nova_common.msg import * # Import custom msgs/srvs
+from nova_common.srv import *
 
 import sys
 import datetime
