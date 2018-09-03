@@ -55,7 +55,6 @@ class ServiceHandler:
     def handle_toggle_cam_view(self, req):      
       res = ToggleStreamResponse()
       
-      print self.cur_con[req.cam_id]
       if self.cur_con[req.cam_id]: # If stream is active
         
         if req.on: # We want to show cam view   
@@ -95,8 +94,8 @@ class ServiceHandler:
         res = client(req.cam_id, req.on)      
           
       except rospy.ServiceException, e:
-        print "camera client here, cam view request failed."
-        print "Service call failed: %s"%e             
+        rospy.loginfo("camera client here, cam view request failed.")
+        rospy.loginfo("Service call failed: %s"%e)             
       
       return res
         
