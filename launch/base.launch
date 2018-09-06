@@ -1,6 +1,0 @@
-<launch>
-
-  <node name="camera_client" pkg="base_station" type="camera_client.py" output="screen"/>  
-  <node name="gui_manager" pkg="base_station" type="gui_manager.py" output="screen"/>    
-
-</launch>

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 import rospy
-from nova_common.msg import * # Import custom msgs/srvs
+import roslaunch
+import rospkg 
+from base_station.msg import *
+from nova_common.msg import * 
 from nova_common.srv import *
 
 import sys
@@ -49,11 +52,20 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         
         rospy.init_node('gui_manager')  
-        rospy.Subscriber('/radio_status', RadioStatus, self.radio_cb,  queue_size=1)
-        rospy.Subscriber('/camera_status', CameraStatus, self.camera_cb,  queue_size=1)
 
-        self.connect(self, QtCore.SIGNAL("radio_update(PyQt_PyObject)"), self.radio_update)
-        self.connect(self, QtCore.SIGNAL("camera_update(PyQt_PyObject)"), self.camera_update)
+        rospy.Subscriber('/base_station/radio_status', RadioStatus, 
+            self.radio_cb, queue_size=1)
+        rospy.Subscriber('/base_station/camera_status', CameraStatus, 
+            self.camera_cb, queue_size=1)
+        rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
+            self.raw_ctrl_cb, queue_size=1)
+
+        self.connect(self, QtCore.SIGNAL("radio_update(PyQt_PyObject)"),
+            self.radio_update)
+        self.connect(self, QtCore.SIGNAL("camera_update(PyQt_PyObject)"), 
+            self.camera_update)
+        self.connect(self, QtCore.SIGNAL("raw_ctrl_update(PyQt_PyObject)"), 
+            self.raw_ctrl_update)
         
         self.tool_cam0_show.clicked.connect(self.toggle_cam_view)
         self.tool_cam1_show.clicked.connect(self.toggle_cam_view)
@@ -66,6 +78,39 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         self.tool_cam2_start.clicked.connect(self.toggle_stream)
         self.tool_cam3_start.clicked.connect(self.toggle_stream)
         self.tool_cam4_start.clicked.connect(self.toggle_stream)
+
+        self.button_simulator.clicked.connect(self.launch_simulator)
+
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # launch_simulator(): Launch the simulator ROS launch file.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def launch_simulator(self):
+
+      self.button_simulator.setEnabled(False)
+      self.button_rover.setEnabled(False)
+      self.button_sandstorm.setEnabled(False)
+
+      run_id = rospy.get_param("/run_id")
+      uuid = roslaunch.rlutil.get_or_generate_uuid(run_id, True)
+      roslaunch.configure_logging(uuid)
+
+      rospack = rospkg.RosPack() # Get the file path for nova_common
+      path = rospack.get_path('nova_common')
+
+      launch_file = [path + '/launch/simulator.launch']
+
+      launch = roslaunch.parent.ROSLaunchParent(uuid, launch_file)
+
+      launch.start()
+      #launch.shutdown()
+
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # raw_ctrl_cb(): Xbox controller status callback.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def raw_ctrl_cb(self, msg):
+      self.emit(QtCore.SIGNAL("raw_ctrl_update(PyQt_PyObject)"), msg)
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -80,8 +125,22 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--       
     def camera_cb(self, msg):
       self.emit(QtCore.SIGNAL("camera_update(PyQt_PyObject)"), msg)
-        
-        
+      
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # raw_ctrl_update():
+    #
+    #    Update the Input Status pane of the GUI.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
+    def raw_ctrl_update(self, msg):   
+
+      led = self.led_xbox
+
+      if msg.connected is True:
+        led.on()
+      else:
+        led.off()
+  
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # radio_update():
     #

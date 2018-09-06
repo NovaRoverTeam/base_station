@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   nova_common
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -48,10 +49,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-#add_message_files(
-#  FILES
-#  RadioStatus.msg
-#)
+add_message_files(
+  FILES
+  RawCtrl.msg
+)
 
 ## Generate services in the 'srv' folder
 #add_service_files(
@@ -67,10 +68,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-#generate_messages(
-#  DEPENDENCIES
-#  std_msgs
-#)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -104,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES base_station
-#   CATKIN_DEPENDS message_runtime std_msgs
+   CATKIN_DEPENDS message_runtime std_msgs rospy roscpp
 #  DEPENDS system_lib
 )
 
@@ -115,9 +116,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
+
+if (NOT TARGET gamepad)
+  add_library(gamepad SHARED include/gamepad/gamepad.c)
+endif()
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -148,6 +153,11 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+add_executable(input src/input.cpp include/gamepad/gamepad.c)
+target_link_libraries(input gamepad udev ${catkin_LIBRARIES})
+add_dependencies(input core_rover_generate_messages_cpp)
+
 
 #############
 ## Install ##
