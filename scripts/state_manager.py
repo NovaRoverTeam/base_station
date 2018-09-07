@@ -25,8 +25,12 @@ class StateManager:
         '/base_station/radio_status', RadioStatus, self.radio_stat_cb)
 
     self.change_state_server = rospy.Service(
-        '/base_station/change_state', ToggleStream, 
+        '/base_station/change_state', ChangeState, 
         self.handle_change_state)
+        
+    self.drive_cmd_pub = rospy.Publisher(
+        '/core_rover/rover_manager/drive_cmd', DriveCmd, 
+         queue_size=1)
 
     # Connectivity status for ROS radio
     self.radio_connected = False
@@ -35,17 +39,33 @@ class StateManager:
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # handle_change_state():
   #
-  #  Service server handler for changing rover state.
+  #  Service server handler for changing rover state. Calls service in
+  #  rover_manager to confirm state change 
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
-  def handle_change_state(req):
-
-    rospy.set_param(req.state, req.value)
+  def handle_change_state(self, req):
+  
+    if (req.state == 'BaseMode'): # If changing mode
     
-    message = ("State " + req.state + " changed to " + req.value 
-      + " successfully.")
-    res = ChangeStateResponse(True, message)
-    return res       
-
+      rospy.wait_for_service('/core_rover/req_change_state')
+      try:
+        client = rospy.ServiceProxy('/core_rover/req_change_state',
+          ChangeState)
+        res_rover = client('RoverMode', req.value)
+          
+      except rospy.ServiceException, e:
+        rospy.loginfo("Changing mode failed: %s"%e)
+      
+      if res_rover.success:
+        rospy.set_param(req.state, req.value)
+        res_base = ChangeStateResponse(True, '')
+      else:
+        res_base = ChangeStateResponse(False, '')
+                
+      return res_base
+            
+    else: # Only accepting mode changes currently
+      return ChangeStateResponse(False, '')
+      
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # radio_stat_cb():
@@ -69,7 +89,17 @@ class StateManager:
   #    Callback for control msgs designated for DRIVE mode.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def drive_cb(self, msg):
-    pass
+    # TODO take rpm and steering limits from GUI
+    rpm_limit   = rospy.get_param('RPM_limit')
+    steer_limit = rospy.get_param('steer_limit')
+    
+    drive_msg = DriveCmd() # New drive command message
+    
+    # TODO define max RPM of motors and replace 50 with it
+    drive_msg.rpm       =  50 * rpm_limit   * msg.axis_ly_val   
+    drive_msg.steer_pct = 100 * steer_limit * msg.axis_rx_val 
+    
+    self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -106,7 +136,7 @@ class StateManager:
         drive_cb(msg)
 
       elif mode is 'Arm':
-        arm_cb(msg)
+        arm_cb  (msg)
 
       elif mode is 'Drill':
         drill_cb(msg)
@@ -137,9 +167,10 @@ class StateManager:
 def main():
   state_manager = StateManager()
   
+  rate = rospy.Rate(0.1)
   while not rospy.is_shutdown(): 
-    pass
-
+    rate.sleep()
+  
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # Initialiser.

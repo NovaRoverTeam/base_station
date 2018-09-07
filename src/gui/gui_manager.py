@@ -48,49 +48,168 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     #    Initiases main class, ROS node and sets up subs/pubs/srvs.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
     def __init__(self, parent=None):
-        super(MainDialog,self).__init__(parent)
-        self.setupUi(self)
-        
-        rospy.init_node('gui_manager')  
+      super(MainDialog,self).__init__(parent)
+      self.setupUi(self)
+      
+      rospy.init_node('gui_manager')  
 
-        rospy.Subscriber('/base_station/radio_status', RadioStatus, 
-            self.radio_cb, queue_size=1)
-        rospy.Subscriber('/base_station/camera_status', CameraStatus, 
-            self.camera_cb, queue_size=1)
-        rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
-            self.raw_ctrl_cb, queue_size=1)
+      rospy.Subscriber('/base_station/radio_status', RadioStatus, 
+          self.radio_cb, queue_size=1)
+      rospy.Subscriber('/base_station/camera_status', CameraStatus, 
+          self.camera_cb, queue_size=1)
+      rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
+          self.raw_ctrl_cb, queue_size=1)
+          
+      self.make_connections()
+      self.setup_sliders()
+     
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # setup_sliders(): Setup the slider initial values and ROS params.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def setup_sliders(self): 
+          
+      rpm_limit   = rospy.get_param('~def_RPM_limit') # Get default limits
+      steer_limit = rospy.get_param('~def_steer_limit')
+    
+      rospy.set_param('RPM_limit', rpm_limit) # Set ROS parameters
+      rospy.set_param('steer_limit', steer_limit)
+      
+      self.slider_a.setProperty("value", round(rpm_limit*100))
+      self.slider_b.setProperty("value", round(steer_limit*100))                         
+                         
+            
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # make_connections(): Setup widget connections for signals.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def make_connections(self): 
+      self.connect(self, QtCore.SIGNAL("radio_update(PyQt_PyObject)"),
+          self.radio_update)
+      self.connect(self, QtCore.SIGNAL("camera_update(PyQt_PyObject)"), 
+          self.camera_update)
+      self.connect(self, QtCore.SIGNAL("raw_ctrl_update(PyQt_PyObject)"), 
+          self.raw_ctrl_update)
+            
+      self.tool_cam0_show.clicked.connect(self.toggle_cam_view)
+      self.tool_cam1_show.clicked.connect(self.toggle_cam_view)
+      self.tool_cam2_show.clicked.connect(self.toggle_cam_view)
+      self.tool_cam3_show.clicked.connect(self.toggle_cam_view)
+      self.tool_cam4_show.clicked.connect(self.toggle_cam_view)
+      
+      self.tool_cam0_start.clicked.connect(self.toggle_stream)
+      self.tool_cam1_start.clicked.connect(self.toggle_stream)
+      self.tool_cam2_start.clicked.connect(self.toggle_stream)
+      self.tool_cam3_start.clicked.connect(self.toggle_stream)
+      self.tool_cam4_start.clicked.connect(self.toggle_stream)
 
-        self.connect(self, QtCore.SIGNAL("radio_update(PyQt_PyObject)"),
-            self.radio_update)
-        self.connect(self, QtCore.SIGNAL("camera_update(PyQt_PyObject)"), 
-            self.camera_update)
-        self.connect(self, QtCore.SIGNAL("raw_ctrl_update(PyQt_PyObject)"), 
-            self.raw_ctrl_update)
+      self.button_simulator.clicked.connect(self.launch_simulator)
+      
+      self.button_standby.clicked.connect(self.mode_change)
+      self.button_drive  .clicked.connect(self.mode_change)
+      self.button_arm    .clicked.connect(self.mode_change)
+      self.button_drill  .clicked.connect(self.mode_change)
+      self.button_auto   .clicked.connect(self.mode_change)     
+      
+      self.slider_a.valueChanged.connect(self.slider_change)
+      self.slider_b.valueChanged.connect(self.slider_change)  
+      self.slider_c.valueChanged.connect(self.slider_change)  
+      
+      self.tool_slider_a.toggled.connect(self.slider_unlock)
+      self.tool_slider_b.toggled.connect(self.slider_unlock)  
+      self.tool_slider_c.toggled.connect(self.slider_unlock)  
         
-        self.tool_cam0_show.clicked.connect(self.toggle_cam_view)
-        self.tool_cam1_show.clicked.connect(self.toggle_cam_view)
-        self.tool_cam2_show.clicked.connect(self.toggle_cam_view)
-        self.tool_cam3_show.clicked.connect(self.toggle_cam_view)
-        self.tool_cam4_show.clicked.connect(self.toggle_cam_view)
         
-        self.tool_cam0_start.clicked.connect(self.toggle_stream)
-        self.tool_cam1_start.clicked.connect(self.toggle_stream)
-        self.tool_cam2_start.clicked.connect(self.toggle_stream)
-        self.tool_cam3_start.clicked.connect(self.toggle_stream)
-        self.tool_cam4_start.clicked.connect(self.toggle_stream)
-
-        self.button_simulator.clicked.connect(self.launch_simulator)
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # slider_change():
+    #
+    #    Function to handle slider values being changed.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def slider_change(self, value):  
+      slider = self.sender()
+      name = slider.objectName()
+      
+      if   (name == 'slider_a'): # Setting RPM limit
+        rospy.set_param('RPM_limit',   float(value)/100)
+        
+      elif (name == 'slider_b'): # Setting steering limit
+        rospy.set_param('steer_limit', float(value)/100)
+   
+   
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # slider_unlock():
+    #
+    #    Lock or unlock a slider using the tool buttons.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def slider_unlock(self, unlock):  
+      slider = self.sender()
+      name = slider.objectName()
+      
+      if   (name == 'tool_slider_a'): 
+        self.slider_a.setEnabled(unlock)
+        
+      elif (name == 'tool_slider_b'):
+        self.slider_b.setEnabled(unlock)
+        
+      else:
+        self.slider_c.setEnabled(unlock)
+           
+      
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # mode_change():
+    #
+    #    Function to handle mode changing button presses.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def mode_change(self):
+      button = self.sender()
+      mode_str = str(button.text())
+      
+      # Remove highlight from previous mode's button
+      # TODO can be a bit buggy, not quite sure what default does exactly
+      self.button_standby.setProperty('default', False)
+      self.button_drive.setProperty('default', False)
+      self.button_arm.setProperty('default', False)
+      self.button_drill.setProperty('default', False)
+      self.button_auto.setProperty('default', False)
+      
+      # Request change of mode from rover
+      rospy.wait_for_service('/base_station/change_state')
+      try:          
+        client = rospy.ServiceProxy('/base_station/change_state',
+          ChangeState)
+        res = client('BaseMode', mode_str)
+        
+        # If successfully changed mode, highlight new button
+        if res.success:
+          button.setProperty('default', True)
+                  
+      except rospy.ServiceException, e:
+        rospy.loginfo("Changing mode failed: %s"%e)
+      
+      
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # init_setup_buttons(): Disable and enable buttons on startup.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def init_setup_buttons(self):         
+        
+      self.button_simulator.setEnabled(False)
+      self.button_rover    .setEnabled(False)
+      self.button_sandstorm.setEnabled(False)   
+         
+      self.button_standby.setEnabled(True)
+      self.button_drive  .setEnabled(True)
+      self.button_arm    .setEnabled(True)
+      self.button_drill  .setEnabled(True)
+      self.button_auto   .setEnabled(True)
+      
+      self.button_standby.setProperty('default', True) # Standby highlight
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # launch_simulator(): Launch the simulator ROS launch file.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def launch_simulator(self):
-
-      self.button_simulator.setEnabled(False)
-      self.button_rover.setEnabled(False)
-      self.button_sandstorm.setEnabled(False)
-
+    
+      self.init_setup_buttons()
+      
       run_id = rospy.get_param("/run_id")
       uuid = roslaunch.rlutil.get_or_generate_uuid(run_id, True)
       roslaunch.configure_logging(uuid)
@@ -264,11 +383,11 @@ def main():
   ui.tool_rosbag_start.toggled.connect(rosbag_start)
   
   # 180 deg is North, positive increase is clockwise
-  bearing = 135
+  bearing = 0
   ui.dial_bearing.setProperty("value", 180 + bearing)
   ui.label_bearing.setText(str(bearing) + " deg")
   
-  voltage = 23.5
+  voltage = 23.0
   ui.label_voltage.setText(str(voltage) + " V")
   ui.progress_voltage.setProperty("minimum", 230)
   ui.progress_voltage.setProperty("maximum", 252)

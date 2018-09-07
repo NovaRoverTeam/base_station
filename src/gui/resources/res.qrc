@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="media">
+    <file>icons/padlock_closed_icon&amp;16.png</file>
+    <file>icons/padlock_open_icon&amp;16.png</file>
     <file>icons/invisible_revert_icon&amp;16.png</file>
     <file>icons/disconnected_icon&amp;16.png</file>
     <file>icons/connect_icon&amp;16.png</file>
