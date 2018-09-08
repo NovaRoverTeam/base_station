@@ -10,7 +10,15 @@ from nova_common.srv import *
 import sys
 import datetime
 import pexpect
+import signal
+import subprocess
 from functools import partial
+
+# Get the file path for base_station, rebuild GUI
+rospack = rospkg.RosPack() 
+base_path = rospack.get_path('base_station')
+bash_cmd = "cd " + base_path + "/src/gui;" + " ./build.sh"
+output = subprocess.check_output(['bash','-c', bash_cmd])  
 
 from PyQt4 import QtCore, QtGui # Qt includes
 from PyKDE4.kdeui import *
@@ -55,18 +63,35 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
       rospy.Subscriber('/base_station/radio_status', RadioStatus, 
           self.radio_cb, queue_size=1)
-      rospy.Subscriber('/base_station/camera_status', CameraStatus, 
+      rospy.Subscriber('/core_rover/camera_status', CameraStatus, 
           self.camera_cb, queue_size=1)
+      rospy.Subscriber('/core_rover/auto_status', AutoStatus, 
+          self.auto_cb, queue_size=1)
       rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
           self.raw_ctrl_cb, queue_size=1)
           
       self.make_connections()
-      self.setup_sliders()
+      self.setup_widgets()
+                 
+   
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # closeEvent(): Override default exit handler.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
+    def closeEvent(self, event):
+      rospy.signal_shutdown("SIGINT") # Shut down node
+      
+      bash_cmd = "killall -9 rosmaster" # Kill ROS master
+      output = subprocess.check_output(['bash','-c', bash_cmd])  
+             
+      event.accept()
+      
      
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-    # setup_sliders(): Setup the slider initial values and ROS params.
+    # setup_widgets(): Setup widget initial values and ROS params.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
-    def setup_sliders(self): 
+    def setup_widgets(self): 
+      self.combo_mission.setCurrentIndex(0) # Switch to setup pane
+      self.stack_mission.setCurrentIndex(0) 
           
       rpm_limit   = rospy.get_param('~def_RPM_limit') # Get default limits
       steer_limit = rospy.get_param('~def_steer_limit')
@@ -75,7 +100,10 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       rospy.set_param('steer_limit', steer_limit)
       
       self.slider_a.setProperty("value", round(rpm_limit*100))
-      self.slider_b.setProperty("value", round(steer_limit*100))                         
+      self.slider_b.setProperty("value", round(steer_limit*100))  
+      
+      self.edit_lat.setValidator(QtGui.QDoubleValidator() )                       
+      self.edit_lng.setValidator(QtGui.QDoubleValidator() )    
                          
             
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -88,6 +116,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
           self.camera_update)
       self.connect(self, QtCore.SIGNAL("raw_ctrl_update(PyQt_PyObject)"), 
           self.raw_ctrl_update)
+      self.connect(self, QtCore.SIGNAL("auto_update(PyQt_PyObject)"), 
+          self.auto_update)
             
       self.tool_cam0_show.clicked.connect(self.toggle_cam_view)
       self.tool_cam1_show.clicked.connect(self.toggle_cam_view)
@@ -188,13 +218,12 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # init_setup_buttons(): Disable and enable buttons on startup.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
-    def init_setup_buttons(self):         
-        
-      self.button_simulator.setEnabled(False)
+    def init_setup_buttons(self): 
+      self.button_simulator.setEnabled(False) # Disable setup buttons
       self.button_rover    .setEnabled(False)
       self.button_sandstorm.setEnabled(False)   
-         
-      self.button_standby.setEnabled(True)
+      
+      self.button_standby.setEnabled(True) # Enable mode buttons
       self.button_drive  .setEnabled(True)
       self.button_arm    .setEnabled(True)
       self.button_drill  .setEnabled(True)
@@ -208,7 +237,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def launch_simulator(self):
     
-      self.init_setup_buttons()
+      self.init_setup_buttons() # Disable and enable buttons
+      self.combo_mission.setCurrentIndex(2) # Switch to autonomous pane
+      
+      self.stack_mission.removeWidget(self.page_setup) # Remove setup page
+      self.combo_mission.removeItem(0)
+      
+      self.label_vehicle.setText("Simulator")
       
       run_id = rospy.get_param("/run_id")
       uuid = roslaunch.rlutil.get_or_generate_uuid(run_id, True)
@@ -233,6 +268,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # auto_cb(): Radio status callback.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def auto_cb(self, msg):
+      self.emit(QtCore.SIGNAL("auto_update(PyQt_PyObject)"), msg)
+      
+      
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # radio_cb(): Radio status callback.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def radio_cb(self, msg):
@@ -244,6 +286,24 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--       
     def camera_cb(self, msg):
       self.emit(QtCore.SIGNAL("camera_update(PyQt_PyObject)"), msg)
+ 
+ 
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # auto_update():
+    #
+    #    Update the rover with autonomous mode data including GPS, IMU.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
+    def auto_update(self, msg):      
+      
+      self.label_auto_state.setText(str(msg.auto_state))
+      
+      self.label_lat.setText(str(msg.latitude))
+      self.label_lng.setText(str(msg.longitude))
+      
+      # 180 deg is North, positive increase is clockwise
+      bearing = round(msg.bearing)
+      self.dial_bearing.setProperty("value", 180 + bearing)
+      self.label_bearing.setText(str(bearing))
       
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -259,6 +319,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         led.on()
       else:
         led.off()
+  
   
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # radio_update():
@@ -340,7 +401,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       
       rospy.wait_for_service('toggle_cam_view')      
       try:          
-        client = rospy.ServiceProxy('toggle_cam_view', ToggleStream)          
+        client = rospy.ServiceProxy('/base_station/toggle_cam_view', ToggleStream)          
         res = client(cam_id, checked)
         
         if not res.success: # If stream inactive, release button      
@@ -363,7 +424,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       
       rospy.wait_for_service('toggle_stream')      
       try:          
-        client = rospy.ServiceProxy('toggle_stream', ToggleStream)          
+        client = rospy.ServiceProxy('/base_station/toggle_stream', ToggleStream)          
         res = client(cam_id, checked)             
           
       except rospy.ServiceException, e:
@@ -381,19 +442,13 @@ def main():
   
   ui = MainDialog()    
   ui.tool_rosbag_start.toggled.connect(rosbag_start)
-  
-  # 180 deg is North, positive increase is clockwise
-  bearing = 0
-  ui.dial_bearing.setProperty("value", 180 + bearing)
-  ui.label_bearing.setText(str(bearing) + " deg")
-  
+    
   voltage = 23.0
   ui.label_voltage.setText(str(voltage) + " V")
   ui.progress_voltage.setProperty("minimum", 230)
   ui.progress_voltage.setProperty("maximum", 252)
   ui.progress_voltage.setProperty("value", round(voltage*10))
 
-  #window.show()
   ui.show()   
   app.exec_()
   

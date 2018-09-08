@@ -23,12 +23,12 @@ class ServiceHandler:
     def __init__(self):
       rospy.init_node('camera_client') 
       
-      self.view_server = rospy.Service('toggle_cam_view', ToggleStream, 
-                                  self.handle_toggle_cam_view)
-      self.stream_server = rospy.Service('toggle_stream', ToggleStream, 
+      self.view_server = rospy.Service('/base_station/toggle_cam_view', ToggleStream, 
+                                         self.handle_toggle_cam_view)
+      self.stream_server = rospy.Service('/base_station/toggle_stream', ToggleStream, 
                                   self.handle_toggle_stream)
-      self.camstat_sub = rospy.Subscriber('/camera_status', CameraStatus, 
-                                           self.camstat_cb, queue_size=1)                                  
+      self.camstat_sub = rospy.Subscriber('/core_rover/camera_status', CameraStatus, 
+                                            self.camstat_cb, queue_size=1)                                  
                                   
       self.streams = [None]*5
       self.cur_con = [False]*5
@@ -90,7 +90,7 @@ class ServiceHandler:
       rospy.wait_for_service('connect_stream')
       
       try:          
-        client = rospy.ServiceProxy('connect_stream', ToggleStream)          
+        client = rospy.ServiceProxy('/core_rover/connect_stream', ToggleStream)          
         res = client(req.cam_id, req.on)      
           
       except rospy.ServiceException, e:
