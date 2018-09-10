@@ -1712,6 +1712,12 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>Leelawadee</family>
@@ -1733,6 +1739,12 @@
            <widget class="QPushButton" name="button_drive">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
             </property>
             <property name="font">
              <font>
@@ -1756,6 +1768,12 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>Leelawadee</family>
@@ -1778,6 +1796,12 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="font">
              <font>
               <family>Leelawadee</family>
@@ -1799,6 +1823,12 @@
            <widget class="QPushButton" name="button_auto">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
             </property>
             <property name="font">
              <font>

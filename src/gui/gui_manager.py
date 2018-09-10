@@ -58,8 +58,12 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
       super(MainDialog,self).__init__(parent)
       self.setupUi(self)
+
+      self.srv_timeout = 3 # Number of seconds to wait for service
       
       rospy.init_node('gui_manager')  
+
+      signal.signal(signal.SIGINT, self.signal_handler) # Register sigint handler
 
       rospy.Subscriber('/base_station/radio_status', RadioStatus, 
           self.radio_cb, queue_size=1)
@@ -73,16 +77,21 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.make_connections()
       self.setup_widgets()
                  
-   
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-    # closeEvent(): Override default exit handler.
+    # signal_handler(): Override default exit handler for CTRL+C SIGINT.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
+    def signal_handler(self, sig, frame):
+      self.launch.shutdown()
+      rospy.signal_shutdown("SIGINT") # Shut down ROS   
+      sys.exit(1)
+
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # closeEvent(): Override default exit handler for clean GUI shutdown.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
     def closeEvent(self, event):
+      self.launch.shutdown()
       rospy.signal_shutdown("SIGINT") # Shut down node
-      
-      bash_cmd = "killall -9 rosmaster" # Kill ROS master
-      output = subprocess.check_output(['bash','-c', bash_cmd])  
-             
       event.accept()
       
      
@@ -201,7 +210,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.button_auto.setProperty('default', False)
       
       # Request change of mode from rover
-      rospy.wait_for_service('/base_station/change_state')
+      rospy.wait_for_service('/base_station/change_state', self.srv_timeout)
       try:          
         client = rospy.ServiceProxy('/base_station/change_state',
           ChangeState)
@@ -254,10 +263,9 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
       launch_file = [path + '/launch/simulator.launch']
 
-      launch = roslaunch.parent.ROSLaunchParent(uuid, launch_file)
+      self.launch = roslaunch.parent.ROSLaunchParent(uuid, launch_file)
 
-      launch.start()
-      #launch.shutdown()
+      self.launch.start()
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -399,7 +407,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       
       cam_id = int(button.text())
       
-      rospy.wait_for_service('toggle_cam_view')      
+      rospy.wait_for_service('/base_station/toggle_cam_view', self.srv_timeout)      
       try:          
         client = rospy.ServiceProxy('/base_station/toggle_cam_view', ToggleStream)          
         res = client(cam_id, checked)
@@ -422,7 +430,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       
       cam_id = int(button.text())
       
-      rospy.wait_for_service('toggle_stream')      
+      rospy.wait_for_service('/base_station/toggle_stream', self.srv_timeout)      
       try:          
         client = rospy.ServiceProxy('/base_station/toggle_stream', ToggleStream)          
         res = client(cam_id, checked)             

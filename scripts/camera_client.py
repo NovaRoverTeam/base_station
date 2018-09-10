@@ -76,8 +76,7 @@ class ServiceHandler:
           "currently inactive")
         res.success = False
               
-      res.success = self.cur_con[req.cam_id]        
-      
+      res.success = self.cur_con[req.cam_id] 
       return res
         
         
@@ -87,7 +86,7 @@ class ServiceHandler:
     #    Service server handler for starting and stopping camera streams.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def handle_toggle_stream(self, req):   
-      rospy.wait_for_service('connect_stream')
+      rospy.wait_for_service('/core_rover/connect_stream')
       
       try:          
         client = rospy.ServiceProxy('/core_rover/connect_stream', ToggleStream)          

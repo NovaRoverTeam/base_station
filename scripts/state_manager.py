@@ -130,16 +130,16 @@ class StateManager:
   def raw_ctrl_cb(self, msg):
     mode = rospy.get_param('BaseMode')
 
-    if self.radio_connected:
+    #if self.radio_connected: # TODO reintroduce this later
 
-      if   mode is 'Drive': 
-        drive_cb(msg)
+    if   (mode == 'Drive'): 
+      self.drive_cb(msg)
 
-      elif mode is 'Arm':
-        arm_cb  (msg)
+    elif (mode == 'Arm'):
+      self.arm_cb  (msg)
 
-      elif mode is 'Drill':
-        drill_cb(msg)
+    elif mode is (mode == 'Drill'):
+      self.drill_cb(msg)
 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
