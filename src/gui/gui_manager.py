@@ -73,6 +73,10 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
           self.auto_cb, queue_size=1)
       rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
           self.raw_ctrl_cb, queue_size=1)
+
+      #self.start_auto_server = rospy.Service(
+      #  '/core_rover/start_auto', ChangeState,
+      #   self.handle_start_auto)
           
       self.make_connections()
       self.setup_widgets()
@@ -141,6 +145,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.tool_cam4_start.clicked.connect(self.toggle_stream)
 
       self.button_simulator.clicked.connect(self.launch_simulator)
+      self.button_engage_auto.clicked.connect(self.engage_auto)
       
       self.button_standby.clicked.connect(self.mode_change)
       self.button_drive  .clicked.connect(self.mode_change)
@@ -190,7 +195,27 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         
       else:
         self.slider_c.setEnabled(unlock)
-           
+
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # engage_auto():
+    #
+    #    Function to begin an autonomous mission.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def engage_auto(self):
+
+      client = rospy.ServiceProxy('/core_rover/start_auto', StartAuto)
+
+      req = StartAutoRequest()
+      req.latitude  = float(self.edit_lat.text())
+      req.longitude = float(self.edit_lng.text())
+
+      res = client(req)
+      if res.success is True:
+        rospy.loginfo("Auto mission engaged.")
+      else:
+        rospy.loginfo("Unable to start auto mission because: " + res.message)
+
       
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # mode_change():
@@ -239,6 +264,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.button_auto   .setEnabled(True)
       
       self.button_standby.setProperty('default', True) # Standby highlight
+
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
