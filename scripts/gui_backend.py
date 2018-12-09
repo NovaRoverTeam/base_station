@@ -25,6 +25,7 @@ from functools import partial
 import rospkg 
 import rospy
 from gui_ros import GuiRos
+from gui_vis import GuiVis
 
 # Get the file path for base_station, rebuild GUI
 rospack = rospkg.RosPack() 
@@ -46,11 +47,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   def __init__(self, parent=None):
     super(MainDialog,self).__init__(parent)
 
+    # Setup the GUI in its initial state
+    self.setupUi(self)    
     self.GuiRos = GuiRos(self) # Create ROS interface
+    self.GuiVis = GuiVis(self) # Create visual element interface
 
-    self.setupUi(self)          
     self.setupConnections()
-    self.setupWidgets()
+    self.initialiseGUI()
 
     # Register sigint handler
     signal.signal(signal.SIGINT, self.signalHandler) 
@@ -60,6 +63,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #   Override default exit handler for CTRL+C SIGINT.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def signalHandler(self, sig, frame):
+
     self.GuiRos.shutdownRos()   
     sys.exit(1)
 
@@ -68,47 +72,22 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #   Override default exit handler for clean GUI shutdown.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
   def closeEvent(self, event):
+
     self.GuiRos.shutdownRos()
     event.accept()
     
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-  # setupWidgets(): 
-  #   Setup widget initial values and ROS params.
+  # initialiseGUI(): 
+  #   Setup widget initial values.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
-  def setupWidgets(self): 
-    self.combo_mission.setCurrentIndex(0) # Switch to setup pane
-    self.stack_mission.setCurrentIndex(0) 
-        
+  def initialiseGUI(self):     
+
     # Get and set default drive limits
     rpm_limit, steer_limit = self.GuiRos.getDriveLimits("private")    
     self.GuiRos.setDriveLimits(rpm_limit, steer_limit)
-    
-    self.slider_a.setProperty("value", round(rpm_limit*100))
-    self.slider_b.setProperty("value", round(steer_limit*100))  
-    
-    self.edit_lat.setValidator(QtGui.QDoubleValidator() )                       
-    self.edit_lng.setValidator(QtGui.QDoubleValidator() )    
 
-    mode_stylesheet = "QPushButton:checked { background-color: orange; }\n"
-    self.button_standby.setStyleSheet(mode_stylesheet)
-    self.button_drive.setStyleSheet(mode_stylesheet)
-    self.button_arm.setStyleSheet(mode_stylesheet)
-    self.button_drill.setStyleSheet(mode_stylesheet)
-    self.button_auto.setStyleSheet(mode_stylesheet)
-
-    leds = [self.led_GPS, self.led_LIDAR, self.led_Raman, self.led_haptic, 
-      self.led_xbox, self.led_IMU, self.led_rosbag, self.led_battery, 
-      self.led_relay, self.led_cam0, self.led_cam1, self.led_cam2, 
-      self.led_cam3, self.led_cam4]
-
-    for led in leds:
-      led.off()
-
-    self.cam0_pane.setEnabled(False)
-    self.cam1_pane.setEnabled(False)
-    self.cam2_pane.setEnabled(False)
-    self.cam3_pane.setEnabled(False)
-    self.cam4_pane.setEnabled(False)
+    # Initialise GUI widgets
+    self.GuiVis.initialiseWidgets(rpm_limit, steer_limit)
                             
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # setupConnections(): 
@@ -124,36 +103,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         self.rawCtrlUpdate)
     self.connect(self, QtCore.SIGNAL("autoUpdate(PyQt_PyObject)"), 
         self.autoUpdate)
-          
-    self.tool_cam0_show.clicked.connect(self.toggleCamView)
-    self.tool_cam1_show.clicked.connect(self.toggleCamView)
-    self.tool_cam2_show.clicked.connect(self.toggleCamView)
-    self.tool_cam3_show.clicked.connect(self.toggleCamView)
-    self.tool_cam4_show.clicked.connect(self.toggleCamView)
-    
-    self.tool_cam0_start.clicked.connect(self.toggleStream)
-    self.tool_cam1_start.clicked.connect(self.toggleStream)
-    self.tool_cam2_start.clicked.connect(self.toggleStream)
-    self.tool_cam3_start.clicked.connect(self.toggleStream)
-    self.tool_cam4_start.clicked.connect(self.toggleStream)
 
-    self.button_simulator.clicked.connect(self.launchSimulator)
-    self.button_engage_auto.clicked.connect(self.engageAuto)
-    
-    self.button_standby.clicked.connect(self.modeChange)
-    self.button_drive  .clicked.connect(self.modeChange)
-    self.button_arm    .clicked.connect(self.modeChange)
-    self.button_drill  .clicked.connect(self.modeChange)
-    self.button_auto   .clicked.connect(self.modeChange)     
-    
-    self.slider_a.valueChanged.connect(self.sliderChange)
-    self.slider_b.valueChanged.connect(self.sliderChange)  
-    self.slider_c.valueChanged.connect(self.sliderChange)  
-    
-    self.tool_slider_a.toggled.connect(self.sliderUnlock)
-    self.tool_slider_b.toggled.connect(self.sliderUnlock)  
-    self.tool_slider_c.toggled.connect(self.sliderUnlock)  
-
+    self.GuiVis.setupWidgetConnections()
     self.tool_rosbag_start.toggled.connect(self.GuiRos.toggleRosbag)
          
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -179,11 +130,9 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     name = slider.objectName()
     
     if   (name == 'tool_slider_a'): 
-      self.slider_a.setEnabled(unlock)
-      
+      self.slider_a.setEnabled(unlock)      
     elif (name == 'tool_slider_b'):
-      self.slider_b.setEnabled(unlock)
-      
+      self.slider_b.setEnabled(unlock)      
     else:
       self.slider_c.setEnabled(unlock)
 
@@ -193,7 +142,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
   def engageAuto(self):
 
-    lat = float(self.edit_lat.text())
+    lat = float(self.edit_lat.text()) # Grab user input lat/lng
     lng = float(self.edit_lng.text())
 
     self.GuiRos.engageAuto(lat, lng) # Call ROS service to start auto
@@ -205,45 +154,31 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   def modeChange(self):
     button = self.sender()
     mode_str = str(button.text())
-    
-    # Remove highlight from previous mode's button
-    # TODO can be a bit buggy, not quite sure what default does exactly
 
-    # Call service to change mode
+    # Call ROS service to change mode
     success, _ = self.GuiRos.modeChange(mode_str) 
 
-    if success is True: # Set button highlight
-      self.button_standby.setChecked(False)
-      self.button_drive.setChecked(False)
-      self.button_arm.setChecked(False)
-      self.button_drill.setChecked(False)
-      self.button_auto.setChecked(False)
+    # Set button highlight if successful mode change
+    if success is True: 
+      self.GuiVis.clearModeButtons()
       button.setChecked(True) 
     else:
       button.setChecked(False) 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-  # initSetupButtons(): 
-  #   Disable and enable buttons on startup.
+  # initStartup(): 
+  #   Disable and enable buttons and panes on startup.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
-  def initSetupButtons(self): 
-    self.button_simulator.setEnabled(False) # Disable setup buttons
-    self.button_rover    .setEnabled(False)
-    self.button_sandstorm.setEnabled(False)   
-    
-    self.button_standby.setEnabled(True) # Enable mode buttons
-    self.button_drive  .setEnabled(True)
-    self.button_arm    .setEnabled(True)
-    self.button_drill  .setEnabled(True)
-    self.button_auto   .setEnabled(True)
-    
-    self.button_standby.setChecked(True) # Standby highlight
+  def initStartup(self): 
 
-    self.cam0_pane.setEnabled(True)
-    self.cam1_pane.setEnabled(True)
-    self.cam2_pane.setEnabled(True)
-    self.cam3_pane.setEnabled(True)
-    self.cam4_pane.setEnabled(True)
+    self.GuiVis.enableVehicleButtons(False) # Disable vehicle buttons
+    self.GuiVis.enableCamPanes(True) # Enable camera rows
+    
+    self.GuiVis.enableModeButtons(True)  # Enable Mode buttons
+    self.button_standby.setChecked(True) # Standby Mode highlight    
+
+    self.stack_mission.removeWidget(self.page_setup) # Remove setup page
+    self.combo_mission.removeItem(0)
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # launchSimulator(): 
@@ -251,15 +186,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
   def launchSimulator(self):
   
-    self.initSetupButtons() # Disable and enable buttons
-    self.combo_mission.setCurrentIndex(2) # Switch to autonomous pane
-    
-    self.stack_mission.removeWidget(self.page_setup) # Remove setup page
-    self.combo_mission.removeItem(0)
-    
-    self.label_vehicle.setText("Simulator")
+    self.initStartup() # Disable and enable buttons
 
+    self.label_vehicle.setText("Simulator")
     self.GuiRos.launchSimulator()
+
+    self.combo_mission.setCurrentIndex(1) # Switch to autonomous pane
+    self.GuiRos.setMission('AUT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # autoUpdate():
@@ -267,8 +200,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
   def autoUpdate(self, msg):      
     
-    self.label_auto_state.setText(str(msg.auto_state))
-    
+    self.label_auto_state.setText(str(msg.auto_state))    
     self.label_lat.setText(str(msg.latitude))
     self.label_lng.setText(str(msg.longitude))
     
@@ -296,14 +228,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
   def radioUpdate(self, msg):      
 
-    if msg.radio_id is 0:                # Radio 0, 900 MHz
-      progress = self.progress_radio0
-      plugged  = self.led_radio0_plugged
-      paired   = self.led_radio0_paired
-    else:                                # Radio 1, 5.8 GHz
-      progress = self.progress_radio1
-      plugged  = self.led_radio1_plugged
-      paired   = self.led_radio1_paired
+    # Get radio widgets
+    progress, plugged, paired = self.GuiVis.getRadioWidgets(msg.radio_id)
       
     progress.setProperty("value", msg.signal)
     
@@ -323,26 +249,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
   def cameraUpdate(self, msg): 
 
-    if msg.cam_id is 0:
-      led = self.led_cam0
-      button_start  = self.tool_cam0_start
-      button_show   = self.tool_cam0_show
-    elif msg.cam_id is 1:
-      led = self.led_cam1
-      button_start  = self.tool_cam1_start
-      button_show   = self.tool_cam1_show
-    elif msg.cam_id is 2:
-      led = self.led_cam2
-      button_start  = self.tool_cam2_start
-      button_show   = self.tool_cam2_show
-    elif msg.cam_id is 3:
-      led = self.led_cam3
-      button_start  = self.tool_cam3_start
-      button_show   = self.tool_cam3_show
-    elif msg.cam_id is 4:
-      led = self.led_cam4
-      button_start  = self.tool_cam4_start
-      button_show   = self.tool_cam4_show
+    # Get widgets for the particular camera
+    led, button_start, button_show = self.GuiVis.getCamWidgets(msg.cam_id)
       
     button_start.setChecked(msg.streaming)
     
@@ -367,7 +275,9 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     cam_id = int(button.text())
     
     success, _ = self.GuiRos.toggleCamView(cam_id, checked)
-    button.setChecked(success)
+
+    if not success: # Reset button if service call didn't work
+      button.setChecked(not checked)
       
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # toggleStream():
@@ -380,9 +290,10 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     cam_id = int(button.text())
     
     success, _ = self.GuiRos.toggleStream(cam_id, checked)
-    button.setChecked(success)
 
-   
+    if not success: # Reset button if service call didn't work
+      button.setChecked(not checked)
+
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():
 #    Main function.

@@ -48,6 +48,13 @@ class GuiRos():
           self.rawCtrlCb, queue_size=1)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # getMode():   
+    #   Get the current base station Mode.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def getMode(self): 
+        return rospy.get_param('/base_station/Mode')
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # toggleRosbag():   
     #   Toggle recording of a rosbag session.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
@@ -118,13 +125,31 @@ class GuiRos():
         req.longitude = lng
 
         res = client(req)
-        if res.success is True:
-            rospy.loginfo("Auto mission engaged.")
-        else:
-            rospy.loginfo("Unable to start auto mission because: " + res.message)
+        rospy.loginfo(res.message)
                   
       except rospy.ServiceException, e:
         rospy.loginfo("Service call failed: %s"%e)
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # setMission(): 
+    #    Handles changing the Mission parameter.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def setMission(self, mission_str):
+
+        # Request change of mode from rover
+        try:    
+            rospy.wait_for_service('/base_station/change_mission', self.srv_timeout)      
+            client = rospy.ServiceProxy('/base_station/change_mission',
+              ChangeMode)
+            res = client(mission_str)
+        
+            # Return success or failure of mode change
+            rospy.loginfo(res.message)
+            return res.success, res.message
+                  
+        except rospy.ServiceException, e:
+            rospy.loginfo("Service call failed: %s"%e)
+            return False, "%s"%e
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # modeChange(): 
@@ -178,7 +203,6 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def autoCb(self, msg):
         self.ui.emit(QtCore.SIGNAL("autoUpdate(PyQt_PyObject)"), msg)
-      
   
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # radioCb(): 

@@ -15,29 +15,31 @@ class BaseSync:
 
     rospy.init_node('base_sync') 
 
-    # TODO CHANGE THIS
     self.initialiseState() # Set initial parameter server values
 
     self.srv_timeout = 3   # Number of seconds before service timeout
 
     self.raw_ctrl_sub   = rospy.Subscriber(
-        '/base_station/raw_ctrl', RawCtrl, self.rawCtrlCb)
+      '/base_station/raw_ctrl', RawCtrl, self.rawCtrlCb)
 
     self.change_mode_server = rospy.Service(
-        '/base_station/change_mode', ChangeMode, 
-        self.handleChangeMode)
+      '/base_station/change_mode', ChangeMode, 
+      self.handleChangeMode)
+
+    self.change_mission_server = rospy.Service(
+      '/base_station/change_mission', ChangeMode, 
+      self.handleChangeMission)
         
     self.drive_cmd_pub = rospy.Publisher(
-        '/core_rover/driver/drive_cmd', DriveCmd, 
-         queue_size=1)
+      '/core_rover/driver/drive_cmd', DriveCmd, 
+        queue_size=1)
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # handleChangeMode():
   #  Service server handler for changing rover mode. Calls service in
   #  rover_sync to confirm mode change.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
-  def handleChangeMode(self, req):
-    
+  def handleChangeMode(self, req):    
     try:
       rospy.wait_for_service('/core_rover/req_change_mode', self.srv_timeout)
       client = rospy.ServiceProxy('/core_rover/req_change_mode',
@@ -50,6 +52,29 @@ class BaseSync:
     
     if res_rover.success:
       rospy.set_param('/base_station/Mode', req.mode)
+      res_base = ChangeModeResponse(True, res_rover.message)
+    else:
+      res_base = ChangeModeResponse(False, res_rover.message)
+              
+    return res_base
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # handleChangeMission():
+  #  Service server handler for changing rover mission.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def handleChangeMission(self, req):    
+    try:
+      rospy.wait_for_service('/core_rover/req_change_mission', self.srv_timeout)
+      client = rospy.ServiceProxy('/core_rover/req_change_mission',
+        ChangeMode)
+      res_rover = client(req.mode)
+        
+    except rospy.ServiceException, e:
+      rospy.loginfo("Changing mission failed: %s"%e)
+      return ChangeModeResponse(False, "%s"%e)
+    
+    if res_rover.success:
+      rospy.set_param('/base_station/Mission', req.mode)
       res_base = ChangeModeResponse(True, res_rover.message)
     else:
       res_base = ChangeModeResponse(False, res_rover.message)
@@ -116,7 +141,7 @@ class BaseSync:
     rospy.set_param('Vehicle', state_vehicle) 
 
     rospy.set_param('/base_station/Mode', 'Standby')
-    rospy.set_param('/Mission', '')
+    rospy.set_param('/base_station/Mission', '')
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():

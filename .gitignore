@@ -2,3 +2,4 @@ scripts/gui/main.pyc
 scripts/gui/res_rc.pyc
 scripts/gui/utils/dev_notes.txt
 scripts/gui_ros.pyc
+scripts/gui_vis.pyc
