@@ -69,27 +69,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_plugged">
+             <widget class="KLed" name="led_radio0_plugged" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="state">
-               <enum>KLed::Off</enum>
-              </property>
-              <property name="shape">
-               <enum>KLed::Rectangular</enum>
-              </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -124,27 +118,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_paired">
+             <widget class="KLed" name="led_radio0_paired" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="state">
-               <enum>KLed::Off</enum>
-              </property>
-              <property name="shape">
-               <enum>KLed::Rectangular</enum>
-              </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -237,27 +225,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_plugged">
+             <widget class="KLed" name="led_radio1_plugged" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="state">
-               <enum>KLed::Off</enum>
-              </property>
-              <property name="shape">
-               <enum>KLed::Rectangular</enum>
-              </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -292,27 +274,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_paired">
+             <widget class="KLed" name="led_radio1_paired" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="state">
-               <enum>KLed::Off</enum>
-              </property>
-              <property name="shape">
-               <enum>KLed::Rectangular</enum>
-              </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -392,626 +368,621 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="cam0">
-          <item>
-           <widget class="KLed" name="led_cam0">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
-             <color>
-              <red>0</red>
-              <green>255</green>
-              <blue>0</blue>
-             </color>
-            </property>
-            <property name="darkFactor">
-             <number>400</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>#0: VR</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QComboBox" name="combo_cam0">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>5.8</string>
+         <widget class="QWidget" name="cam0_pane" native="true">
+          <layout class="QHBoxLayout" name="cam0">
+           <item>
+            <widget class="KLed" name="led_cam0" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>900</string>
+             <property name="color" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam0_show">
-            <property name="text">
-             <string>0</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam0_start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::DelayedPopup</enum>
-            </property>
-            <property name="autoRaise">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             <property name="darkFactor" stdset="0">
+              <number>400</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>#0: VR</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QComboBox" name="combo_cam0">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>5.8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>900</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam0_show">
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam0_start">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="popupMode">
+              <enum>QToolButton::DelayedPopup</enum>
+             </property>
+             <property name="autoRaise">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="cam1">
-          <item>
-           <widget class="KLed" name="led_cam1">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
-             <color>
-              <red>0</red>
-              <green>255</green>
-              <blue>0</blue>
-             </color>
-            </property>
-            <property name="darkFactor">
-             <number>400</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>#1: Gimbal</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QComboBox" name="combo_cam1">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>5.8</string>
+         <widget class="QWidget" name="cam1_pane" native="true">
+          <layout class="QHBoxLayout" name="cam1">
+           <item>
+            <widget class="KLed" name="led_cam1" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>900</string>
+             <property name="color" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam1_show">
-            <property name="text">
-             <string>1</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam1_start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             <property name="darkFactor" stdset="0">
+              <number>400</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>#1: Gimbal</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QComboBox" name="combo_cam1">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>5.8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>900</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam1_show">
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam1_start">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="cam2">
-          <item>
-           <widget class="KLed" name="led_cam2">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
-             <color>
-              <red>0</red>
-              <green>255</green>
-              <blue>0</blue>
-             </color>
-            </property>
-            <property name="darkFactor">
-             <number>400</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>#2: Web1</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QComboBox" name="combo_cam2">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>5.8</string>
+         <widget class="QWidget" name="cam2_pane" native="true">
+          <layout class="QHBoxLayout" name="cam2">
+           <item>
+            <widget class="KLed" name="led_cam2" native="true">
+             <property name="enabled">
+              <bool>true</bool>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>900</string>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam2_show">
-            <property name="text">
-             <string>2</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam2_start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>2</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonIconOnly</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             <property name="color" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
+             </property>
+             <property name="darkFactor" stdset="0">
+              <number>400</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>#2: Web1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QComboBox" name="combo_cam2">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>5.8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>900</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam2_show">
+             <property name="text">
+              <string>2</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam2_start">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>2</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonIconOnly</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="cam3">
-          <item>
-           <widget class="KLed" name="led_cam3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
-             <color>
-              <red>0</red>
-              <green>255</green>
-              <blue>0</blue>
-             </color>
-            </property>
-            <property name="darkFactor">
-             <number>400</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>#3: Web2</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QComboBox" name="combo_cam3">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>5.8</string>
+         <widget class="QWidget" name="cam3_pane" native="true">
+          <layout class="QHBoxLayout" name="cam3">
+           <item>
+            <widget class="KLed" name="led_cam3" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>900</string>
+             <property name="color" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam3_show">
-            <property name="text">
-             <string>3</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam3_start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>3</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             <property name="darkFactor" stdset="0">
+              <number>400</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>#3: Web2</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QComboBox" name="combo_cam3">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>5.8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>900</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam3_show">
+             <property name="text">
+              <string>3</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam3_start">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>3</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="cam4">
-          <item>
-           <widget class="KLed" name="led_cam4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
-             <color>
-              <red>0</red>
-              <green>255</green>
-              <blue>0</blue>
-             </color>
-            </property>
-            <property name="darkFactor">
-             <number>400</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_20">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>#4: Web3</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_17">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QComboBox" name="combo_cam4">
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>5.8</string>
+         <widget class="QWidget" name="cam4_pane" native="true">
+          <layout class="QHBoxLayout" name="cam4">
+           <item>
+            <widget class="KLed" name="led_cam4" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>900</string>
+             <property name="color" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam4_show">
-            <property name="text">
-             <string>4</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tool_cam4_start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <family>Leelawadee</family>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>4</string>
-            </property>
-            <property name="icon">
-             <iconset resource="resources/res.qrc">
-              <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
-              <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             <property name="darkFactor" stdset="0">
+              <number>400</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_20">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>#4: Web3</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_17">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QComboBox" name="combo_cam4">
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>5.8</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>900</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam4_show">
+             <property name="text">
+              <string>4</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="tool_cam4_start">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>Leelawadee</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>4</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/res.qrc">
+               <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
+               <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <widget class="Line" name="line_9">
@@ -1021,7 +992,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="user_input_pane">
           <item>
            <widget class="QLabel" name="label_14">
             <property name="font">
@@ -1045,20 +1016,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="KLed" name="led_xbox">
+                 <widget class="KLed" name="led_xbox" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="state">
-                   <enum>KLed::Off</enum>
-                  </property>
-                  <property name="shape">
-                   <enum>KLed::Rectangular</enum>
-                  </property>
-                  <property name="darkFactor">
+                  <property name="darkFactor" stdset="0">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1097,20 +1062,14 @@
                  <enum>QLayout::SetMaximumSize</enum>
                 </property>
                 <item>
-                 <widget class="KLed" name="led_haptic">
+                 <widget class="KLed" name="led_haptic" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="state">
-                   <enum>KLed::Off</enum>
-                  </property>
-                  <property name="shape">
-                   <enum>KLed::Rectangular</enum>
-                  </property>
-                  <property name="darkFactor">
+                  <property name="darkFactor" stdset="0">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1280,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1329,7 +1288,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>2019 Rover</string>
+                 <string>JDB</string>
                 </property>
                </widget>
               </item>
@@ -1731,7 +1690,7 @@
              <string>Standby</string>
             </property>
             <property name="checkable">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1759,7 +1718,7 @@
              <string>Drive</string>
             </property>
             <property name="checkable">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1787,7 +1746,7 @@
              <string>Arm</string>
             </property>
             <property name="checkable">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1815,7 +1774,7 @@
              <string>Drill</string>
             </property>
             <property name="checkable">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1843,7 +1802,7 @@
              <string>Auto</string>
             </property>
             <property name="checkable">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1900,20 +1859,14 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <widget class="KLed" name="kled">
+           <widget class="KLed" name="led_battery" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="shape">
-             <enum>KLed::Rectangular</enum>
-            </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>
@@ -2033,27 +1986,21 @@
            </spacer>
           </item>
           <item>
-           <widget class="KLed" name="led_relay">
+           <widget class="KLed" name="led_relay" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="shape">
-             <enum>KLed::Rectangular</enum>
-            </property>
-            <property name="color">
+            <property name="color" stdset="0">
              <color>
               <red>0</red>
               <green>255</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>
@@ -2514,20 +2461,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="KLed" name="led_GPS">
+               <widget class="KLed" name="led_GPS" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="state">
-                 <enum>KLed::Off</enum>
-                </property>
-                <property name="shape">
-                 <enum>KLed::Rectangular</enum>
-                </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -2566,20 +2507,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="KLed" name="led_LIDAR">
+               <widget class="KLed" name="led_LIDAR" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="state">
-                 <enum>KLed::Off</enum>
-                </property>
-                <property name="shape">
-                 <enum>KLed::Rectangular</enum>
-                </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -2622,20 +2557,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <widget class="KLed" name="led_IMU">
+               <widget class="KLed" name="led_IMU" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="state">
-                 <enum>KLed::Off</enum>
-                </property>
-                <property name="shape">
-                 <enum>KLed::Rectangular</enum>
-                </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -2674,20 +2603,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
-               <widget class="KLed" name="led_Raman">
+               <widget class="KLed" name="led_Raman" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="state">
-                 <enum>KLed::Off</enum>
-                </property>
-                <property name="shape">
-                 <enum>KLed::Rectangular</enum>
-                </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -2773,24 +2696,21 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_20">
           <item>
-           <widget class="KLed" name="led_rosbag">
+           <widget class="KLed" name="led_rosbag" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="state">
-             <enum>KLed::Off</enum>
-            </property>
-            <property name="color">
+            <property name="color" stdset="0">
              <color>
               <red>255</red>
               <green>0</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>

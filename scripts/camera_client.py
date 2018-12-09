@@ -12,16 +12,16 @@ import gtk
 from nova_common.srv import * # Import custom msg
 from nova_common.msg import CameraStatus
 
-
 class ServiceHandler:
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # __init__():
-    #
     #    Initialise class.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
     def __init__(self):
       rospy.init_node('camera_client') 
+
+      self.srv_timeout = 3   # Number of seconds before service timeout
       
       self.view_server = rospy.Service('/base_station/toggle_cam_view', ToggleStream, 
                                          self.handle_toggle_cam_view)
@@ -86,15 +86,16 @@ class ServiceHandler:
     #    Service server handler for starting and stopping camera streams.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def handle_toggle_stream(self, req):   
-      rospy.wait_for_service('/core_rover/connect_stream')
       
-      try:          
+      try:        
+        rospy.wait_for_service('/core_rover/connect_stream', self.srv_timeout)  
         client = rospy.ServiceProxy('/core_rover/connect_stream', ToggleStream)          
         res = client(req.cam_id, req.on)      
           
       except rospy.ServiceException, e:
         rospy.loginfo("camera client here, cam view request failed.")
-        rospy.loginfo("Service call failed: %s"%e)             
+        rospy.loginfo("Service call failed: %s"%e)       
+        return ToggleStreamResponse(False, "%s"%e)      
       
       return res
         
