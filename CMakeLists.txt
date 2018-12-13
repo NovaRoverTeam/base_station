@@ -155,8 +155,8 @@ endif()
 # )
 
 add_executable(input src/input.cpp include/gamepad/gamepad.c)
-add_dependencies(input ${catkin_EXPORTED_TARGETS})
 target_link_libraries(input gamepad udev ${catkin_LIBRARIES})
+add_dependencies(input base_station_generate_messages_cpp)
 
 
 #############
