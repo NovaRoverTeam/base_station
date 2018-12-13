@@ -61,13 +61,16 @@ class GuiVis():
             ui.button_simulator, ui.button_rover, ui.button_sandstorm
         ]
         self.progress_radios = [
-            ui.progress_radio0, ui.progress_radio0
+            ui.progress_radio0, ui.progress_radio1
         ]
         self.led_radio_plugged = [
             ui.led_radio0_plugged, ui.led_radio1_plugged
         ]
         self.led_radio_paired = [
             ui.led_radio0_paired, ui.led_radio1_paired
+        ]
+        self.radio_debug_buttons = [
+            ui.tool_900_debug, ui.tool_5_debug
         ]
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -121,6 +124,8 @@ class GuiVis():
         for tool_slider in self.tool_sliders:
             tool_slider.toggled.connect(self.ui.sliderUnlock) 
 
+        self.ui.checkbox_radio_debug.toggled.connect(self.ui.toggleRadioDebug)
+
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # clearModeButtons(): 
     #   Uncheck all the mode buttons.
@@ -138,6 +143,15 @@ class GuiVis():
 
         for mode_button in self.mode_buttons:
             mode_button.setEnabled(enable)
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # enableRadioDebug(): 
+    #   Enable or disable the radio debug buttons
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+    def enableRadioDebug(self, enable): 
+
+        for radio_debug_button in self.radio_debug_buttons:
+            radio_debug_button.setEnabled(enable)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # enableCamPanes(): 

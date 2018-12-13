@@ -32,9 +32,10 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--  
     def __init__(self, ui):
 
-        self.srv_timeout = 3   # Number of seconds before service timeout
+        self.srv_timeout = 5   # Number of seconds before service timeout
         self.bag_name = 'test' # Rosbag default filename
         self.ui = ui  # Qt MainDialog (for connecting ROS msg callbacks)
+        self.min_signal = -96 # Minimum signal strength, dB
       
         rospy.init_node('gui_ros')
 
@@ -236,7 +237,7 @@ class GuiRos():
             return False, ""
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-    # toggleStream():    #
+    # toggleStream():    
     #    Toggle a camera stream on or off.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def toggleStream(self, cam_id, checked):
@@ -251,3 +252,32 @@ class GuiRos():
         except rospy.ServiceException, e:
             rospy.loginfo("Service call failed: %s"%e)
             return False, ""
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # toggleRadioDebug():    
+    #    Toggle whether or not we are in radio debug mode.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def toggleRadioDebug(self, checked):
+
+        rospy.set_param('/RadioDebug', checked)
+
+        if checked:
+            rospy.loginfo("Radio debugging enabled.")
+        else:
+            rospy.loginfo("Radio debugging disabled.")
+
+        self.updateRadioDebug()
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # updateRadioDebug():    
+    #    Refresh data from radio debug buttons.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def updateRadioDebug(self):
+
+        checked = self.ui.tool_900_debug.isChecked()
+        rospy.set_param('/RadioDebug9', checked)
+        self.ui.radioUpdate(RadioStatus(0, checked, self.min_signal, checked))
+
+        checked = self.ui.tool_5_debug.isChecked()
+        rospy.set_param('/RadioDebug5', checked)
+        self.ui.radioUpdate(RadioStatus(1, checked, self.min_signal, checked))
