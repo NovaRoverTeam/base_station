@@ -48,6 +48,9 @@ class GuiRos():
         rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
           self.rawCtrlCb, queue_size=1)
 
+        self.gimbal_pub = rospy.Publisher('/base_station/gimbal_cmd', 
+            GimbalCmd, queue_size=10)
+
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getMode():   
     #   Get the current base station Mode.
@@ -281,3 +284,10 @@ class GuiRos():
         checked = self.ui.tool_5_debug.isChecked()
         rospy.set_param('/RadioDebug5', checked)
         self.ui.radioUpdate(RadioStatus(1, checked, self.min_signal, checked))
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # controlGimbal():    
+    #    Send a gimbal control commmand message.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def controlGimbal(self, cam_id, cmd):
+        self.gimbal_pub.publish(GimbalCmd(cam_id, cmd))

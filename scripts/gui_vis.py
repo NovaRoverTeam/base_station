@@ -72,6 +72,10 @@ class GuiVis():
         self.radio_debug_buttons = [
             ui.tool_900_debug, ui.tool_5_debug
         ]
+        self.tool_gimbals = [
+            ui.tool_gimbal_left, ui.tool_gimbal_right, ui.tool_gimbal_up,
+            ui.tool_gimbal_down
+        ]
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # initialiseWidgets(): 
@@ -125,6 +129,12 @@ class GuiVis():
             tool_slider.toggled.connect(self.ui.sliderUnlock) 
 
         self.ui.checkbox_radio_debug.toggled.connect(self.ui.toggleRadioDebug)
+
+        for tool_gimbal in self.tool_gimbals:
+            tool_gimbal.pressed.connect(self.ui.moveGimbal)
+            tool_gimbal.released.connect(self.ui.stopGimbal)
+
+        self.ui.tool_gimbal_zoom.toggled.connect(self.ui.toggleGimbalZoom)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # clearModeButtons(): 
@@ -194,3 +204,18 @@ class GuiVis():
         paired   = self.led_radio_paired[index]
 
         return progress, plugged, paired
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # getGimbalCmdFromButton(): 
+    #   Choose gimbal camera command based on which button is pressed.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
+    def getGimbalCmdFromButton(self, name):
+
+        if   name == 'tool_gimbal_left':
+            return 'ptzMoveLeft'
+        elif name == 'tool_gimbal_right':
+            return 'ptzMoveRight'
+        elif name == 'tool_gimbal_up':
+            return 'ptzMoveUp'
+        else:
+            return 'ptzMoveDown'
