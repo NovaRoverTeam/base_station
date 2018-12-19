@@ -106,7 +106,9 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
     self.GuiVis.setupWidgetConnections()
     self.tool_rosbag_start.toggled.connect(self.GuiRos.toggleRosbag)
-         
+    self.tool_900_debug.toggled.connect(self.GuiRos.updateRadioDebug)
+    self.tool_5_debug.toggled.connect(self.GuiRos.updateRadioDebug)
+             
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # sliderChange():
   #    Function to handle slider values being changed.
@@ -293,6 +295,49 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
     if not success: # Reset button if service call didn't work
       button.setChecked(not checked)
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # toggleRadioDebug():    
+  #    Toggle whether or not we are in radio debug mode.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def toggleRadioDebug(self):
+    button = self.sender()
+    checked = button.isChecked()
+
+    self.GuiRos.toggleRadioDebug(checked)
+    self.GuiVis.enableRadioDebug(checked)
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # moveGimbal():    
+  #    Respond to a gimbal command button press.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def moveGimbal(self):
+    button = self.sender()
+
+    cmd = self.GuiVis.getGimbalCmdFromButton(button.objectName())
+    self.GuiRos.controlGimbal(1, cmd) # TODO set gimbal cam_id as param
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # stopGimbal():    
+  #    Respond to a gimbal command button release
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def stopGimbal(self):
+    self.GuiRos.controlGimbal(1, 'ptzStopRun') # TODO set gimbal cam_id as param
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # toggleGimbalZoom():    
+  #    Stop the gimbal from moin
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def toggleGimbalZoom(self):
+    button = self.sender()
+    checked = button.isChecked()
+
+    if checked is True:
+      cmd = 'zoomIn'
+    else:
+      cmd = 'zoomOut'
+    
+    self.GuiRos.controlGimbal(1, cmd) # TODO set gimbal cam_id as param
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():

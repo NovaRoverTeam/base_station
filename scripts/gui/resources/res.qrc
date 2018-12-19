@@ -15,5 +15,10 @@
     <file>icons/playback_stop_icon&amp;16.png</file>
     <file>nova_logo.png</file>
     <file>icons/playback_play_icon&amp;16.png</file>
+    <file>icons/arrow_bottom_icon&amp;16.png</file>
+    <file>icons/arrow_top_icon&amp;16.png</file>
+    <file>icons/arrow_left_icon&amp;16.png</file>
+    <file>icons/arrow_right_icon&amp;16.png</file>
+    <file>icons/zoom_icon&amp;16.png</file>
   </qresource>
 </RCC>
