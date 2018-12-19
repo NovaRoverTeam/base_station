@@ -155,7 +155,7 @@ endif()
 # )
 
 add_executable(input src/input.cpp include/gamepad/gamepad.c)
-add_dependencies(input core_rover_generate_messages_cpp)
+add_dependencies(input base_station_generate_messages_cpp)
 target_link_libraries(input gamepad udev ${catkin_LIBRARIES})
 
 
