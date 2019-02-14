@@ -193,6 +193,25 @@ class GuiRos():
 
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, launch_file)
         self.launch.start() # Start the launch file
+        
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # launchJDB(): 
+    #   Launch the base_station ROS launch file.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def launchJDB(self):
+
+        run_id = rospy.get_param("/run_id")
+        uuid = roslaunch.rlutil.get_or_generate_uuid(run_id, True)
+        roslaunch.configure_logging(uuid)
+
+        rospack = rospkg.RosPack() # Get the file path for nova_common
+        path = rospack.get_path('nova_common')
+
+        launch_file = [path + '/launch/base_station.launch']
+
+        self.launch = roslaunch.parent.ROSLaunchParent(uuid, launch_file)
+        self.launch.start() # Start the launch file
+        
       
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # rawCtrlCb(): 

@@ -117,6 +117,7 @@ class GuiVis():
             tool_cam_start.clicked.connect(self.ui.toggleStream)
 
         self.ui.button_simulator.clicked.connect(self.ui.launchSimulator)
+        self.ui.button_rover.clicked.connect(self.ui.launchJDB)
         self.ui.button_engage_auto.clicked.connect(self.ui.engageAuto)
         
         for mode_button in self.mode_buttons:

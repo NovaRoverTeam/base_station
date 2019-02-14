@@ -197,6 +197,20 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.GuiRos.setMission('AUT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # launchJDB(): 
+  #   Start up the JDB rover.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def launchJDB(self):
+  
+    self.initStartup() # Disable and enable buttons
+
+    self.label_vehicle.setText("JDB")
+    self.GuiRos.launchJDB()
+
+    self.combo_mission.setCurrentIndex(0) # Switch to autonomous pane
+    self.GuiRos.setMission('ERT')
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # autoUpdate():
   #    Update the rover with autonomous mode data including GPS, IMU.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
