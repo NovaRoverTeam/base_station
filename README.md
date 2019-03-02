@@ -3,6 +3,14 @@ Provides interfaces for rover management and monitoring on the Linux base statio
 
 # Dependencies
 
+ROS uses python 2.7 so if pip installs these packages in python 3, you might have to use pip2 install instead.
+
+- Python modules:
+```
+pip install transitions
+pip install pexpect
+```
+
 - Qt and KDE for GUI:
 ```
 sudo apt install python-qt4
