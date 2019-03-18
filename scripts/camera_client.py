@@ -3,11 +3,11 @@
 import rospy
 import signal
 
-import pygst          # GStreamer includes
-pygst.require("0.10")
-import gst
-import pygtk
-import gtk
+import gi
+gi.require_version('Gst', '1.0')
+gi.require_version('GstBase', '1.0')
+gi.require_version('Gtk', '3.0')
+from gi.repository import GObject, Gst, GstBase, Gtk, GObject
 
 from nova_common.srv import * # Import custom msg
 from nova_common.msg import CameraStatus
@@ -19,6 +19,7 @@ class ServiceHandler:
     #    Initialise class.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--    
     def __init__(self):
+      Gst.init(None)
       rospy.init_node('camera_client') 
 
       self.srv_timeout = 3   # Number of seconds before service timeout
@@ -44,7 +45,7 @@ class ServiceHandler:
       self.cur_con[msg.cam_id] = msg.streaming 
       
       if self.streams[msg.cam_id] is not None and msg.streaming is False:
-        self.streams[msg.cam_id].set_state(gst.STATE_NULL)
+        self.streams[msg.cam_id].set_state(Gst.State.NULL)
 
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -60,16 +61,16 @@ class ServiceHandler:
         if req.on: # We want to show cam view   
         
           if self.streams[req.cam_id] is None:
-            self.streams[req.cam_id] = gst.parse_launch('udpsrc port=' 
+            self.streams[req.cam_id] = Gst.parse_launch('udpsrc port=' 
               + str(self.port_base + req.cam_id) + ' ! application/x-rtp, '
               + 'encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec '
               + '! autovideosink')
           
-          self.streams[req.cam_id].set_state(gst.STATE_READY)    
-          self.streams[req.cam_id].set_state(gst.STATE_PLAYING)
+          self.streams[req.cam_id].set_state(Gst.State.READY)    
+          self.streams[req.cam_id].set_state(Gst.State.PLAYING)
                
         else:      # We want to hide cam view
-          self.streams[req.cam_id].set_state(gst.STATE_NULL)
+          self.streams[req.cam_id].set_state(Gst.State.NULL)
           
       else: 
         res.message = ("Stream for camera " + str(req.cam_id) + " is "
@@ -112,12 +113,9 @@ def main():
   
   # Set up custom sigint handler
   def signal_handler(sig, frame):
-    try:
-      gtk.main_quit()               # Shut down gstreamer
-    except RuntimeError:
-      rospy.loginfo("Forcing gstreamer shutdown.")
-      rospy.signal_shutdown("SIGINT") # Shut down ROS   
-      sys.exit(1)
+    rospy.loginfo("Forcing gstreamer shutdown.")
+    rospy.signal_shutdown("SIGINT") # Shut down ROS   
+    sys.exit(1)
   
   signal.signal(signal.SIGINT, signal_handler) # Register sigint handler
     
@@ -137,8 +135,6 @@ def main():
 if __name__ == '__main__':
   try:
     start = main()   
-    gtk.main()
     
   except rospy.ROSInterruptException:
     pass
-    
