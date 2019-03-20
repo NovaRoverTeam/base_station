@@ -40,15 +40,15 @@ int sgn(int val) {
 //--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "input");
+  ros::init(argc, argv, "xbox_input");
   ros::NodeHandle n;
   ros::Rate loop_rate(LOOP_HZ);
 
   ros::Publisher raw_ctrl_pub = 
-    n.advertise<base_station::RawCtrl>("/base_station/raw_ctrl", 1);
+    n.advertise<base_station::RawCtrl>("/base_station/xbox_raw_ctrl", 1);
  
   GamepadInit(); // Initialise the Xbox gamepad
-
+  
   // Deadzone compensation - see more info in main ROS loop below
   const int dead_l = GAMEPAD_DEADZONE_LEFT_STICK;
   const int dead_r = GAMEPAD_DEADZONE_RIGHT_STICK;
@@ -66,12 +66,12 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     base_station::RawCtrl msg; // Msg to use for stick vals
-
-    msg.connected = GamepadIsConnected(GAMEPAD_0); // Check Xbox connection
+    GAMEPAD_DEVICE controller = GAMEPAD_2;
+    msg.connected = GamepadIsConnected(controller); // Check Xbox connection
 
     // Grab the stick values
-    GamepadStickXY(GAMEPAD_0, STICK_LEFT, &stick_lx, &stick_ly);
-    GamepadStickXY(GAMEPAD_0, STICK_RIGHT, &stick_rx, &stick_ry);
+    GamepadStickXY(controller, STICK_LEFT, &stick_lx, &stick_ly);
+    GamepadStickXY(controller, STICK_RIGHT, &stick_rx, &stick_ry);
 
     // The gamepad sticks have a deadzone - which means for a small amount of
     // movement of the stick, the reading remains at zero. This means as soon
@@ -90,28 +90,28 @@ int main(int argc, char **argv)
     msg.axis_rx_val = f_stick_rx; 
     msg.axis_ry_val = f_stick_ry;     
 
-    msg.start_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_START);
-    msg.back_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_BACK);
+    msg.start_trg = GamepadButtonTriggered(controller, BUTTON_START);
+    msg.back_trg = GamepadButtonTriggered(controller, BUTTON_BACK);
 
-    msg.but_x_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_X);
-    msg.but_y_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_Y);
-    msg.but_a_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_A);
-    msg.but_b_trg = GamepadButtonTriggered(GAMEPAD_0, BUTTON_B);
+    msg.but_x_trg = GamepadButtonTriggered(controller, BUTTON_X);
+    msg.but_y_trg = GamepadButtonTriggered(controller, BUTTON_Y);
+    msg.but_a_trg = GamepadButtonTriggered(controller, BUTTON_A);
+    msg.but_b_trg = GamepadButtonTriggered(controller, BUTTON_B);
 
-    msg.bump_l_dwn = GamepadButtonDown(GAMEPAD_0, BUTTON_LEFT_SHOULDER);
-    msg.bump_r_dwn = GamepadButtonDown(GAMEPAD_0, BUTTON_RIGHT_SHOULDER);
+    msg.bump_l_dwn = GamepadButtonDown(controller, BUTTON_LEFT_SHOULDER);
+    msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
 
-    msg.trig_l_val = GamepadTriggerLength(GAMEPAD_0, TRIGGER_LEFT);
-    msg.trig_r_val = GamepadTriggerLength(GAMEPAD_0, TRIGGER_RIGHT);
+    msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT);
+    msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT);
 
-    msg.trig_l_dwn = GamepadTriggerDown(GAMEPAD_0, TRIGGER_LEFT);
-    msg.trig_r_dwn = GamepadTriggerDown(GAMEPAD_0, TRIGGER_RIGHT);
+    msg.trig_l_dwn = GamepadTriggerDown(controller, TRIGGER_LEFT);
+    msg.trig_r_dwn = GamepadTriggerDown(controller, TRIGGER_RIGHT);
 
-    bool dpad_l = GamepadButtonDown(GAMEPAD_0, BUTTON_DPAD_LEFT);
-    bool dpad_r = GamepadButtonDown(GAMEPAD_0, BUTTON_DPAD_RIGHT);
+    bool dpad_l = GamepadButtonDown(controller, BUTTON_DPAD_LEFT);
+    bool dpad_r = GamepadButtonDown(controller, BUTTON_DPAD_RIGHT);
 
-    bool dpad_u = GamepadButtonDown(GAMEPAD_0, BUTTON_DPAD_UP);
-    bool dpad_d = GamepadButtonDown(GAMEPAD_0, BUTTON_DPAD_DOWN);
+    bool dpad_u = GamepadButtonDown(controller, BUTTON_DPAD_UP);
+    bool dpad_d = GamepadButtonDown(controller, BUTTON_DPAD_DOWN);
 
     msg.axis_dx_dwn = dpad_r - dpad_l; // Left -1, none/both 0, right 1
     msg.axis_dy_dwn = dpad_u - dpad_d; // Down -1, none/both 0, up 1

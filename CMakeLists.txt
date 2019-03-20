@@ -154,10 +154,17 @@ endif()
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(input src/input.cpp include/gamepad/gamepad.c)
-target_link_libraries(input gamepad udev ${catkin_LIBRARIES})
-add_dependencies(input base_station_generate_messages_cpp)
+add_executable(xbox_input src/xbox_input.cpp include/gamepad/gamepad.c)
+target_link_libraries(xbox_input gamepad udev ${catkin_LIBRARIES})
+add_dependencies(xbox_input base_station_generate_messages_cpp)
 
+add_executable(rjs_input src/rjs_input.cpp include/gamepad/gamepad.c)
+target_link_libraries(rjs_input gamepad udev ${catkin_LIBRARIES})
+add_dependencies(rjs_input base_station_generate_messages_cpp)
+
+add_executable(ljs_input src/ljs_input.cpp include/gamepad/gamepad.c)
+target_link_libraries(ljs_input gamepad udev ${catkin_LIBRARIES})
+add_dependencies(ljs_input base_station_generate_messages_cpp)
 
 #############
 ## Install ##
