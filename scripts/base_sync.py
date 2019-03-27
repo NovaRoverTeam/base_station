@@ -20,7 +20,7 @@ class BaseSync:
     self.srv_timeout = 5   # Number of seconds before service timeout
 
     self.raw_ctrl_sub   = rospy.Subscriber(
-      '/base_station/raw_ctrl', RawCtrl, self.rawCtrlCb)
+      '/base_station/xbox_raw_ctrl', RawCtrl, self.rawCtrlCb)
 
     self.change_mode_server = rospy.Service(
       '/base_station/change_mode', ChangeMode, 

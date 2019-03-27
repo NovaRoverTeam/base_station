@@ -66,7 +66,7 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     base_station::RawCtrl msg; // Msg to use for stick vals
-    GAMEPAD_DEVICE controller = GAMEPAD_2;
+    GAMEPAD_DEVICE controller = GAMEPAD_0;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
 
     // Grab the stick values
