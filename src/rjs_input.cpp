@@ -14,7 +14,7 @@
 //--**-- ROS includes
 #include "ros/ros.h"
 #include <ros/console.h>
-#include <base_station/RawCtrl.h>
+#include <nova_common/RawCtrl.h>
 
 //--**-- General includes
 #include <gamepad/gamepad.h>
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(LOOP_HZ);
 
   ros::Publisher raw_ctrl_pub = 
-    n.advertise<base_station::RawCtrl>("/base_station/rjs_raw_ctrl", 1);
+    n.advertise<nova_common::RawCtrl>("/base_station/rjs_raw_ctrl", 1);
  
   GamepadInit(); // Initialise the Xbox gamepad
   
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
   {
     GamepadUpdate(); // Updates the state of the gamepad
 
-    base_station::RawCtrl msg; // Msg to use for stick vals
+    nova_common::RawCtrl msg; // Msg to use for stick vals
     GAMEPAD_DEVICE controller = GAMEPAD_1;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
 
