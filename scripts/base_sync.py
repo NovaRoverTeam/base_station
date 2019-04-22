@@ -3,7 +3,6 @@
 import rospy
 from nova_common.msg import *
 from nova_common.srv import *
-from base_station.msg import *
 
 class BaseSync:
 
