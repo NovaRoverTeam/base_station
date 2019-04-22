@@ -21,6 +21,8 @@ class BaseSync:
 
     self.raw_ctrl_sub   = rospy.Subscriber(
       '/base_station/xbox_raw_ctrl', RawCtrl, self.rawCtrlCb)
+    
+    self.left_ctrl_sub = rospy.Subscriber('/base_station/ljs_raw_ctrl',RawCtrl, self.leftRawCtrlCb)    
 
     self.change_mode_server = rospy.Service(
       '/base_station/change_mode', ChangeMode, 
@@ -83,7 +85,7 @@ class BaseSync:
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # driveCb():
-  #    Callback for control msgs designated for DRIVE mode.
+  #    Callback for control msgs designated for DRIVE mode with xbox controller.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def driveCb(self, msg):
     
@@ -97,6 +99,29 @@ class BaseSync:
     drive_msg.steer_pct = 100 * steer_limit * msg.axis_rx_val 
     
     self.drive_cmd_pub.publish(drive_msg) # Send it
+
+
+  def leftDriveCb(self, msg):
+    
+    rpm_limit   = rospy.get_param('rpm_limit')
+    steer_limit = rospy.get_param('steer_limit')
+    
+    drive_msg = DriveCmd() # New drive command message
+
+    msg_rpm = msg.axis_ly_val 
+    msg_steer_pct = msg.axis_lx_val 
+   
+    #Adding in a deadzone
+    if abs(msg_rpm)<0.3:
+        msg_rpm = 0
+    if abs(msg_steer_pct)<0.3:
+        msg_steer_pct = 0
+
+    drive_msg.rpm       =  50 * rpm_limit   * msg_rpm  
+    drive_msg.steer_pct = 100 * steer_limit * msg_steer_pct
+    
+    self.drive_cmd_pub.publish(drive_msg) # Send it
+
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # armCb():
@@ -120,8 +145,9 @@ class BaseSync:
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def rawCtrlCb(self, msg):
     mode = rospy.get_param('base_station/Mode')
-
-    if   (mode == 'Drive'): 
+    drive_mode = rospy.get_param('base_station/drive_mode')
+    mode = 'Drive'
+    if   (drive_mode == 'XboxDrive'): 
       self.driveCb(msg)
 
     elif (mode == 'Arm'):
@@ -130,6 +156,18 @@ class BaseSync:
     elif mode is (mode == 'Drill'):
       self.drillCb(msg)
 
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # jpystoclCtrlCb():
+  #    Callback for raw control messages from Xbox controller. Currently
+  #    we don't care about STANDBY for this. In AUTO we can't touch 
+  #    any controllers so the mode isn't handled.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
+
+  def leftRawCtrlCb(self, msg):
+    drive_mode = rospy.get_param('base_station/drive_mode')
+    if   (drive_mode=='LeftDrive'):
+        self.leftDriveCb(msg)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initialiseState():
   #    Set the relevant parameters in the server for the initial rover
@@ -150,7 +188,7 @@ class BaseSync:
 #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
 def main():
   _ = BaseSync()
-  
+  rospy.set_param('base_station/drive_mode','XboxDrive')
   rate = rospy.Rate(0.1)
   while not rospy.is_shutdown(): 
     rate.sleep()
