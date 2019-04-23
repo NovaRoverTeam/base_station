@@ -1553,7 +1553,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Down</string>
+                       <string>Forward</string>
                       </property>
                      </widget>
                     </item>
@@ -1846,6 +1846,11 @@
             <item>
              <property name="text">
               <string>Extreme Retrieval</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Science</string>
              </property>
             </item>
             <item>

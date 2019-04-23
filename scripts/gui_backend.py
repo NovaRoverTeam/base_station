@@ -169,24 +169,39 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
-  # modeChange():  
-  #    Function to handle mode changing button presses.
+  # drillCommand():  
+  #    Function to handle sending different drill commands
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--   
   def drillCommand(self, value=-1):  
     slider = self.sender()
     name = slider.objectName()
-                ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop
+    rospy.loginfo(value)
     if   (name == 'button_ratio_up'): # Ratio up through the pipe
-      self.GuiRos.drillCmd(1)
-      
-    elif (name == 'button_ratio_down'): # Ratio down through the pipe
       self.GuiRos.drillCmd(2)
-    elif (name == 'button_drill_down'):
+    
+    elif (name == 'button_ratio_down'): # Ratio down through the pipe
       self.GuiRos.drillCmd(3)
+    elif (name == 'button_drill_down'):
+      self.GuiRos.drillCmd(7)
     elif (name == 'button_retract'):
-      self.GuiRos.drillCmd(5)
+      self.GuiRos.drillCmd(8)
     elif (name == 'button_drill_stop'):
       self.GuiRos.drillCmd(4)
+    elif (name == 'slider_actuator'):
+      self.GuiRos.drillCmd(13+value)
+    elif (name == 'slider_drill'):
+      self.GuiRos.drillCmd(18+value)
+    elif (name == 'checkBox_actuator_direction'):
+      if value==2: #actuating down
+         self.GuiRos.drillCmd(10)
+      else:
+         self.GuiRos.drillCmd(9)
+
+    elif (name == 'checkBox_drill_direction'):
+      if value==2: #drilling down
+         self.GuiRos.drillCmd(11)
+      else:
+         self.GuiRos.drillCmd(12)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.

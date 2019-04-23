@@ -51,7 +51,7 @@ class GuiRos():
         self.gimbal_pub = rospy.Publisher('/base_station/gimbal_cmd', 
             GimbalCmd, queue_size=10)
         self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
-            Int_8, queue_size=10)
+            Int8, queue_size=10)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getMode():   

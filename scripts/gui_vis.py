@@ -91,7 +91,7 @@ class GuiVis():
     #   Setup widget initial values.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
     def initialiseWidgets(self, rpm_limit, steer_limit): 
-
+        self.enableDrillCommands()
         self.ui.combo_mission.setCurrentIndex(0) # Switch to setup pane
         self.ui.stack_mission.setCurrentIndex(0) 
         
@@ -195,11 +195,15 @@ class GuiVis():
     # setupDrillConnections(): 
     #   Enables drill buttons and sliders
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--  
-    def enableDrillCommands():
+    def enableDrillCommands(self):
         for drill_button in self.drill_buttons:
              drill_button.clicked.connect(self.ui.drillCommand)
-        for slider in drill.sliders:
-            slider.valueChanged.connect(self.ui.sliderChange)
+
+        for slider in self.drill_sliders:
+            slider.valueChanged.connect(self.ui.drillCommand)
+
+        for checkBox in self.drill_check_boxes:
+            checkBox.stateChanged.connect(self.ui.drillCommand)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getCamWidgets(): 
