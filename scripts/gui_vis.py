@@ -60,6 +60,15 @@ class GuiVis():
         self.vehicle_buttons = [
             ui.button_simulator, ui.button_rover, ui.button_sandstorm
         ]
+        self.drill_sliders = [
+            ui.slider_actuator, ui.slider_drill
+        ]
+        self.drill_buttons = [
+            ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop
+        ]
+        self.drill_check_boxes = [
+            ui.checkBox_actuator_direction, ui.checkBox_drill_direction
+        ]
         self.progress_radios = [
             ui.progress_radio0, ui.progress_radio1
         ]
@@ -181,6 +190,16 @@ class GuiVis():
 
         for vehicle_button in self.vehicle_buttons:
             vehicle_button.setEnabled(enable)
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # setupDrillConnections(): 
+    #   Enables drill buttons and sliders
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--  
+    def enableDrillCommands():
+        for drill_button in self.drill_buttons:
+             drill_button.clicked.connect(self.ui.drillCommand)
+        for slider in drill.sliders:
+            slider.valueChanged.connect(self.ui.sliderChange)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getCamWidgets(): 

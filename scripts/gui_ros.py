@@ -20,7 +20,7 @@ import roslaunch
 from base_station.msg import *
 from nova_common.msg import * 
 from nova_common.srv import *
-
+from std_msgs.msg import Int8
 from PyQt4 import QtCore
 
 # Class representing the ROS interface
@@ -50,6 +50,8 @@ class GuiRos():
 
         self.gimbal_pub = rospy.Publisher('/base_station/gimbal_cmd', 
             GimbalCmd, queue_size=10)
+        self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
+            Int_8, queue_size=10)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getMode():   
@@ -310,3 +312,11 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def controlGimbal(self, cam_id, cmd):
         self.gimbal_pub.publish(GimbalCmd(cam_id, cmd))
+
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # drillCmd():    
+    #    Send numbers on the drill command line
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def drillCmd(self, number):
+        self.drill_pub.publish(number)

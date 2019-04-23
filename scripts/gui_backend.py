@@ -167,6 +167,26 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     else:
       button.setChecked(False) 
 
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # modeChange():  
+  #    Function to handle mode changing button presses.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--   
+  def drillCommand(self, value=-1):  
+    slider = self.sender()
+    name = slider.objectName()
+                ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop
+    if   (name == 'button_ratio_up'): # Ratio up through the pipe
+      self.GuiRos.drillCmd(1)
+      
+    elif (name == 'button_ratio_down'): # Ratio down through the pipe
+      self.GuiRos.drillCmd(2)
+    elif (name == 'button_drill_down'):
+      self.GuiRos.drillCmd(3)
+    elif (name == 'button_retract'):
+      self.GuiRos.drillCmd(5)
+    elif (name == 'button_drill_stop'):
+      self.GuiRos.drillCmd(4)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.

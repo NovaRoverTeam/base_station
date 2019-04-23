@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1183</width>
+    <width>1297</width>
     <height>696</height>
    </rect>
   </property>
@@ -445,7 +445,7 @@
               <string>0</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -473,7 +473,7 @@
               <string>0</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -572,7 +572,7 @@
               <string>1</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -600,7 +600,7 @@
               <string>1</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -696,7 +696,7 @@
               <string>2</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -724,7 +724,7 @@
               <string>2</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -820,7 +820,7 @@
               <string>3</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -848,7 +848,7 @@
               <string>3</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -941,7 +941,7 @@
               <string>4</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -969,7 +969,7 @@
               <string>4</string>
              </property>
              <property name="icon">
-              <iconset resource="resources/res.qrc">
+              <iconset>
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -1143,7 +1143,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="resources/res.qrc">:/media/nova_logo.png</pixmap>
+           <pixmap>:/media/nova_logo.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1239,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1366,6 +1366,204 @@
                </size>
               </property>
              </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_drill">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_42">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Drill</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_21">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_Drill">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_26">
+                  <item>
+                   <widget class="QLabel" name="label_41">
+                    <property name="text">
+                     <string>Ratio</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="button_ratio_up">
+                    <property name="text">
+                     <string>↑</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="button_ratio_down">
+                    <property name="text">
+                     <string>↓</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_drill_down">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Drill Down</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_retract">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Retract</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QPushButton" name="button_drill_stop">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>STOP!</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_23">
+                  <item>
+                   <widget class="QSlider" name="slider_actuator">
+                    <property name="maximum">
+                     <number>4</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <item>
+                     <widget class="QLabel" name="label_43">
+                      <property name="font">
+                       <font>
+                        <pointsize>15</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Actuator</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_actuator_direction">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>100</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Down</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_25">
+                  <item>
+                   <widget class="QSlider" name="slider_drill">
+                    <property name="maximum">
+                     <number>4</number>
+                    </property>
+                    <property name="sliderPosition">
+                     <number>0</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_10">
+                    <item>
+                     <widget class="QLabel" name="label_44">
+                      <property name="font">
+                       <font>
+                        <pointsize>15</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Drill</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_drill_direction">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>100</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Down</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -2148,7 +2346,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="resources/res.qrc">
+               <iconset>
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2218,7 +2416,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="resources/res.qrc">
+               <iconset>
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2291,7 +2489,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="resources/res.qrc">
+               <iconset>
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2403,7 +2601,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="resources/res.qrc">
+                  <iconset>
                    <normaloff>:/media/icons/zoom_icon&amp;16.png</normaloff>:/media/icons/zoom_icon&amp;16.png</iconset>
                  </property>
                  <property name="checkable">
@@ -2417,7 +2615,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="resources/res.qrc">
+                  <iconset>
                    <normaloff>:/media/icons/arrow_top_icon&amp;16.png</normaloff>:/media/icons/arrow_top_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2428,7 +2626,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="resources/res.qrc">
+                  <iconset>
                    <normaloff>:/media/icons/arrow_right_icon&amp;16.png</normaloff>:/media/icons/arrow_right_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2439,7 +2637,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="resources/res.qrc">
+                  <iconset>
                    <normaloff>:/media/icons/arrow_left_icon&amp;16.png</normaloff>:/media/icons/arrow_left_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2450,7 +2648,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="resources/res.qrc">
+                  <iconset>
                    <normaloff>:/media/icons/arrow_bottom_icon&amp;16.png</normaloff>:/media/icons/arrow_bottom_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2805,7 +3003,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="resources/res.qrc">
+             <iconset>
               <normaloff>:/media/icons/wrench_icon&amp;16.png</normaloff>:/media/icons/wrench_icon&amp;16.png</iconset>
             </property>
            </widget>
@@ -2823,7 +3021,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="resources/res.qrc">
+             <iconset>
               <normaloff>:/media/icons/playback_rec_icon&amp;16.png</normaloff>
               <normalon>:/media/icons/playback_stop_icon&amp;16.png</normalon>:/media/icons/playback_rec_icon&amp;16.png</iconset>
             </property>
