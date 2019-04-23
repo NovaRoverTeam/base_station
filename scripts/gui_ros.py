@@ -17,7 +17,6 @@
 import rospy
 import rospkg
 import roslaunch
-from base_station.msg import *
 from nova_common.msg import * 
 from nova_common.srv import *
 from std_msgs.msg import Int8

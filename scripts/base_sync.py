@@ -20,8 +20,8 @@ class BaseSync:
 
     self.raw_ctrl_sub   = rospy.Subscriber(
       '/base_station/xbox_raw_ctrl', RawCtrl, self.rawCtrlCb)
-    
-    self.left_ctrl_sub = rospy.Subscriber('/base_station/ljs_raw_ctrl',RawCtrl, self.leftRawCtrlCb)    
+
+    self.right_ctrl_sub = rospy.Subscriber('/base_station/rjs_raw_ctrl',RawCtrl, self.rightRawCtrlCb) 
 
     self.change_mode_server = rospy.Service(
       '/base_station/change_mode', ChangeMode, 
@@ -100,7 +100,7 @@ class BaseSync:
     self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
-  def leftDriveCb(self, msg):
+  def rightDriveCb(self, msg):
     
     rpm_limit   = rospy.get_param('rpm_limit')
     steer_limit = rospy.get_param('steer_limit')
@@ -163,17 +163,16 @@ class BaseSync:
   #    any controllers so the mode isn't handled.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
 
-  def leftRawCtrlCb(self, msg):
+  def rightRawCtrlCb(self, msg):
     drive_mode = rospy.get_param('base_station/drive_mode')
-    if   (drive_mode=='LeftDrive'):
-        self.leftDriveCb(msg)
+    if   (drive_mode=='RightDrive'):
+        self.rightDriveCb(msg)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initialiseState():
   #    Set the relevant parameters in the server for the initial rover
   #    state.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def initialiseState(self):
-
     state_vehicle = rospy.get_param('~Vehicle')
     rospy.set_param('Vehicle', state_vehicle) 
 
