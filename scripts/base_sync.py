@@ -3,6 +3,7 @@
 import rospy
 from nova_common.msg import *
 from nova_common.srv import *
+from std_msgs.msg import Empty
 
 class BaseSync:
 
@@ -187,8 +188,19 @@ class BaseSync:
 def main():
   _ = BaseSync()
   rospy.set_param('base_station/drive_mode','XboxDrive')
-  rate = rospy.Rate(0.1)
+  rate = rospy.Rate(10)
+  hbeat_pub = rospy.Publisher('/heartbeat', Empty, queue_size=1)
+  
+  hbeat_loop_cnt = 0
+  
   while not rospy.is_shutdown(): 
+    if (hbeat_loop_cnt > 10):
+        hbeat_msg = Empty()
+        hbeat_pub.publish(hbeat_msg)
+        hbeat_loop_cnt = 0
+    
+    hbeat_loop_cnt += 1
+
     rate.sleep()
 
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
