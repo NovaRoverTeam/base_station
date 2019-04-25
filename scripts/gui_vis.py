@@ -64,10 +64,10 @@ class GuiVis():
             ui.slider_actuator, ui.slider_drill
         ]
         self.drill_buttons = [
-            ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop
+            ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop, ui.button_science_off
         ]
         self.drill_check_boxes = [
-            ui.checkBox_actuator_direction, ui.checkBox_drill_direction
+            ui.checkBox_actuator_direction, ui.checkBox_drill_direction, ui.checkBox_sieve, ui.checkBox_wet, ui.checkBox_pump
         ]
         self.progress_radios = [
             ui.progress_radio0, ui.progress_radio1

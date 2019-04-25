@@ -20,6 +20,7 @@ import datetime
 import pexpect
 import signal
 import subprocess
+import time
 from functools import partial
 
 import rospkg 
@@ -177,14 +178,15 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     name = slider.objectName()
     rospy.loginfo(value)
     if   (name == 'button_ratio_up'): # Ratio up through the pipe
-      self.GuiRos.drillCmd(2)
-    
-    elif (name == 'button_ratio_down'): # Ratio down through the pipe
-      self.GuiRos.drillCmd(3)
-    elif (name == 'button_drill_down'):
-      self.GuiRos.drillCmd(7)
-    elif (name == 'button_retract'):
       self.GuiRos.drillCmd(8)
+    elif (name == 'button_ratio_down'): # Ratio down through the pipe
+      self.GuiRos.drillCmd(7)
+    elif (name == 'button_drill_down'):
+      self.GuiRos.drillCmd(23)
+    elif (name == 'button_retract'):
+      self.GuiRos.drillCmd(9)
+      time.sleep(0.015)
+      self.GuiRos.drillCmd(15)
     elif (name == 'button_drill_stop'):
       self.GuiRos.drillCmd(4)
     elif (name == 'slider_actuator'):
@@ -196,12 +198,33 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
          self.GuiRos.drillCmd(10)
       else:
          self.GuiRos.drillCmd(9)
-
     elif (name == 'checkBox_drill_direction'):
       if value==2: #drilling down
          self.GuiRos.drillCmd(11)
       else:
          self.GuiRos.drillCmd(12)
+    elif (name == 'checkBox_sieve'):
+      if value==2: #on
+         self.GuiRos.drillCmd(24)
+      else:
+         self.GuiRos.drillCmd(25)
+    elif (name == 'checkBox_wet'):
+      if value==2: #on
+         self.GuiRos.drillCmd(26)
+      else:
+         self.GuiRos.drillCmd(27)
+    elif (name == 'checkBox_pump'):
+      if value==2: #on
+         self.GuiRos.drillCmd(28)
+      else:
+         self.GuiRos.drillCmd(29)
+    elif (name == 'button_science_off'):
+       self.GuiRos.drillCmd(25)
+       time.sleep(0.015)
+       self.GuiRos.drillCmd(27)
+       time.sleep(0.015)
+       self.GuiRos.drillCmd(29)
+
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.
