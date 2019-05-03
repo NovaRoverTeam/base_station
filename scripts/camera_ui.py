@@ -2,6 +2,7 @@
 
 # Import needed libraries
 import gi, sys, os, traceback
+from PyQt5.QtWidgets import *
 
 # Get specific versions
 gi.require_version('Gst', '1.0')
@@ -12,9 +13,15 @@ from gi.repository import Gst, GObject, Gtk
 from gi.repository import GdkX11, GstVideo
 
 
-
 # Initialise the GStreamer library with arguments
 Gst.init(sys.argv)
+
+
+# Set up application
+app = QApplication([])
+window = QWidget()
+layout = QVBoxLayout()
+
 
 
 # Create a message pipeline function, for outputting messages to the terminal
@@ -56,6 +63,11 @@ streams = (getGSTCommand(5000), getGSTCommand(5001), getGSTCommand(5002), getGST
 # Set Feed names
 feedNames = ('Stereo Camera', 'Arm Camera', 'Black Foscam', 'White Foscam', 'Test Feed')
 
+
+# Set Feed Playing States
+feedPlaying = [False, False, False, False, False]
+
+
 # Create a pipeline from each command
 for stream in streams:
 	# Create pipeline
@@ -73,6 +85,121 @@ for stream in streams:
 
 
 
+# Key Variables for Cameras
+port = 5000
+cameraIndex = 0
+
+
+
+
+# Set up GUI elements:
+cb_camera = QComboBox()
+cb_camera.addItems(feedNames)
+label_port = QLabel('Port: ')
+txt_port = QLineEdit(str(port))
+
+btn_view = QPushButton('View Stream')
+btn_stop = QPushButton('Close Stream')
+
+
+
+# Setup function when camera change is altered
+def cb_camera_change(i):
+	global cameraIndex, port
+
+	# Set key variables
+	if i == 0: # Stereo Cam
+		port = 5000
+		txt_port.setText(str(port))
+	elif i == 1: # Arm Cam
+		port = 5001
+		txt_port.setText(str(port))
+	elif i == 2: # Black Fos Cam
+		port = 5002
+		txt_port.setText(str(port))
+	elif i == 3: # White Fos Cam
+		port = 5003
+		txt_port.setText(str(port))
+	elif i == 4: # Test Feed
+		port = 0
+		txt_port.setText(str(port))
+
+	# Update camera index	
+	cameraIndex = i
+
+	# Change the buttons from being enabled or not
+	if feedPlaying[cameraIndex] == True:
+		btn_view.setEnabled(False)
+		btn_stop.setEnabled(True)
+	else:
+		btn_view.setEnabled(True)
+		btn_stop.setEnabled(False)
+
+
+
+# Add camera widgets to layout
+# Camera Combo Box
+cb_camera.currentIndexChanged.connect(cb_camera_change)
+layout.addWidget(cb_camera)
+
+# Port text
+layout.addWidget(label_port)
+layout.addWidget(txt_port)
+
+
+
+
+
+# Button for viewing stream
+def on_btn_view():
+	global cameraIndex
+	
+	# Turn pipeline on
+	pipelines[cameraIndex].set_state(Gst.State.PLAYING)
+	feedPlaying[cameraIndex] = True
+	print('Attempting to start {} feed...'.format(feedNames[cameraIndex]))
+
+	# Update window
+	cb_camera_change(cameraIndex)
+
+
+btn_view.clicked.connect(on_btn_view)
+layout.addWidget(btn_view)
+
+
+
+# Button for stopping stream
+def on_btn_stop():
+	global cameraIndex
+
+	# Turn pipeline off
+	pipelines[cameraIndex].set_state(Gst.State.NULL)
+	feedPlaying[cameraIndex] = False
+	print('Attempting to stop {} feed...'.format(feedNames[cameraIndex]))
+
+	# Update window
+	cb_camera_change(cameraIndex)
+
+btn_stop.clicked.connect(on_btn_stop)
+layout.addWidget(btn_stop)
+
+# Start with stop button not enabled
+btn_stop.setEnabled(False)
+
+
+
+# Button for quitting application
+btn_quit = QPushButton('Quit')
+def on_btn_quit():
+	isRunning = False
+	window.hide()
+	print('Closing Program.')
+	exit()
+
+btn_quit.clicked.connect(on_btn_quit)
+layout.addWidget(btn_quit)
+
+
 
 
 
@@ -82,6 +209,17 @@ for pipeline in pipelines:
 
 # Loop until stopping
 isRunning = True
+
+
+
+
+# Run application
+window.setLayout(layout)
+window.show()
+app.exec_()
+
+
+isRunning = False
 
 print("Running GStreamer camera feed window. Type 'help' or 'h' for more information.")
 
@@ -141,3 +279,24 @@ while isRunning:
 
 
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
