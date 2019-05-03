@@ -15,7 +15,14 @@
 from PyQt4 import QtCore, QtGui # Qt includes
 from PyKDE4.kdeui import *
 
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+
+import random
 # Class representing the visual GUI interface
+data = [(0.0,0.0)]
 class GuiVis():
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -243,3 +250,65 @@ class GuiVis():
             return 'ptzMoveUp'
         else:
             return 'ptzMoveDown'
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # configureMap(): 
+    #   Create the map for viewing the coordinates of rover
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+
+    def configureMap(self):
+        self.figure = plt.figure()
+
+        # this is the Canvas Widget that displays the `figure`
+        # it takes the `figure` instance as a parameter to __init__
+        self.canvas = FigureCanvas(self.figure)
+
+        # this is the Navigation widget
+        # it takes the Canvas widget and a parent
+        #self.ui.map.toolbar = NavigationToolbar(self.ui.map.canvas, self)
+
+        # Just some button connected to `plot` method
+        #self.map.button = QtGui.QPushButton('Plot')
+        #self.button.clicked.connect(self.plot)
+        self.ui.map.addWidget(self.canvas)
+        self.ui.plotButton.clicked.connect(self.plot)
+        # set the layout
+        """layout = QtGui.QVBoxLayout()
+        layout.addWidget(self.ui.map.toolbar)
+        layout.addWidget(self.ui.map.canvas)
+        layout.addWidget(self.ui.map.button)
+        self.map.ui.setLayout(layout)"""
+
+
+
+
+    def plot(self):
+        x = self.ui.latitudeSpinBox.value()
+        y = self.ui.longitudeSpinBox.value()
+        data.append((x,y))
+        self.update()
+         
+    def update(self):
+        xs = []
+        ys = []
+        ''' plot some random stuff '''
+        # random data
+	for i in range(1,len(data)):
+             xs.append(data[i][0])
+             ys.append(data[i][1])
+       
+        # create an axis
+        ax = self.figure.add_subplot(111)
+        # discards the old graph
+        ax.clear()
+	print(data)
+        # plot data
+        coordinates = data[0]
+        ax.plot(coordinates[0],coordinates[1],'ro')
+        ax.plot(xs,ys, 'bd')
+
+
+	ax.set_xlim(coordinates[0]-0.1, coordinates[0]+0.1)
+	ax.set_ylim(coordinates[1]-0.1, coordinates[1]+0.1)
+        # refresh canvas
+        self.canvas.draw()

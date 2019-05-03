@@ -1239,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>5</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1355,17 +1355,42 @@
              </widget>
             </item>
             <item>
-             <spacer name="verticalSpacer_43">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
+             <layout class="QVBoxLayout" name="map">
+              <property name="topMargin">
+               <number>0</number>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <item>
+               <widget class="QDoubleSpinBox" name="latitudeSpinBox">
+                <property name="decimals">
+                 <number>15</number>
+                </property>
+                <property name="minimum">
+                 <double>-99.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="longitudeSpinBox">
+                <property name="decimals">
+                 <number>15</number>
+                </property>
+                <property name="minimum">
+                 <double>-99.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="plotButton">
+              <property name="text">
+               <string>Plot</string>
               </property>
-             </spacer>
+             </widget>
             </item>
            </layout>
           </widget>

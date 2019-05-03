@@ -52,10 +52,9 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.setupUi(self)    
     self.GuiRos = GuiRos(self) # Create ROS interface
     self.GuiVis = GuiVis(self) # Create visual element interface
-
     self.setupConnections()
     self.initialiseGUI()
-
+    self.GuiVis.configureMap()
     # Register sigint handler
     signal.signal(signal.SIGINT, self.signalHandler) 
                 
@@ -104,7 +103,10 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         self.rawCtrlUpdate)
     self.connect(self, QtCore.SIGNAL("autoUpdate(PyQt_PyObject)"), 
         self.autoUpdate)
-
+    self.connect(self, QtCore.SIGNAL("autoUpdate(PyQt_PyObject)"), 
+        self.mapUpdate)
+    self.connect(self, QtCore.SIGNAL("mapUpdate(PyQt_PyObject)"),
+        self.mapUpdate)
     self.GuiVis.setupWidgetConnections()
     self.tool_rosbag_start.toggled.connect(self.GuiRos.toggleRosbag)
     self.tool_900_debug.toggled.connect(self.GuiRos.updateRadioDebug)
@@ -411,6 +413,14 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     
     self.GuiRos.controlGimbal(1, cmd) # TODO set gimbal cam_id as param
 
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # mapUpdate()    
+  #    update map
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def mapUpdate(self,msg):
+    self.guiVis.data.append((msg.latitude,msg.longitude))
+    self.guiVis.update()
+   
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():
 #    Main function.
@@ -421,7 +431,6 @@ def main():
   
   ui = MainDialog()    
   ui.show()   
-  
   app.exec_()
   
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--

@@ -46,7 +46,6 @@ class GuiRos():
           self.autoCb, queue_size=1)
         rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
           self.rawCtrlCb, queue_size=1)
-
         self.gimbal_pub = rospy.Publisher('/base_station/gimbal_cmd', 
             GimbalCmd, queue_size=10)
         self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
@@ -319,3 +318,5 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def drillCmd(self, number):
         self.drill_pub.publish(number)
+
+
