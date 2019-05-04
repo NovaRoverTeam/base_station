@@ -105,8 +105,6 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         self.autoUpdate)
     self.connect(self, QtCore.SIGNAL("autoUpdate(PyQt_PyObject)"), 
         self.mapUpdate)
-    self.connect(self, QtCore.SIGNAL("mapUpdate(PyQt_PyObject)"),
-        self.mapUpdate)
     self.GuiVis.setupWidgetConnections()
     self.tool_rosbag_start.toggled.connect(self.GuiRos.toggleRosbag)
     self.tool_900_debug.toggled.connect(self.GuiRos.updateRadioDebug)
@@ -170,6 +168,16 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     else:
       button.setChecked(False) 
 
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # setMission():  
+  #    Function to handle mode changing button presses.
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
+  def setMission(self):
+    button = self.sender()
+    mission_str = str(button.text())
+
+    # Call ROS service to change mode
+    success, _ = self.GuiRos.setMission(mission_str) 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # drillCommand():  

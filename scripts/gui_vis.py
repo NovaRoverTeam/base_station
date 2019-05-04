@@ -57,7 +57,11 @@ class GuiVis():
         self.mode_buttons = [
             ui.button_standby, ui.button_drive, ui.button_arm,
             ui.button_drill, ui.button_auto
-        ]        
+        ]   
+	self.mission_buttons = [
+            ui.button_aut, ui.button_eqp, ui.button_ert,
+            ui.button_sci, ui.button_sensors, ui.button_stopall
+        ]          
         self.sliders = [
             ui.slider_a, ui.slider_b, ui.slider_c
         ]
@@ -137,7 +141,10 @@ class GuiVis():
         self.ui.button_engage_auto.clicked.connect(self.ui.engageAuto)
         
         for mode_button in self.mode_buttons:
-            mode_button.clicked.connect(self.ui.modeChange)    
+            mode_button.clicked.connect(self.ui.modeChange)   
+
+	for mission_button in self.mission_buttons:
+            mission_button.clicked.connect(self.ui.setMission)   
         
         for slider in self.sliders:
             slider.valueChanged.connect(self.ui.sliderChange)

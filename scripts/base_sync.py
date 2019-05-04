@@ -29,7 +29,7 @@ class BaseSync:
       self.handleChangeMode)
 
     self.change_mission_server = rospy.Service(
-      '/base_station/change_mission', ChangeMode, 
+      '/base_station/change_mission', ChangeMission, 
       self.handleChangeMission)
         
     self.drive_cmd_pub = rospy.Publisher(
@@ -66,20 +66,20 @@ class BaseSync:
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
   def handleChangeMission(self, req):    
     try:
-      rospy.wait_for_service('/core_rover/req_change_mission', self.srv_timeout)
+      #rospy.wait_for_service('/core_rover/req_change_mission', self.srv_timeout)
       client = rospy.ServiceProxy('/core_rover/req_change_mission',
-        ChangeMode)
-      res_rover = client(req.mode)
+        ChangeMission)
+      res_rover = client(req.mission)
         
     except rospy.ServiceException, e:
       rospy.loginfo("Changing mission failed: %s"%e)
-      return ChangeModeResponse(False, "%s"%e)
+      return ChangeMissionResponse(False, "%s"%e)
     
     if res_rover.success:
-      rospy.set_param('/base_station/Mission', req.mode)
-      res_base = ChangeModeResponse(True, res_rover.message)
+      rospy.set_param('/base_station/Mission', req.mission)
+      res_base = ChangeMissionResponse(True, res_rover.message)
     else:
-      res_base = ChangeModeResponse(False, res_rover.message)
+      res_base = ChangeMissionResponse(False, res_rover.message)
               
     return res_base
 

@@ -140,14 +140,14 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
     def setMission(self, mission_str):
 
-        # Request change of mode from rover
+        # Request change of mission from rover
         try:    
             rospy.wait_for_service('/base_station/change_mission', self.srv_timeout)      
             client = rospy.ServiceProxy('/base_station/change_mission',
-              ChangeMode)
+              ChangeMission)
             res = client(mission_str)
         
-            # Return success or failure of mode change
+            # Return success or failure of mission change
             rospy.loginfo(res.message)
             return res.success, res.message
                   
