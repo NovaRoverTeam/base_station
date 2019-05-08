@@ -293,6 +293,8 @@ class GuiVis():
         x = self.ui.latitudeSpinBox.value()
         y = self.ui.longitudeSpinBox.value()
         data.append((x,y))
+        message = "W " + str(x) + " " + str(y)
+        self.ui.UDPSend(message)
         self.update()
          
     def update(self):
