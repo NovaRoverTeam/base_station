@@ -5,6 +5,7 @@ from nova_common.msg import *
 from nova_common.srv import *
 from std_msgs.msg import Empty
 
+speed_change_flag = False
 class BaseSync:
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -88,7 +89,8 @@ class BaseSync:
   #    Callback for control msgs designated for DRIVE mode with xbox controller.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
   def driveCb(self, msg):
-    
+
+    global speed_change_flag
     rpm_limit   = rospy.get_param('rpm_limit')
     steer_limit = rospy.get_param('steer_limit')
     
@@ -96,13 +98,27 @@ class BaseSync:
     
     # TODO define max RPM of motors and replace 50 with it
     drive_msg.rpm       =  50 * rpm_limit   * msg.axis_ly_val   
-    drive_msg.steer_pct = 100 * steer_limit * msg.axis_rx_val 
+    drive_msg.steer_pct = 100 * rpm_limit * msg.axis_rx_val 
+    
+    
+    if speed_change_flag==False and msg.axis_dy_dwn != 0:
+         speed_change_flag = True
+         if msg.axis_dy_dwn == 1:
+            rospy.set_param('rpm_limit',rpm_limit+0.1)
+            rospy.loginfo("Up")
+         if msg.axis_dy_dwn == -1:
+            if rpm_limit < 0.0:
+               rpm_limit = 0.0
+            rospy.set_param('rpm_limit',rpm_limit-0.1)
+            rospy.loginfo("Down")
+    elif msg.axis_dy_dwn == 0:
+         speed_change_flag = False
     
     self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
   def rightDriveCb(self, msg):
-    
+
     rpm_limit   = rospy.get_param('rpm_limit')
     steer_limit = rospy.get_param('steer_limit')
     
@@ -147,7 +163,11 @@ class BaseSync:
     mode = rospy.get_param('base_station/Mode')
     drive_mode = rospy.get_param('base_station/drive_mode')
     mode = 'Drive'
-    if   (drive_mode == 'XboxDrive'): 
+    if msg.but_y_trg == True:
+	    rospy.loginfo("True")
+	    rospy.set_param('base_station/drive_mode','XboxDrive')
+    
+    if   (drive_mode == 'XboxDrive' and mode == 'Drive'): 
       self.driveCb(msg)
 
     elif (mode == 'Arm'):
@@ -165,8 +185,13 @@ class BaseSync:
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--
 
   def rightRawCtrlCb(self, msg):
+    mode = rospy.get_param('base_station/Mode')
     drive_mode = rospy.get_param('base_station/drive_mode')
-    if   (drive_mode=='RightDrive'):
+    mode = 'Drive'
+    if msg.but_b_trg == True:
+	    rospy.loginfo("True")
+	    rospy.set_param('base_station/drive_mode','RightDrive')
+    if   (drive_mode=='RightDrive' and mode=='Drive'):
         self.rightDriveCb(msg)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initialiseState():
