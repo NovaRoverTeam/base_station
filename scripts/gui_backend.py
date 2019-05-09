@@ -21,12 +21,19 @@ import pexpect
 import signal
 import subprocess
 import time
+import socket
 from functools import partial
 
 import rospkg 
 import rospy
 from gui_ros import GuiRos
 from gui_vis import GuiVis
+
+UDP_IP = "192.168.1.4"
+UDP_PORT = 6000
+
+sock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
 
 # Get the file path for base_station, rebuild GUI
 rospack = rospkg.RosPack() 
@@ -262,7 +269,6 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.GuiRos.launchSimulator()
 
     self.combo_mission.setCurrentIndex(1) # Switch to autonomous pane
-    self.GuiRos.setMission('AUT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # launchJDB(): 
@@ -276,7 +282,6 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.GuiRos.launchJDB()
 
     self.combo_mission.setCurrentIndex(0) # Switch to autonomous pane
-    self.GuiRos.setMission('ERT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # autoUpdate():
@@ -292,6 +297,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     bearing = round(msg.bearing)
     self.dial_bearing.setProperty("value", 180 + bearing)
     self.label_bearing.setText(str(bearing))
+    message = "G " + str(msg.latitude) + " " + str(msg.longitude) +  " " + str(msg.bearing)
+    self.UDPsend(message)
     
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # rawCtrlUpdate():
@@ -429,6 +436,20 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.guiVis.data.append((msg.latitude,msg.longitude))
     self.guiVis.update()
    
+  def plot(self):
+      x = self.ui.latitudeSpinBox.value()
+      y = self.ui.longitudeSpinBox.value()
+      data.append((x,y))
+      
+      self.update()
+
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # UDPSend()    
+  #    send data to other base station computer via UDP protocol
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+  def UDPSend(self,msg):
+    sock.sendto(msg, (UDP_IP, UDP_PORT))
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():
 #    Main function.

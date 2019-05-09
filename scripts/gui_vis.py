@@ -293,6 +293,8 @@ class GuiVis():
         x = self.ui.latitudeSpinBox.value()
         y = self.ui.longitudeSpinBox.value()
         data.append((x,y))
+        message = "W " + str(x) + " " + str(y)
+        self.ui.UDPSend(message)
         self.update()
          
     def update(self):
@@ -315,7 +317,7 @@ class GuiVis():
         ax.plot(xs,ys, 'bd')
 
 
-	ax.set_xlim(coordinates[0]-0.1, coordinates[0]+0.1)
-	ax.set_ylim(coordinates[1]-0.1, coordinates[1]+0.1)
+	ax.set_xlim(coordinates[0]-0.001, coordinates[0]+0.001)
+	ax.set_ylim(coordinates[1]-0.001, coordinates[1]+0.001)
         # refresh canvas
         self.canvas.draw()
