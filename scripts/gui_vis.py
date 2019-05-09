@@ -75,10 +75,10 @@ class GuiVis():
             ui.slider_actuator, ui.slider_drill
         ]
         self.drill_buttons = [
-            ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop, ui.button_science_off
+            ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop, ui.button_science_off, ui.button_actuator_down, ui.button_actuator_up, ui.button_drill_clockwise, ui.button_drill_anticlockwise
         ]
-        self.drill_check_boxes = [
-            ui.checkBox_actuator_direction, ui.checkBox_drill_direction, ui.checkBox_sieve, ui.checkBox_wet, ui.checkBox_pump
+        self.drill_checkboxes = [
+            ui.checkBox_sieve, ui.checkBox_wet, ui.checkBox_pump
         ]
         self.progress_radios = [
             ui.progress_radio0, ui.progress_radio1
@@ -213,11 +213,13 @@ class GuiVis():
         for drill_button in self.drill_buttons:
              drill_button.clicked.connect(self.ui.drillCommand)
 
+        for drill_checkbox in self.drill_checkboxes:
+            drill_checkbox.stateChanged.connect(self.ui.drillCommand)   
+
+
         for slider in self.drill_sliders:
             slider.valueChanged.connect(self.ui.drillCommand)
 
-        for checkBox in self.drill_check_boxes:
-            checkBox.stateChanged.connect(self.ui.drillCommand)
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getCamWidgets(): 

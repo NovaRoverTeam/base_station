@@ -193,7 +193,11 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   def drillCommand(self, value=-1):  
     slider = self.sender()
     name = slider.objectName()
-    rospy.loginfo(value)
+    rospy.loginfo(value) 
+    for drill_button in self.GuiVis.drill_buttons:
+        drill_button.setChecked(False)
+    if value == True:
+        slider.setChecked(True)
     if   (name == 'button_ratio_up'): # Ratio up through the pipe
       self.GuiRos.drillCmd(8)
     elif (name == 'button_ratio_down'): # Ratio down through the pipe
@@ -206,20 +210,26 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.GuiRos.drillCmd(15)
     elif (name == 'button_drill_stop'):
       self.GuiRos.drillCmd(4)
-    elif (name == 'slider_actuator'):
-      self.GuiRos.drillCmd(13+value)
-    elif (name == 'slider_drill'):
-      self.GuiRos.drillCmd(18+value)
-    elif (name == 'checkBox_actuator_direction'):
-      if value==2: #actuating down
-         self.GuiRos.drillCmd(10)
-      else:
-         self.GuiRos.drillCmd(9)
-    elif (name == 'checkBox_drill_direction'):
-      if value==2: #drilling down
-         self.GuiRos.drillCmd(11)
-      else:
-         self.GuiRos.drillCmd(12)
+    elif (name == 'button_actuator_down'):
+      self.GuiRos.drillCmd(10)
+      time.sleep(0.015)
+      self.GuiRos.drillCmd(13+self.GuiVis.ui.slider_actuator.value())
+
+    elif (name == 'button_actuator_up'):
+      self.GuiRos.drillCmd(9)
+      time.sleep(0.015)
+      self.GuiRos.drillCmd(13+self.GuiVis.ui.slider_actuator.value())
+
+    elif (name == 'button_drill_clockwise'):
+      self.GuiRos.drillCmd(11)
+      time.sleep(0.015)
+      self.GuiRos.drillCmd(18+self.GuiVis.ui.slider_drill.value())
+
+    elif (name == 'button_drill_anticlockwise'):
+      self.GuiRos.drillCmd(12)
+      time.sleep(0.015)
+      self.GuiRos.drillCmd(18+self.GuiVis.ui.slider_drill.value())
+
     elif (name == 'checkBox_sieve'):
       if value==2: #on
          self.GuiRos.drillCmd(24)
@@ -241,7 +251,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
        self.GuiRos.drillCmd(27)
        time.sleep(0.015)
        self.GuiRos.drillCmd(29)
-
+       for drill_checkbox in self.GuiVis.drill_checkboxes:
+            drill_checkbox.setChecked(False) 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.
