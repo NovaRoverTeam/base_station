@@ -66,7 +66,7 @@ class BaseSync:
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
   def handleChangeMission(self, req):    
     try:
-      #rospy.wait_for_service('/core_rover/req_change_mission', self.srv_timeout)
+      rospy.wait_for_service('/core_rover/req_change_mission', self.srv_timeout)
       client = rospy.ServiceProxy('/core_rover/req_change_mission',
         ChangeMission)
       res_rover = client(req.mission)
