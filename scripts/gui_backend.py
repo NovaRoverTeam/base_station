@@ -269,7 +269,6 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.GuiRos.launchSimulator()
 
     self.combo_mission.setCurrentIndex(1) # Switch to autonomous pane
-    self.GuiRos.setMission('AUT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # launchJDB(): 
@@ -283,7 +282,6 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.GuiRos.launchJDB()
 
     self.combo_mission.setCurrentIndex(0) # Switch to autonomous pane
-    self.GuiRos.setMission('ERT')
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # autoUpdate():
