@@ -91,8 +91,8 @@ class BaseSync:
   def driveCb(self, msg):
 
     global speed_change_flag
-    rpm_limit   = rospy.get_param('rpm_limit')
-    steer_limit = rospy.get_param('steer_limit')
+    rpm_limit   = rospy.get_param('rpm_limit', 0.3)
+    steer_limit = rospy.get_param('steer_limit', 0.3)
     
     drive_msg = DriveCmd() # New drive command message
     
