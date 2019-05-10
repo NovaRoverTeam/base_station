@@ -4,6 +4,7 @@ import rospy
 from nova_common.msg import *
 from nova_common.srv import *
 from std_msgs.msg import Empty
+from std_msgs.msg import Int8
 
 speed_change_flag = False
 class BaseSync:
@@ -35,6 +36,10 @@ class BaseSync:
         
     self.drive_cmd_pub = rospy.Publisher(
       '/core_rover/driver/drive_cmd', DriveCmd, 
+        queue_size=1)
+
+    self.max_speed_pub = rospy.Publisher(
+      '/base_station/change_max_speed', Int8, 
         queue_size=1)
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -97,8 +102,11 @@ class BaseSync:
     drive_msg = DriveCmd() # New drive command message
     
     # TODO define max RPM of motors and replace 50 with it
-    drive_msg.rpm       =  50 * rpm_limit   * msg.axis_ly_val   
-    drive_msg.steer_pct = 100 * rpm_limit * msg.axis_rx_val 
+    drive_msg.rpm       =  50 * rpm_limit   * msg.axis_ly_val
+    if drive_msg.rpm < 0:
+    	drive_msg.steer_pct = - 100 * rpm_limit * msg.axis_rx_val 
+    else:      
+    	drive_msg.steer_pct = 100 * rpm_limit * msg.axis_rx_val 
     
     
     if speed_change_flag==False and msg.axis_dy_dwn != 0:
@@ -106,11 +114,16 @@ class BaseSync:
          if msg.axis_dy_dwn == 1:
             rospy.set_param('rpm_limit',rpm_limit+0.1)
             rospy.loginfo("Up")
+            self.max_speed_pub.publish(10)
+            
          if msg.axis_dy_dwn == -1:
-            if rpm_limit < 0.0:
+            if rpm_limit <= 0.0:
                rpm_limit = 0.0
-            rospy.set_param('rpm_limit',rpm_limit-0.1)
-            rospy.loginfo("Down")
+               rospy.set_param('rpm_limit',0.0)
+            else:
+               self.max_speed_pub.publish(-10)
+               rospy.set_param('rpm_limit',rpm_limit-0.1)
+               rospy.loginfo("Down")
     elif msg.axis_dy_dwn == 0:
          speed_change_flag = False
     

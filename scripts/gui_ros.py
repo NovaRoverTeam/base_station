@@ -37,7 +37,7 @@ class GuiRos():
         self.min_signal = -96 # Minimum signal strength, dB
       
         rospy.init_node('gui_ros')
-
+        rospy.Subscriber('/base_station/change_max_speed', Int8, self.maxSpeedCb)
         rospy.Subscriber('/base_station/radio_status', RadioStatus, 
           self.radioCb, queue_size=1)
         rospy.Subscriber('/core_rover/camera_status', CameraStatus, 
@@ -318,5 +318,12 @@ class GuiRos():
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
     def drillCmd(self, number):
         self.drill_pub.publish(number)
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # maxSpeedChange():    
+    #    Changes the max speed of the rover
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def maxSpeedCb(self, number):
+    	self.ui.slider_a.setValue(self.ui.slider_a.value()+number.data)
 
 
