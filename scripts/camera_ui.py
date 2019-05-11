@@ -3,6 +3,7 @@
 # Import needed libraries
 import gi, sys, os, traceback
 from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
 
 # Get specific versions
 gi.require_version('Gst', '1.0')
@@ -20,7 +21,14 @@ Gst.init(sys.argv)
 # Set up application
 app = QApplication([])
 window = QWidget()
-layout = QVBoxLayout()
+window.setGeometry(0, 0, 500, 0)
+
+# Create layouts
+layout_L = QGridLayout() # Left column
+layout_R = QHBoxLayout() # Right column
+layout = QGridLayout() # Main layout
+layout.setSpacing(10)
+
 
 
 
@@ -56,16 +64,23 @@ def getGSTCommand (_port):
 
 
 
+
+####################################
+# CAMERA VARIABLES
+####################################
+
+# Ports for each camera
+cam_ports = (5000, 5001, 5002, 5003, 5004, 5005)
+
 # Set GST command
-streams = (getGSTCommand(5000), getGSTCommand(5001), getGSTCommand(5002), getGSTCommand(5003),
-"videotestsrc ! videoconvert ! ximagesink")
+streams = [getGSTCommand(idx) for idx in cam_ports]
 
 # Set Feed names
-feedNames = ('Stereo Camera', 'Arm Camera', 'Black Foscam', 'White Foscam', 'Test Feed')
+feedNames = ('Stereo Camera', 'Telescopic Camera', 'Black Foscam', 'White Foscam', 'Arm Camera 1', 'Arm Camera 2')
 
 
 # Set Feed Playing States
-feedPlaying = [False, False, False, False, False]
+feedPlaying = [False, False, False, False, False, False]
 
 
 # Create a pipeline from each command
@@ -103,26 +118,40 @@ btn_stop = QPushButton('Close Stream')
 
 
 
+# Returns the status of the cameras as a text
+def camera_status():
+	text = ''
+
+	# For each camera
+	for idx, camera in enumerate(feedNames):
+		# Add camera name
+		text += '\n{}'.format(camera)
+
+		# Get camera playing status
+		if feedPlaying[idx]:
+			camPlaying = "Playing"
+		else:
+			camPlaying = "Stopped"
+		text += '\n\tStatus: {}'.format(camPlaying)
+
+		# Get port of camera
+		text += '\n\tPort: {}\n'.format(cam_ports[idx])
+	return text
+
+label_status = QLabel(camera_status())
+label_status.setStyleSheet('QLabel {font-size: 8pt;}')
+layout_R.addWidget(label_status)
+
+
+
+
 # Setup function when camera change is altered
 def cb_camera_change(i):
 	global cameraIndex, port
 
 	# Set key variables
-	if i == 0: # Stereo Cam
-		port = 5000
-		txt_port.setText(str(port))
-	elif i == 1: # Arm Cam
-		port = 5001
-		txt_port.setText(str(port))
-	elif i == 2: # Black Fos Cam
-		port = 5002
-		txt_port.setText(str(port))
-	elif i == 3: # White Fos Cam
-		port = 5003
-		txt_port.setText(str(port))
-	elif i == 4: # Test Feed
-		port = 0
-		txt_port.setText(str(port))
+	port = cam_ports[i]
+	txt_port.setText(str(port))	
 
 	# Update camera index	
 	cameraIndex = i
@@ -130,24 +159,27 @@ def cb_camera_change(i):
 	# Change the buttons from being enabled or not
 	if feedPlaying[cameraIndex] == True:
 		btn_view.setEnabled(False)
+		btn_view.setStyleSheet('QPushButton {color:grey;}')
 		btn_stop.setEnabled(True)
+		btn_stop.setStyleSheet('QPushButton {color:red;}')
 	else:
 		btn_view.setEnabled(True)
+		btn_view.setStyleSheet('QPushButton {color:green;}')
 		btn_stop.setEnabled(False)
+		btn_stop.setStyleSheet('QPushButton {color:grey;}')
 
+	# Update camera status
+	label_status.setText(camera_status())
 
 
 # Add camera widgets to layout
 # Camera Combo Box
 cb_camera.currentIndexChanged.connect(cb_camera_change)
-layout.addWidget(cb_camera)
+layout_L.addWidget(cb_camera,0,0)
 
 # Port text
-layout.addWidget(label_port)
-layout.addWidget(txt_port)
-
-
-
+txt_port.setEnabled(False)
+layout_L.addWidget(txt_port,1,0)
 
 
 # Button for viewing stream
@@ -162,9 +194,9 @@ def on_btn_view():
 	# Update window
 	cb_camera_change(cameraIndex)
 
-
+btn_view.setStyleSheet('QPushButton {color:green;}')
 btn_view.clicked.connect(on_btn_view)
-layout.addWidget(btn_view)
+layout_L.addWidget(btn_view, 3, 0)
 
 
 
@@ -181,7 +213,7 @@ def on_btn_stop():
 	cb_camera_change(cameraIndex)
 
 btn_stop.clicked.connect(on_btn_stop)
-layout.addWidget(btn_stop)
+layout_L.addWidget(btn_stop, 4, 0)
 
 # Start with stop button not enabled
 btn_stop.setEnabled(False)
@@ -197,7 +229,7 @@ def on_btn_quit():
 	exit()
 
 btn_quit.clicked.connect(on_btn_quit)
-layout.addWidget(btn_quit)
+layout_L.addWidget(btn_quit, 5, 0)
 
 
 
@@ -214,12 +246,30 @@ isRunning = True
 
 
 # Run application
+layout.addLayout(layout_L, 0, 0)
+layout.addLayout(layout_R, 0, 1)
 window.setLayout(layout)
+window.setWindowTitle('Camera Stream Viewer')
+#window.setWindowIcon(QtGui.QIcon('pythonlogo.png'))
 window.show()
 app.exec_()
 
 
 isRunning = False
+
+
+
+
+
+
+
+
+
+
+
+###########################################################
+################## CONSOLE COMMANDS ONLY ##################
+###########################################################
 
 print("Running GStreamer camera feed window. Type 'help' or 'h' for more information.")
 
