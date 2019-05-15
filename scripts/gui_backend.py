@@ -184,6 +184,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     mission_str = str(button.text())
 
     # Call ROS service to change mode
+    if mission_str == "SCI":
+      self.combo_mission.setCurrentIndex(3)
+    elif mission_str == "AUT":
+      self.combo_mission.setCurrentIndex(2)
+    elif mission_str == "ERT" or mission_str == "EQP":
+      self.combo_mission.setCurrentIndex(1) 
+      
     success, _ = self.GuiRos.setMission(mission_str) 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
