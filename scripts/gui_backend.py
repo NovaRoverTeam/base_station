@@ -29,7 +29,7 @@ import rospy
 from gui_ros import GuiRos
 from gui_vis import GuiVis
 
-UDP_IP = "192.168.1.4"
+UDP_IP = "192.168.1.8"
 UDP_PORT = 6000
 
 sock = socket.socket(socket.AF_INET, # Internet
@@ -200,8 +200,12 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
         slider.setChecked(True)
     if   (name == 'button_ratio_up'): # Ratio up through the pipe
       self.GuiRos.drillCmd(8)
+      self.GuiVis.ui.slider_actuator.setValue(1)
+      self.GuiVis.ui.slider_drill.setValue(4)
     elif (name == 'button_ratio_down'): # Ratio down through the pipe
       self.GuiRos.drillCmd(7)
+      self.GuiVis.ui.slider_actuator.setValue(1)
+      self.GuiVis.ui.slider_drill.setValue(4)
     elif (name == 'button_drill_down'):
       self.GuiRos.drillCmd(23)
     elif (name == 'button_retract'):
@@ -210,6 +214,8 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.GuiRos.drillCmd(15)
     elif (name == 'button_drill_stop'):
       self.GuiRos.drillCmd(4)
+      self.GuiVis.ui.slider_actuator.setValue(0)
+      self.GuiVis.ui.slider_drill.setValue(0)
     elif (name == 'button_actuator_down'):
       self.GuiRos.drillCmd(10)
       time.sleep(0.015)
@@ -245,12 +251,19 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
          self.GuiRos.drillCmd(28)
       else:
          self.GuiRos.drillCmd(29)
+    elif (name == 'checkBox_mixers'):
+      if value==2: #on
+         self.GuiRos.drillCmd(30)
+      else:
+         self.GuiRos.drillCmd(31)
     elif (name == 'button_science_off'):
        self.GuiRos.drillCmd(25)
        time.sleep(0.015)
        self.GuiRos.drillCmd(27)
        time.sleep(0.015)
        self.GuiRos.drillCmd(29)
+       time.sleep(0.015)
+       self.GuiRos.drillCmd(31)
        for drill_checkbox in self.GuiVis.drill_checkboxes:
             drill_checkbox.setChecked(False) 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -309,7 +322,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.dial_bearing.setProperty("value", 180 + bearing)
     self.label_bearing.setText(str(bearing))
     message = "G " + str(msg.latitude) + " " + str(msg.longitude) +  " " + str(msg.bearing)
-    self.UDPsend(message)
+    self.UDPSend(message)
     
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # rawCtrlUpdate():
@@ -444,13 +457,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #    update map
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
   def mapUpdate(self,msg):
-    self.guiVis.data.append((msg.latitude,msg.longitude))
-    self.guiVis.update()
+    self.GuiVis.data[0] = (msg.latitude,msg.longitude)
+    self.GuiVis.update()
    
   def plot(self):
       x = self.ui.latitudeSpinBox.value()
       y = self.ui.longitudeSpinBox.value()
-      data.append((x,y))
+      self.GuiVis.data.append((x,y))
       
       self.update()
 
@@ -460,6 +473,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #    send data to other base station computer via UDP protocol
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
   def UDPSend(self,msg):
+    rospy.loginfo(msg)
     sock.sendto(msg, (UDP_IP, UDP_PORT))
 #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 # main():

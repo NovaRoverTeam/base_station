@@ -69,21 +69,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_plugged" native="true">
+             <widget class="KLed" name="led_radio0_plugged">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color" stdset="0">
+              <property name="color">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor" stdset="0">
+              <property name="darkFactor">
                <number>400</number>
               </property>
              </widget>
@@ -118,21 +118,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_paired" native="true">
+             <widget class="KLed" name="led_radio0_paired">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color" stdset="0">
+              <property name="color">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor" stdset="0">
+              <property name="darkFactor">
                <number>400</number>
               </property>
              </widget>
@@ -225,21 +225,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_plugged" native="true">
+             <widget class="KLed" name="led_radio1_plugged">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color" stdset="0">
+              <property name="color">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor" stdset="0">
+              <property name="darkFactor">
                <number>400</number>
               </property>
              </widget>
@@ -274,21 +274,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_paired" native="true">
+             <widget class="KLed" name="led_radio1_paired">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color" stdset="0">
+              <property name="color">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor" stdset="0">
+              <property name="darkFactor">
                <number>400</number>
               </property>
              </widget>
@@ -371,21 +371,21 @@
          <widget class="QWidget" name="cam0_pane" native="true">
           <layout class="QHBoxLayout" name="cam0">
            <item>
-            <widget class="KLed" name="led_cam0" native="true">
+            <widget class="KLed" name="led_cam0">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color" stdset="0">
+             <property name="color">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor" stdset="0">
+             <property name="darkFactor">
               <number>400</number>
              </property>
             </widget>
@@ -445,7 +445,7 @@
               <string>0</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -473,7 +473,7 @@
               <string>0</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -498,21 +498,21 @@
          <widget class="QWidget" name="cam1_pane" native="true">
           <layout class="QHBoxLayout" name="cam1">
            <item>
-            <widget class="KLed" name="led_cam1" native="true">
+            <widget class="KLed" name="led_cam1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color" stdset="0">
+             <property name="color">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor" stdset="0">
+             <property name="darkFactor">
               <number>400</number>
              </property>
             </widget>
@@ -572,7 +572,7 @@
               <string>1</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -600,7 +600,7 @@
               <string>1</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -619,7 +619,7 @@
          <widget class="QWidget" name="cam2_pane" native="true">
           <layout class="QHBoxLayout" name="cam2">
            <item>
-            <widget class="KLed" name="led_cam2" native="true">
+            <widget class="KLed" name="led_cam2">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -629,14 +629,14 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color" stdset="0">
+             <property name="color">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor" stdset="0">
+             <property name="darkFactor">
               <number>400</number>
              </property>
             </widget>
@@ -696,7 +696,7 @@
               <string>2</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -724,7 +724,7 @@
               <string>2</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -746,21 +746,21 @@
          <widget class="QWidget" name="cam3_pane" native="true">
           <layout class="QHBoxLayout" name="cam3">
            <item>
-            <widget class="KLed" name="led_cam3" native="true">
+            <widget class="KLed" name="led_cam3">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color" stdset="0">
+             <property name="color">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor" stdset="0">
+             <property name="darkFactor">
               <number>400</number>
              </property>
             </widget>
@@ -820,7 +820,7 @@
               <string>3</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -848,7 +848,7 @@
               <string>3</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -867,21 +867,21 @@
          <widget class="QWidget" name="cam4_pane" native="true">
           <layout class="QHBoxLayout" name="cam4">
            <item>
-            <widget class="KLed" name="led_cam4" native="true">
+            <widget class="KLed" name="led_cam4">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color" stdset="0">
+             <property name="color">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor" stdset="0">
+             <property name="darkFactor">
               <number>400</number>
              </property>
             </widget>
@@ -941,7 +941,7 @@
               <string>4</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/eye_inv_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/invisible_revert_icon&amp;16.png</normalon>:/media/icons/eye_inv_icon&amp;16.png</iconset>
              </property>
@@ -969,7 +969,7 @@
               <string>4</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="resources/res.qrc">
                <normaloff>:/media/icons/connect_icon&amp;16.png</normaloff>
                <normalon>:/media/icons/disconnected_icon&amp;16.png</normalon>:/media/icons/connect_icon&amp;16.png</iconset>
              </property>
@@ -1016,14 +1016,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="KLed" name="led_xbox" native="true">
+                 <widget class="KLed" name="led_xbox">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="darkFactor" stdset="0">
+                  <property name="darkFactor">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1062,14 +1062,14 @@
                  <enum>QLayout::SetMaximumSize</enum>
                 </property>
                 <item>
-                 <widget class="KLed" name="led_haptic" native="true">
+                 <widget class="KLed" name="led_haptic">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="darkFactor" stdset="0">
+                  <property name="darkFactor">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1143,7 +1143,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap>:/media/nova_logo.png</pixmap>
+           <pixmap resource="resources/res.qrc">:/media/nova_logo.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1239,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>4</number>
+           <number>5</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1886,6 +1886,13 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_mixers">
+                  <property name="text">
+                   <string>Mixers On</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -2264,14 +2271,14 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <widget class="KLed" name="led_battery" native="true">
+           <widget class="KLed" name="led_battery">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="darkFactor" stdset="0">
+            <property name="darkFactor">
              <number>400</number>
             </property>
            </widget>
@@ -2391,21 +2398,21 @@
            </spacer>
           </item>
           <item>
-           <widget class="KLed" name="led_relay" native="true">
+           <widget class="KLed" name="led_relay">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="color" stdset="0">
+            <property name="color">
              <color>
               <red>0</red>
               <green>255</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor" stdset="0">
+            <property name="darkFactor">
              <number>400</number>
             </property>
            </widget>
@@ -2553,7 +2560,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="resources/res.qrc">
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2623,7 +2630,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="resources/res.qrc">
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2696,7 +2703,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="resources/res.qrc">
                 <normaloff>:/media/icons/padlock_closed_icon&amp;16.png</normaloff>
                 <normalon>:/media/icons/padlock_open_icon&amp;16.png</normalon>:/media/icons/padlock_closed_icon&amp;16.png</iconset>
               </property>
@@ -2808,7 +2815,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="resources/res.qrc">
                    <normaloff>:/media/icons/zoom_icon&amp;16.png</normaloff>:/media/icons/zoom_icon&amp;16.png</iconset>
                  </property>
                  <property name="checkable">
@@ -2822,7 +2829,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="resources/res.qrc">
                    <normaloff>:/media/icons/arrow_top_icon&amp;16.png</normaloff>:/media/icons/arrow_top_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2833,7 +2840,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="resources/res.qrc">
                    <normaloff>:/media/icons/arrow_right_icon&amp;16.png</normaloff>:/media/icons/arrow_right_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2844,7 +2851,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="resources/res.qrc">
                    <normaloff>:/media/icons/arrow_left_icon&amp;16.png</normaloff>:/media/icons/arrow_left_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2855,7 +2862,7 @@
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="resources/res.qrc">
                    <normaloff>:/media/icons/arrow_bottom_icon&amp;16.png</normaloff>:/media/icons/arrow_bottom_icon&amp;16.png</iconset>
                  </property>
                 </widget>
@@ -2917,14 +2924,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="KLed" name="led_GPS" native="true">
+               <widget class="KLed" name="led_GPS">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor" stdset="0">
+                <property name="darkFactor">
                  <number>400</number>
                 </property>
                </widget>
@@ -2963,14 +2970,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="KLed" name="led_LIDAR" native="true">
+               <widget class="KLed" name="led_LIDAR">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor" stdset="0">
+                <property name="darkFactor">
                  <number>400</number>
                 </property>
                </widget>
@@ -3013,14 +3020,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <widget class="KLed" name="led_IMU" native="true">
+               <widget class="KLed" name="led_IMU">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor" stdset="0">
+                <property name="darkFactor">
                  <number>400</number>
                 </property>
                </widget>
@@ -3059,14 +3066,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
-               <widget class="KLed" name="led_Raman" native="true">
+               <widget class="KLed" name="led_Raman">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor" stdset="0">
+                <property name="darkFactor">
                  <number>400</number>
                 </property>
                </widget>
@@ -3152,21 +3159,21 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_20">
           <item>
-           <widget class="KLed" name="led_rosbag" native="true">
+           <widget class="KLed" name="led_rosbag">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="color" stdset="0">
+            <property name="color">
              <color>
               <red>255</red>
               <green>0</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor" stdset="0">
+            <property name="darkFactor">
              <number>400</number>
             </property>
            </widget>
@@ -3210,7 +3217,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="resources/res.qrc">
               <normaloff>:/media/icons/wrench_icon&amp;16.png</normaloff>:/media/icons/wrench_icon&amp;16.png</iconset>
             </property>
            </widget>
@@ -3228,7 +3235,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="resources/res.qrc">
               <normaloff>:/media/icons/playback_rec_icon&amp;16.png</normaloff>
               <normalon>:/media/icons/playback_stop_icon&amp;16.png</normalon>:/media/icons/playback_rec_icon&amp;16.png</iconset>
             </property>

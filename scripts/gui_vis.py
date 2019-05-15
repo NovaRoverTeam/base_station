@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 import random
 # Class representing the visual GUI interface
-data = [(0.0,0.0)]
+
 class GuiVis():
 
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -30,7 +30,7 @@ class GuiVis():
     #    Initiases main class.
     #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--  
     def __init__(self, ui):
-
+        self.data = [(0.0,0.0)]
         self.ui = ui  # Qt MainDialog (for connecting ROS msg callbacks)
 
         self.leds = [
@@ -78,7 +78,7 @@ class GuiVis():
             ui.button_ratio_up, ui.button_ratio_down, ui.button_drill_down, ui.button_retract, ui.button_drill_stop, ui.button_science_off, ui.button_actuator_down, ui.button_actuator_up, ui.button_drill_clockwise, ui.button_drill_anticlockwise
         ]
         self.drill_checkboxes = [
-            ui.checkBox_sieve, ui.checkBox_wet, ui.checkBox_pump
+            ui.checkBox_sieve, ui.checkBox_wet, ui.checkBox_pump, ui.checkBox_mixers
         ]
         self.progress_radios = [
             ui.progress_radio0, ui.progress_radio1
@@ -294,7 +294,7 @@ class GuiVis():
     def plot(self):
         x = self.ui.latitudeSpinBox.value()
         y = self.ui.longitudeSpinBox.value()
-        data.append((x,y))
+        self.data.append((x,y))
         message = "W " + str(x) + " " + str(y)
         self.ui.UDPSend(message)
         self.update()
@@ -304,17 +304,16 @@ class GuiVis():
         ys = []
         ''' plot some random stuff '''
         # random data
-	for i in range(1,len(data)):
-             xs.append(data[i][0])
-             ys.append(data[i][1])
+	for i in range(1,len(self.data)):
+             xs.append(self.data[i][0])
+             ys.append(self.data[i][1])
        
         # create an axis
         ax = self.figure.add_subplot(111)
         # discards the old graph
         ax.clear()
-	print(data)
         # plot data
-        coordinates = data[0]
+        coordinates = self.data[0]
         ax.plot(coordinates[0],coordinates[1],'ro')
         ax.plot(xs,ys, 'bd')
 
