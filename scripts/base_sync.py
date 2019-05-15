@@ -175,7 +175,7 @@ class BaseSync:
   def rawCtrlCb(self, msg):
     mode = rospy.get_param('base_station/Mode')
     drive_mode = rospy.get_param('base_station/drive_mode')
-    mode = 'Drive'
+    
     if msg.but_y_trg == True:
 	    rospy.loginfo("True")
 	    rospy.set_param('base_station/drive_mode','XboxDrive')
