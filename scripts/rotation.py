@@ -5,6 +5,7 @@ import numpy as np
 import socket
 from itertools import product, combinations
 
+#
 # Set figures
 plt.rcParams['toolbar'] = 'None' # Turn off toolbar
 fig = plt.figure('Rotation of Rover', figsize=(3, 3)) # Create figure
