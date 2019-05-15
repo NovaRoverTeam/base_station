@@ -5,8 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 import matplotlib.transforms as mtransforms
-import socket
+import socket, time
 from matplotlib.patches import Ellipse
+
+
+# Create window ready
+#plt.rcParams['toolbar'] = 'None' # Turn off toolbar
+fig = plt.figure('Rover Location', figsize=(5.5, 5)) # Create figure
+plt.rc('font', **{'size':8}) # Change font size
 
 # Get UDP streams of current device connection
 UDP_IP = '192.168.1.8'
@@ -18,14 +24,19 @@ sock.bind((UDP_IP, UDP_PORT))
 
 # Plotting Data Variables
 coordinates = (0.0, 0.0) # GPS Coordinates
-yaw = 0.0 # Current Yaw
+pastCoordinates = [] # List of all past coordinates
 waypoints = []
 yawDirfactor = 0.00002 # How far to move direction marker from coordinates
 firstCoordinate = (0.0, 0.0) # The first GSP coordinate (for creating axis)
 
+# Rotation Variables
+yaw = 0.0 # Current Yaw
+pitch = 0.0
+roll = 0.0
+
 # Constant conversion points
-latToM = 110000.0
-longToM = 80000.0
+latToM = 110000
+longToM = 80000
 
 
 # This function takes in a yaw and a length and creates a coordinate of that angle away from the
@@ -39,9 +50,11 @@ def yawDirection (_yaw, _length):
 	return direction
 
 
-
+# Set last GPS time
+time_last_GPS = 0
 
 while True:
+
 	data, addr = sock.recvfrom(1024)
 	#data = raw_input('Data: ')#'G 32.1127 131.2338 127'
 	print( "Receieved Message: ", data)
@@ -61,24 +74,43 @@ while True:
 			# If this is the first coordinate
 			if firstCoordinate == (0.0, 0.0):
 				firstCoordinate = coordinates
+				
+			# Add history of GPS
+			# If 5 seconds has elapsed since last saved GPS
+			if time.time() - time_last_GPS > 5.0:
+				# Update the time frame
+				time_last_GPS = time.time()
+				# Add the coordinate to the list
+				pastCoordinates.insert(0, coordinates)
+				
+			# If pitch and roll values are present
+			if len(values) > 4:
+				pitch = values[4]
+				roll = values[5]
 		
 		# New Waypoint plot
 		elif command == 'W':
 			values = line.strip().split(' ')
-			waypoints.append((float(values[1]), float(values[2])))
+			waypoints.insert(0, (float(values[1]), float(values[2])))
 		
 		# Otherwise skip this loop frame
 		else:
-			continue	
-
-	# Get the X and Y values as single arrays, from the waypoint tuples
-	x = [val[1] for val in waypoints]
-	y = [val[0] for val in waypoints]
+			continue
 
 	# Clear the current plot
 	plt.cla()
 	
 	plt.autoscale(False)
+	
+	
+		
+	# Plot the past GPS coordinates
+	# Get a list of X and Y coordinates (only first 100 points)
+	x = [coord[1] for coord in pastCoordinates[0:100]]
+	y = [coord[0] for coord in pastCoordinates[0:100]]
+	plt.plot(x, y, linewidth=1.0)
+	
+	
 	
 	# Plot the current GPS location
 	plt.scatter(coordinates[1], coordinates[0], color='cyan', s=30)
@@ -87,24 +119,38 @@ while True:
 	yaw_dir = yawDirection(yaw, yawDirfactor)
 	plt.scatter(yaw_dir[0] + coordinates[1], yaw_dir[1] + coordinates[0], color='red', s=10)
 	
+	
+	
 	# Plot the waypoints
-	plt.scatter(x, y, color='lime')
+	for idx, coord in enumerate(waypoints):
+		# Set Alpha position
+		if idx < 10:
+			alpha = 1.0/(float)(idx + 1)
+		else:
+			alpha = 0.1
+		
+		# Set middle colour
+		if idx == 0:
+			facecolors = 'none'
+		else:
+			facecolors = 'lime'
+			
+		plt.scatter(coord[1], coord[0], color='lime', alpha=alpha, facecolors=facecolors)
+	
 	
 	# Adjust the axis and graph
 	ax = plt.gca()
 	ax.set_facecolor('xkcd:black')
 	ax.grid(alpha=0.2)
-	ax.set_xlabel('Longitude')
-	ax.set_ylabel('Latitude')
-	ax.set_title('Extreme Retrieval Rover Location')
+	
 		
 	# Adjust the scale to fit the GPS coordinate
-	# 200 Meter diameter latitude and longitude
+	# 160 Meter diameter latitude and longitude
 	diameterLat = (1.0 / latToM)
 	diameterLong = (1.0 / longToM)
-	axisInM = 100.0 # The size of the screen in meters
-	ax.set_xlim(firstCoordinate[1] - diameterLong * axisInM, firstCoordinate[1] + diameterLong * axisInM)
-	ax.set_ylim(firstCoordinate[0] - diameterLat * axisInM, firstCoordinate[0] + diameterLat * axisInM)
+	axisInM = 100.0 # The size of half the screen in meters
+	ax.set_xlim(coordinates[1] - diameterLong * axisInM, coordinates[1] + diameterLong * axisInM)
+	ax.set_ylim(coordinates[0] - diameterLat * axisInM, coordinates[0] + diameterLat * axisInM)
 	
 	# Create a ellipse from the GPS coordinates with different intervals (in meters)
 	eIntervals = (20.0, 50.0, 100.0)
@@ -114,12 +160,18 @@ while True:
 	for ellipse in ellipses:
 		ax.add_artist(ellipse)
 	
+	# Remove white space padding
+	fig.tight_layout()
 	
 	# Draw the plot to the screen
 	plt.pause(0.01)
 	plt.draw()
 
 
+
+
+	# Create rotation cube
+	
 
 
 
