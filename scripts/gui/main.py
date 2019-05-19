@@ -1607,6 +1607,9 @@ class Ui_MainWindow(object):
         self.line_14.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_14.setObjectName(_fromUtf8("line_14"))
         self.right_pane.addWidget(self.line_14)
+        self.PID_checkbox = QtGui.QCheckBox(self.centralwidget)
+        self.PID_checkbox.setObjectName(_fromUtf8("PID_checkbox"))
+        self.right_pane.addWidget(self.PID_checkbox)
         spacerItem32 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.right_pane.addItem(spacerItem32)
         self.main_hrz.addLayout(self.right_pane)
@@ -1745,6 +1748,7 @@ class Ui_MainWindow(object):
         self.label_40.setText(_translate("MainWindow", " Radio Debug", None))
         self.tool_900_debug.setText(_translate("MainWindow", "900MHz", None))
         self.tool_5_debug.setText(_translate("MainWindow", "5.8GHz", None))
+        self.PID_checkbox.setText(_translate("MainWindow", "PID On", None))
 
 from PyKDE4.kdeui import KLed
 import res_rc

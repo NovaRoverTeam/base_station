@@ -149,7 +149,8 @@ class BaseSync:
     drive_msg.rpm       =  50 * rpm_limit   * msg_rpm  
     drive_msg.steer_pct = 100 * steer_limit * msg_steer_pct
     
-    self.drive_cmd_pub.publish(drive_msg) # Send it
+    #if rospy.get_param("/core_rover/Mode") == "Drive": 
+      #self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--

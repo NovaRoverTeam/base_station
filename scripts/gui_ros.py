@@ -20,6 +20,7 @@ import roslaunch
 from nova_common.msg import * 
 from nova_common.srv import *
 from std_msgs.msg import Int8
+from std_msgs.msg import Bool
 from PyQt4 import QtCore
 
 # Class representing the ROS interface
@@ -50,7 +51,7 @@ class GuiRos():
             GimbalCmd, queue_size=10)
         self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
             Int8, queue_size=10)
-
+        self.PID_pub = rospy.Publisher('/base_station/PID_cmd', Bool, queue_size = 1)
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getMode():   
     #   Get the current base station Mode.
@@ -319,6 +320,16 @@ class GuiRos():
     def drillCmd(self, number):
         self.drill_pub.publish(number)
 
+
+  #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+  # changePID()
+  #    changes the mode to either be PID or direct voltage
+  #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def changePID(self, value):
+        if value == 2:
+           self.PID_pub.publish(True)
+        else:
+           self.PID_pub.publish(False)
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # maxSpeedChange():    
     #    Changes the max speed of the rover

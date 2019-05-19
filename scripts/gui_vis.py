@@ -139,7 +139,7 @@ class GuiVis():
         self.ui.button_simulator.clicked.connect(self.ui.launchSimulator)
         self.ui.button_rover.clicked.connect(self.ui.launchJDB)
         self.ui.button_engage_auto.clicked.connect(self.ui.engageAuto)
-        
+        self.ui.PID_checkbox.stateChanged.connect(self.ui.GuiRos.changePID)
         for mode_button in self.mode_buttons:
             mode_button.clicked.connect(self.ui.modeChange)   
 
@@ -296,7 +296,7 @@ class GuiVis():
         y = self.ui.longitudeSpinBox.value()
         self.data.append((x,y))
         message = "W " + str(x) + " " + str(y)
-        self.ui.UDPSend(message)
+        self.ui.UDPSend(message,6000)
         self.update()
          
     def update(self):

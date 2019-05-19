@@ -3320,6 +3320,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="PID_checkbox">
+          <property name="text">
+           <string>PID On</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>

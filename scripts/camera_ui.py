@@ -70,24 +70,24 @@ def getGSTCommand (_port):
 ####################################
 
 # Ports for each camera
-cam_ports = (5000, 5001, 5002, 5003, 5004, 5005)
+cam_ports = (5000, 5001, 5002, 5003, 5004, 5005, 5006)
 
 # Set GST command
 streams = [getGSTCommand(idx) for idx in cam_ports]
 
 # Set Feed names
-feedNames = ('Stereo Camera', 'Telescopic Camera', 'Black Foscam', 'White Foscam', 'Arm Camera 1', 'Arm Camera 2')
+feedNames = ('Stereo Camera', 'Telescopic Camera', 'Black Foscam', 'White Foscam', 'Arm Camera 1', 'Arm Camera 2', 'Arm Stereo Camera')
 
 
 # Set Feed Playing States
-feedPlaying = [False, False, False, False, False, False]
+feedPlaying = [False, False, False, False, False, False, False]
 
 
 # Create a pipeline from each command
 for stream in streams:
 	# Create pipeline
 	pipeline = Gst.parse_launch(stream)
-	bus = pipeline.get_bus()  
+	bus = pipeline.get_bus()
 
 	# Allow bus to emit messages to main thread
 	bus.add_signal_watch()
