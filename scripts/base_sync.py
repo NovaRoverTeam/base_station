@@ -126,8 +126,9 @@ class BaseSync:
                rospy.loginfo("Down")
     elif msg.axis_dy_dwn == 0:
          speed_change_flag = False
-    
-    self.drive_cmd_pub.publish(drive_msg) # Send it
+
+    if rospy.get_param("/core_rover/Mode") == "Drive":
+      self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
   def rightDriveCb(self, msg):
@@ -149,8 +150,8 @@ class BaseSync:
     drive_msg.rpm       =  50 * rpm_limit   * msg_rpm  
     drive_msg.steer_pct = 100 * steer_limit * msg_steer_pct
     
-    #if rospy.get_param("/core_rover/Mode") == "Drive": 
-      #self.drive_cmd_pub.publish(drive_msg) # Send it
+    if rospy.get_param("/core_rover/Mode") == "Drive": 
+      self.drive_cmd_pub.publish(drive_msg) # Send it
 
 
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
