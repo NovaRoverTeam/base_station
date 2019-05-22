@@ -94,9 +94,9 @@ int main(int argc, char **argv)
     msg.back_trg = GamepadButtonTriggered(controller, BUTTON_BACK);
 
     msg.but_x_trg = GamepadButtonTriggered(controller, BUTTON_X);
-    msg.but_y_trg = GamepadButtonDown(controller, BUTTON_Y);
+    msg.but_y_trg = GamepadButtonTriggered(controller, BUTTON_Y);
     msg.but_a_trg = GamepadButtonTriggered(controller, BUTTON_A);
-    msg.but_b_trg = GamepadButtonTriggered(controller, BUTTON_B);
+    msg.but_b_trg = GamepadButtonDown(controller, BUTTON_B);
 
     msg.bump_l_dwn = GamepadButtonDown(controller, BUTTON_LEFT_SHOULDER);
     msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
