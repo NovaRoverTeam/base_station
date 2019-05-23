@@ -243,7 +243,14 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
       self.GuiRos.drillCmd(12)
       time.sleep(0.15)
       self.GuiRos.drillCmd(18+self.GuiVis.ui.slider_drill.value())
-
+    elif (name == 'fill_cuvettes'):
+      self.GuiRos.drillCmd(34)
+    elif (name == 'scan_cuvettes'):
+      self.GuiRos.drillCmd(35)
+    elif (name == 'flush_and_fill'):
+      self.GuiRos.drillCmd(32)
+    elif (name == 'fill_cuvette'):
+      self.GuiRos.drillCmd(33)
     elif (name == 'checkBox_sieve'):
       if value==2: #on
          self.GuiRos.drillCmd(24)

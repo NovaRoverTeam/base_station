@@ -1893,6 +1893,42 @@
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_30">
+                  <item>
+                   <widget class="QPushButton" name="flush_and_fill">
+                    <property name="text">
+                     <string>Flush and Fill one Cuvette</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="fill_cuvette">
+                    <property name="text">
+                     <string>Fill a Cuvette</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_29">
+                  <item>
+                   <widget class="QPushButton" name="fill_cuvettes">
+                    <property name="text">
+                     <string>Fill 6 Cuvettes</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="scan_cuvettes">
+                    <property name="text">
+                     <string>Scan 12 Cuvettes</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
                </layout>
               </item>
              </layout>
