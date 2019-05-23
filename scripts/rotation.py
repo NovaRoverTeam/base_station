@@ -2,12 +2,12 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.pyplot as plt
 import numpy as np
-import socket
+import socket, sys
 from itertools import product, combinations
 
 # Set figures
 plt.rcParams['toolbar'] = 'None' # Turn off toolbar
-fig = plt.figure('Rotation of Rover', figsize=(3, 3)) # Create figure
+fig = plt.figure('Rotation of Rover', figsize=(6, 6)) # Create figure
 ax = fig.gca(projection='3d') # Get 3D axes
 ax.format_coord = lambda x, y: '' # Turn off coordinates
 
@@ -17,7 +17,10 @@ UDP_IP = '192.168.1.8'
 UDP_PORT = 6001
 
 # Use socket network values? If not, manually enter data
-isSocket = True
+if len(sys.argv) > 1 and str(sys.argv[1]).lower() == 'f':
+	isSocket = False
+else:
+	isSocket = True
 
 
 # Create data connection sink

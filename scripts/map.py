@@ -5,22 +5,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 import matplotlib.transforms as mtransforms
-import socket, time
+import socket, time, sys
 from matplotlib.patches import Ellipse
 
 
 # Create window ready
 #plt.rcParams['toolbar'] = 'None' # Turn off toolbar
-fig = plt.figure('Rover Location', figsize=(5.5, 5)) # Create figure
-plt.rc('font', **{'size':8}) # Change font size
+fig = plt.figure('Rover Location', figsize=(11, 10)) # Create figure
+plt.rc('font', **{'size':16}) # Change font size
 
 # Get UDP streams of current device connection
 UDP_IP = '192.168.1.8'
 UDP_PORT = 6000
 
-# Create data connection sink
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((UDP_IP, UDP_PORT))
+
+# Use socket network values? If not, manually enter data
+if len(sys.argv) > 1 and str(sys.argv[1]).lower() == 'f':
+	isSocket = False
+else:
+	isSocket = True
+
+
+if isSocket:
+	# Create data connection sink
+	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	sock.bind((UDP_IP, UDP_PORT))
 
 # Plotting Data Variables
 coordinates = (0.0, 0.0) # GPS Coordinates
@@ -55,8 +64,10 @@ time_last_GPS = 0
 
 while True:
 
-	data, addr = sock.recvfrom(1024)
-	#data = raw_input('Data: ')#'G 32.1127 131.2338 127'
+	if isSocket:
+		data, addr = sock.recvfrom(1024)
+	else:
+		data = raw_input('Data: ')#'G 32.1127 131.2338 127'
 	print( "Receieved Message: ", data)
 	
 	# For multiline data sets
@@ -113,11 +124,11 @@ while True:
 	
 	
 	# Plot the current GPS location
-	plt.scatter(coordinates[1], coordinates[0], color='cyan', s=30)
+	plt.scatter(coordinates[1], coordinates[0], color='cyan', s=60)
 	
 	# Plot the direction marker
 	yaw_dir = yawDirection(yaw, yawDirfactor)
-	plt.scatter(yaw_dir[0] + coordinates[1], yaw_dir[1] + coordinates[0], color='red', s=10)
+	plt.scatter(yaw_dir[0] + coordinates[1], yaw_dir[1] + coordinates[0], color='red', s=20)
 	
 	
 	
@@ -140,7 +151,7 @@ while True:
 	
 	# Adjust the axis and graph
 	ax = plt.gca()
-	ax.set_facecolor('xkcd:black')
+	ax.set_facecolor('black')
 	ax.grid(alpha=0.2)
 	
 		
@@ -164,14 +175,11 @@ while True:
 	fig.tight_layout()
 	
 	# Draw the plot to the screen
-	plt.pause(0.01)
 	plt.draw()
+	plt.pause(0.01)
 
 
 
-
-	# Create rotation cube
-	
 
 
 

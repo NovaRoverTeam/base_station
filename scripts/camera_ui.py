@@ -10,8 +10,7 @@ gi.require_version('Gst', '1.0')
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gtk', '3.0')
 
-from gi.repository import Gst, GObject, Gtk
-from gi.repository import GdkX11, GstVideo
+from gi.repository import Gst, GObject, GstVideo
 
 
 # Initialise the GStreamer library with arguments
@@ -28,7 +27,6 @@ layout_L = QGridLayout() # Left column
 layout_R = QHBoxLayout() # Right column
 layout = QGridLayout() # Main layout
 layout.setSpacing(10)
-
 
 
 
