@@ -297,6 +297,7 @@ class GuiVis():
         self.data.append((x,y))
         message = "W " + str(x) + " " + str(y)
         self.ui.UDPSend(message,6000)
+        self.ui.prev_GPS.setText(message)
         self.update()
          
     def update(self):

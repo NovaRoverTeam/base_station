@@ -1394,6 +1394,19 @@
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="prev_GPS">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>test</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="Line" name="line_17">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>

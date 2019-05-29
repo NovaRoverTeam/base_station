@@ -1,9 +1,9 @@
 import socket
 
-UDP_IP = "192.168.1.4"
+UDP_IP = "192.168.1.8"
 UDP_PORT = 6000
 #MESSAGE = "I -43.220121 144.23233 " + str(180)
-MESSAGE = "G -43.220 144.232 45.832"
+MESSAGE = "W 38.3836701 -110.7178283"
 #MESSAGE = "W -43.220 144.232"
 print "UDP target IP:", UDP_IP
 print "UDP target port:", UDP_PORT
