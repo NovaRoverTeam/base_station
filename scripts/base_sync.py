@@ -203,9 +203,10 @@ class BaseSync:
     mode = rospy.get_param('base_station/Mode')
     drive_mode = rospy.get_param('base_station/drive_mode')
     mode = 'Drive'
+    """
     if msg.but_b_trg == True:
 	    rospy.loginfo("True")
-	    rospy.set_param('base_station/drive_mode','RightDrive')
+	    rospy.set_param('base_station/drive_mode','RightDrive')"""
     if   (drive_mode=='RightDrive' and mode=='Drive'):
         self.rightDriveCb(msg)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
@@ -234,7 +235,7 @@ def main():
   hbeat_loop_cnt = 0
   
   while not rospy.is_shutdown(): 
-    if (hbeat_loop_cnt > 10):
+    if (hbeat_loop_cnt >= 1):
         hbeat_msg = Empty()
         hbeat_pub.publish(hbeat_msg)
         hbeat_loop_cnt = 0
