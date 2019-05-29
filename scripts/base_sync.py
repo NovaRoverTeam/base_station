@@ -234,7 +234,7 @@ def main():
   hbeat_loop_cnt = 0
   
   while not rospy.is_shutdown(): 
-    if (hbeat_loop_cnt > 10):
+    if (hbeat_loop_cnt >= 1):
         hbeat_msg = Empty()
         hbeat_pub.publish(hbeat_msg)
         hbeat_loop_cnt = 0

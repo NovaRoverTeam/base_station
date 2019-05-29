@@ -1239,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>5</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1415,7 +1415,10 @@
                  <number>15</number>
                 </property>
                 <property name="minimum">
-                 <double>-99.000000000000000</double>
+                 <double>-200.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>200.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -1425,7 +1428,7 @@
                  <number>15</number>
                 </property>
                 <property name="minimum">
-                 <double>-99.000000000000000</double>
+                 <double>-200.000000000000000</double>
                 </property>
                 <property name="maximum">
                  <double>200.000000000000000</double>
@@ -1844,90 +1847,83 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_27">
+             <layout class="QHBoxLayout" name="horizontalLayout_27"/>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_13">
+               <widget class="QCheckBox" name="checkBox_sieve">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Sieve On</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_mixers">
+                <property name="text">
+                 <string>Mixers On</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_wet">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Wet Sieve Pumps On</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_pump">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Cuvette Pump On</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_30"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_29">
                 <item>
-                 <widget class="QCheckBox" name="checkBox_sieve">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>50</height>
-                   </size>
-                  </property>
+                 <widget class="QPushButton" name="fill_cuvettes">
                   <property name="text">
-                   <string>Sieve On</string>
+                   <string>Fill 6 Cuvettes</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_wet">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>50</height>
-                   </size>
-                  </property>
+                 <widget class="QPushButton" name="scan_cuvettes">
                   <property name="text">
-                   <string>Wet Sieve On</string>
+                   <string>Scan 12 Cuvettes</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
                   </property>
                  </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_pump">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Cuvette Pump On</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_mixers">
-                  <property name="text">
-                   <string>Mixers On</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_30">
-                  <item>
-                   <widget class="QPushButton" name="flush_and_fill">
-                    <property name="text">
-                     <string>Flush and Fill one Cuvette</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="fill_cuvette">
-                    <property name="text">
-                     <string>Fill a Cuvette</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_29">
-                  <item>
-                   <widget class="QPushButton" name="fill_cuvettes">
-                    <property name="text">
-                     <string>Fill 6 Cuvettes</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="scan_cuvettes">
-                    <property name="text">
-                     <string>Scan 12 Cuvettes</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
                 </item>
                </layout>
               </item>
@@ -1944,6 +1940,9 @@
               <property name="text">
                <string>STOP!</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -1958,6 +1957,30 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_31">
+              <item>
+               <widget class="QPushButton" name="fill_cuvette">
+                <property name="text">
+                 <string>Fill a Cuvette</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="flush_and_fill">
+                <property name="text">
+                 <string>Flush and Fill one Cuvette</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
