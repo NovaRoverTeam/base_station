@@ -57,8 +57,12 @@ pipelines = []
 buses = []
 
 
-def getGSTCommand (_port):
-	return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! autovideosink".format(_port))
+def getGSTCommand (_port, _flip):
+	if _flip:
+		return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! videoflip method=rotate-180 ! autovideosink".format(_port))
+
+	else:
+		return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! autovideosink".format(_port))
 
 
 
@@ -69,9 +73,12 @@ def getGSTCommand (_port):
 
 # Ports for each camera
 cam_ports = (5000, 5001, 5002, 5003, 5004, 5005, 5006)
+flipFeeds = (False, True, False, False, True, True, False)
 
 # Set GST command
-streams = [getGSTCommand(idx) for idx in cam_ports]
+streams = []
+for idx, camPort in enumerate(cam_ports):
+	streams.append(getGSTCommand(camPort, flipFeeds[idx]))
 
 # Set Feed names
 feedNames = ('Stereo Camera', 'Telescopic Camera', 'Black Foscam', 'White Foscam', 'Arm Camera 1', 'Arm Camera 2', 'Arm Stereo Camera')

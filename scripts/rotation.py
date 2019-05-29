@@ -7,7 +7,7 @@ from itertools import product, combinations
 
 # Set figures
 plt.rcParams['toolbar'] = 'None' # Turn off toolbar
-fig = plt.figure('Rotation of Rover', figsize=(6, 6)) # Create figure
+fig = plt.figure('Rotation of Rover', figsize=(3, 3)) # Create figure
 ax = fig.gca(projection='3d') # Get 3D axes
 ax.format_coord = lambda x, y: '' # Turn off coordinates
 
@@ -21,6 +21,12 @@ if len(sys.argv) > 1 and str(sys.argv[1]).lower() == 'f':
 	isSocket = False
 else:
 	isSocket = True
+	
+# Show output 3D map or not
+if len(sys.argv) > 1 and str(sys.argv[1]).lower() == 't':
+	showGraph = False
+else:
+	showGraph = True
 
 
 # Create data connection sink
@@ -134,6 +140,10 @@ while (True):
 	# Otherwise cancel the loop
 	else:
 		print('Invalid rotations entered')
+		continue
+		
+	# Hide the graph if not showing
+	if not showGraph:
 		continue
 	
 	# Clear the plot and set the axes

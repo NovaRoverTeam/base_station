@@ -11,8 +11,8 @@ from matplotlib.patches import Ellipse
 
 # Create window ready
 #plt.rcParams['toolbar'] = 'None' # Turn off toolbar
-fig = plt.figure('Rover Location', figsize=(11, 10)) # Create figure
-plt.rc('font', **{'size':16}) # Change font size
+fig = plt.figure('Rover Location', figsize=(5.5, 5)) # Create figure
+plt.rc('font', **{'size':8}) # Change font size
 
 # Get UDP streams of current device connection
 UDP_IP = '192.168.1.8'
@@ -124,11 +124,11 @@ while True:
 	
 	
 	# Plot the current GPS location
-	plt.scatter(coordinates[1], coordinates[0], color='cyan', s=60)
+	plt.scatter(coordinates[1], coordinates[0], color='cyan', s=30)
 	
 	# Plot the direction marker
 	yaw_dir = yawDirection(yaw, yawDirfactor)
-	plt.scatter(yaw_dir[0] + coordinates[1], yaw_dir[1] + coordinates[0], color='red', s=20)
+	plt.scatter(yaw_dir[0] + coordinates[1], yaw_dir[1] + coordinates[0], color='red', s=10)
 	
 	
 	
