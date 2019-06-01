@@ -155,9 +155,13 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
 
     lat = float(self.edit_lat.text()) # Grab user input lat/lng
     lng = float(self.edit_lng.text())
-
+    y = lng
+    x = lat
+    self.GuiVis.data.append((x,y))
+    rospy.loginfo(self.GuiVis.data)
+    self.GuiVis.update()
     self.GuiRos.engageAuto(lat, lng) # Call ROS service to start auto
-
+    
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # modeChange():  
   #    Function to handle mode changing button presses.
@@ -281,6 +285,10 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
        self.GuiRos.drillCmd(31)
        for drill_checkbox in self.GuiVis.drill_checkboxes:
             drill_checkbox.setChecked(False) 
+    elif (name == 'to_science'):
+          self.combo_mission.setCurrentIndex(4)
+    elif (name == 'to_drill'):
+          self.combo_mission.setCurrentIndex(3)
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.
@@ -331,6 +339,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.label_auto_state.setText(str(msg.auto_state))    
     self.label_lat.setText(str(msg.latitude))
     self.label_lng.setText(str(msg.longitude))
+    
     
     # 180 deg is North, positive increase is clockwise
     bearing = round(msg.bearing)
