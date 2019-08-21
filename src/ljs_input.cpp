@@ -1,7 +1,7 @@
 //--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 // File: input.cpp
 // Author: Ben Steer
-// Last modified by: Ben Steer
+// Last modified by: David Ting
 //
 // Description:
 //  This is a ROS node to handle the input from an Xbox controller. It
@@ -32,6 +32,7 @@ int sgn(int val) {
     return (0 < val) - (val < 0);
 }
 
+bool twist_lock = true;
 
 //--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
 // main():
@@ -66,9 +67,9 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     nova_common::RawCtrl msg; // Msg to use for stick vals
-    GAMEPAD_DEVICE controller = GAMEPAD_2;
+    GAMEPAD_DEVICE controller = GAMEPAD_0;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
-
+    if(msg.connected){
     // Grab the stick values
     GamepadStickXY(controller, STICK_LEFT, &stick_lx, &stick_ly);
     GamepadStickXY(controller, STICK_RIGHT, &stick_rx, &stick_ry);
@@ -95,13 +96,19 @@ int main(int argc, char **argv)
 
     msg.but_x_trg = GamepadButtonTriggered(controller, BUTTON_X);
     msg.but_y_trg = GamepadButtonTriggered(controller, BUTTON_Y);
-    msg.but_a_trg = GamepadButtonTriggered(controller, BUTTON_A);
+    msg.but_a_trg = GamepadIsConnected(controller);
     msg.but_b_trg = GamepadButtonTriggered(controller, BUTTON_B);
 
     msg.bump_l_dwn = GamepadButtonDown(controller, BUTTON_LEFT_SHOULDER);
     msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
 
+    if(twist_lock==true and (GamepadTriggerLength(controller, TRIGGER_LEFT)<0.1)){
+    msg.trig_l_val = 0.435;
+    }
+    else{
     msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT);
+    twist_lock = false;
+    }
     msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT);
 
     msg.trig_l_dwn = GamepadTriggerDown(controller, TRIGGER_LEFT);
@@ -115,7 +122,14 @@ int main(int argc, char **argv)
 
     msg.axis_dx_dwn = dpad_r - dpad_l; // Left -1, none/both 0, right 1
     msg.axis_dy_dwn = dpad_u - dpad_d; // Down -1, none/both 0, up 1
-
+    }
+    else{
+    msg.axis_lx_val = 0.0;
+    msg.axis_ly_val = 0.0;
+    msg.trig_l_val = 0.435;
+    msg.trig_r_val = 0.435;
+    twist_lock = true;
+    }
     raw_ctrl_pub.publish(msg); // Publish the ROS msg
     
     ros::spinOnce();
