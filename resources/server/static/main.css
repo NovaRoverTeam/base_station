@@ -1,0 +1,87 @@
+body {
+  max-height: 100vh;
+}
+
+.whole {
+  padding: 5px;
+  background: #555555;
+  height: 100vh;
+  max-height: 100vh;
+}
+.contents {
+  background: #f1f1f1;
+  max-height: 100vh;
+  max-width: 400px;
+  padding: 10px;
+}
+.joystick-container {
+  margin: 0px;
+  height: 24vh;
+}
+.joystick-centre {
+  position: relative;
+  margin: 0;
+  height: 24vh;
+}
+.joystick-top-text {
+  position: absolute;
+  right: 47%;
+  top: -5%;
+}
+.joystick-side-text {
+  position: absolute;
+  left: -4%;
+  top: 37%;
+}
+
+.joystickz-top-text {
+  position: absolute;
+  left: 46%;
+  top: -10%;
+}
+.joystickz-side-text {
+  position: absolute;
+  left: 70%;
+  top: 35%;
+}
+.joystick-text {
+  font-size: 20px;
+  color: grey;
+}
+.logo {
+  height: 15vh;
+  margin-bottom: 30px;
+}
+.logo-holder {
+  background-image: url("./Images/final logo.png");
+  height: 100%;
+  width: auto;
+}
+
+.update-label {
+  position: absolute;
+  right: 20px;
+}
+.custom-range::-webkit-slider-thumb {
+  background: #ff5100;
+}
+.custom-range::-webkit-slider-track {
+  background: #ff5100;
+}
+
+.single-container {
+  text-align: center;
+}
+
+.joystick-icon {
+  width: 30px;
+}
+
+.slider-holder {
+  position: relative;
+}
+
+.control-panel {
+  width: 104%;
+  margin: -2%;
+}

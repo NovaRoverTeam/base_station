@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ROS web server</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css"
+      integrity=""
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+  </head>
+  <body>
+    <div class="whole">
+      <div class="container contents">
+        <div class="alert alert-success">
+          <h4 class="alert-heading">JDB</h4>
+          <ul>
+            <li>set speed and turning using slider</li>
+            <li>use joystick to move rovey</li>
+          </ul>
+        </div>
+        <!-- JOYSTICK -->
+        <div class="row joystick-container">
+          <div class="col-6 single-container">
+            <img class="joystick-icon" src="/static/Images/Forwards.png" />
+            <div id="joystick-X"></div>
+          </div>
+          <div class="col-6 single-container">
+            <img class="joystick-icon" src="/static/Images/Side.png" />
+            <div id="joystick-Y"></div>
+          </div>
+        </div>
+        <!-- Sliders -->
+        <div>
+          <div class="justify-content-center my-4 slider-holder">
+            <span class="font-weight-bold purple-text">Speed</span>
+            <span class="font-weight-bold update-label" id="speed-label"
+              >20 RPM</span
+            >
+            <input
+              type="range"
+              min="0"
+              max="100"
+              class="custom-range robot-slider"
+              id="robot-speed"
+              data-slider-id="robot-speed-data"
+              step="5"
+              value="20"
+            />
+          </div>
+          <div class="justify-content-center my-4 slider-holder">
+            <span class="font-weight-bold purple-text">Turn</span>
+            <span class="font-weight-bold update-label" id="turn-label"
+              >50%</span
+            >
+            <input
+              type="range"
+              min="0"
+              max="100"
+              class="custom-range robot-slider"
+              id="robot-turn"
+              step="10"
+              value="50"
+            />
+          </div>
+        </div>
+        <div style="text-align:center">
+          <img class="logo" src="/static/Images/final logo.png" />
+        </div>
+      </div>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="/static/jquery-3.4.1/jquery-3.4.1.slim.min.js"
+      integrity=""
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"
+      integrity=""
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/dependencies/roslib.js"></script>
+    <script src="/static/dependencies/eventemitter.js"></script>
+    <script src="https://static.robotwebtools.org/keyboardteleopjs/current/keyboardteleop.min.js"></script>
+    <script src="/static/dependencies/nipplejs.js"></script>
+    <script src="/static/js/control.js"></script>
+    <script src="/static/socketio.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Control Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+</head>
+<body>
+    <h1>Control Page</h1>
+    <button id="testButton" onclick="testFunction()">Test Function</button>
+    <p1 id="number_button">test</p1>
+    <script>
+        var socket = io.connect('http://127.0.0.1:5000/');
+        console.log('lol')
+        function testFunction(){
+            socket.emit('control/drive_mode',{'data':'PID'})
+        }
+        socket.on('response', function(msg){console.log('1'); document.getElementById('number_button').innerHTML = msg.data;})
+
+    </script>
+
+</body>
+</html>

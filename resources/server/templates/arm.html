@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ROS web server</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css"
+      integrity=""
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+  </head>
+  <body>
+    <div class="whole">
+      <div class="container contents">
+        <div class="row alert">
+          <div class="col-6">
+            <label class="checkbox-inline">
+              <input type="checkbox" checked data-toggle="toggle" /> Endstops
+            </label>
+          </div>
+          <div class="col-6" style="text-align:right">
+            <input
+              type="checkbox"
+              checked
+              data-toggle="toggle"
+              data-on="Activated"
+              data-off="Deactivated"
+              data-onstyle="success"
+              data-offstyle="danger"
+            />
+          </div>
+          <div class="col-6"></div>
+        </div>
+        <!-- JOYSTICK -->
+        <div class="joystick-centre">
+          <h1 class="joystickz-top-text joystick-text">WY</h1>
+          <h1 class="joystickz-side-text joystick-text">WX</h1>
+          <div id="joystick-Z"></div>
+        </div>
+        <div class="row joystick-container">
+          <div class="col-6 single-container">
+            <h1 class="joystick-top-text joystick-text">J1</h1>
+            <h1 class="joystick-side-text joystick-text">BR</h1>
+            <div id="joystick-X"></div>
+          </div>
+          <div class="col-6 single-container">
+            <h1 class="joystick-top-text joystick-text">J2</h1>
+            <h1 class="joystick-side-text joystick-text" style="left:84%">
+              WR
+            </h1>
+            <div id="joystick-Y"></div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <img class="logo" src="/static/Images/final logo.png" />
+        </div>
+        <!-- Sliders -->
+        <div></div>
+        <div class="btn-group control-panel" data-toggle="buttons">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-toggle="button"
+            autocomplete="off"
+            style="width:4px;"
+          >
+            Off
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-toggle="button"
+            autocomplete="off"
+          >
+            Drive
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark"
+            data-toggle="button"
+            autocomplete="off"
+            active
+          >
+            Arm
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="/static/jquery-3.4.1/jquery-3.4.1.slim.min.js"
+      integrity=""
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"
+      integrity=""
+      crossorigin="anonymous"
+    ></script>
+    <script src="/static/dependencies/roslib.js"></script>
+    <script src="/static/dependencies/eventemitter.js"></script>
+    <script src="https://static.robotwebtools.org/keyboardteleopjs/current/keyboardteleop.min.js"></script>
+    <script src="/static/dependencies/nipplejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+    <script src="/static/js/arm.js"></script>
+        <script src="/static/socketio.js"></script>
+  </body>
+</html>
+
