@@ -17,8 +17,8 @@
 import rospy
 import rospkg
 import roslaunch
-from nova_common.msg import * 
-from nova_common.srv import *
+#from nova_common.msg import * 
+#from nova_common.srv import *
 from std_msgs.msg import Int8
 from std_msgs.msg import Bool
 from PyQt4 import QtCore
@@ -39,16 +39,16 @@ class GuiRos():
       
         rospy.init_node('gui_ros')
         rospy.Subscriber('/base_station/change_max_speed', Int8, self.maxSpeedCb)
-        rospy.Subscriber('/base_station/radio_status', RadioStatus, 
+        rospy.Subscriber('/base_station/radio_status', Int8, 
           self.radioCb, queue_size=1)
-        rospy.Subscriber('/core_rover/camera_status', CameraStatus, 
+        rospy.Subscriber('/core_rover/camera_status', Int8, 
           self.cameraCb, queue_size=1)
-        rospy.Subscriber('/core_rover/auto_status', AutoStatus, 
+        rospy.Subscriber('/core_rover/auto_status', Int8, 
           self.autoCb, queue_size=1)
-        rospy.Subscriber('/base_station/raw_ctrl', RawCtrl, 
+        rospy.Subscriber('/base_station/raw_ctrl', Int8, 
           self.rawCtrlCb, queue_size=1)
         self.gimbal_pub = rospy.Publisher('/base_station/gimbal_cmd', 
-            GimbalCmd, queue_size=10)
+            Int8, queue_size=10)
         self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
             Int8, queue_size=10)
         self.PID_pub = rospy.Publisher('/base_station/PID_cmd', Bool, queue_size = 1)
