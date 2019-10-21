@@ -52,6 +52,9 @@ class GuiRos():
         self.drill_pub = rospy.Publisher('/base_station/drill_cmd', 
             Int8, queue_size=10)
         self.PID_pub = rospy.Publisher('/base_station/PID_cmd', Bool, queue_size = 1)
+        self.yaw_pub = rospy.Publisher('/ant-az',Int8,queue_size = 5)
+        self.pitch_pub = rospy.Publisher('/ant-ez',Int8,queue_size = 5)
+
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # getMode():   
     #   Get the current base station Mode.
@@ -337,4 +340,25 @@ class GuiRos():
     def maxSpeedCb(self, number):
     	self.ui.slider_a.setValue(self.ui.slider_a.value()+number.data)
 
+    def radioCmd(self, number, value):
+        if number == 1:
+            msg = Int8()
+            msg.data = value
+            self.pitch_pub.publish(msg)
+            pass
+        elif number == 2:
+            msg = Int8()
+            msg.data = value
+            self.yaw_pub.publish(msg)
+            pass
+        elif number == 3:
+            if value:
+                pass
+            else:
+                pass
+        elif number == 4:
+            if value:
+                pass
+            else:
+                pass
 

@@ -14,7 +14,11 @@
 
 from PyQt4 import QtCore, QtGui # Qt includes
 from PyKDE4.kdeui import *
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import QUrl
+from PyQt4.QtWebKit import QWebView
 
+from browser import BrowserDialog
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
@@ -260,6 +264,28 @@ class GuiVis():
         else:
             return 'ptzMoveDown'
 
+
+    #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
+    # configureRadioWidgets(): 
+    #   Retrieve LED, show and start buttons for cameras.
+    #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..-- 
+    def configureRadioWidgets(self):
+        self.ui.dial_yaw.valueChanged.connect(self.ui.dialChanged)
+        self.ui.dial_pitch2.valueChanged.connect(self.ui.dialChanged)
+        self.ui.dial_yaw.sliderReleased.connect(self.ui.dialReleased)
+        self.ui.dial_pitch2.sliderReleased.connect(self.ui.dialReleased)
+        self.ui.modeButton.clicked.connect(self.ui.radioButton)
+        self.ui.activeButton.clicked.connect(self.ui.radioButton)
+        self.configureVideoWidgets()
+        pass
+
+
+    def configureVideoWidgets(self):
+        myapp = MyBrowser()
+        myapp.ui.qwebview.load(QUrl('http://www.facebook.com'))
+        self.ui.video_feed.addWidget(myapp)
+        myapp.show()
+
     #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
     # configureMap(): 
     #   Create the map for viewing the coordinates of rover
@@ -322,3 +348,20 @@ class GuiVis():
 	ax.set_ylim(coordinates[1]-0.001, coordinates[1]+0.001)
         # refresh canvas
         self.canvas.draw()
+
+
+
+class MyBrowser(QtGui.QDialog):
+    def __init__(self, parent=None):
+        QtGui.QWidget.__init__(self, parent)
+        QWebView.__init__(self)
+        self.ui = BrowserDialog()
+        self.ui.setupUi(self)
+        #self.ui.lineEdit.returnPressed.connect(self.loadURL)
+
+    def loadURL(self):
+        return
+        #url = self.ui.lineEdit.text()
+        #self.ui.qwebview.load(QUrl(url))
+        self.show()  
+        #self.ui.lineEdit.setText("")

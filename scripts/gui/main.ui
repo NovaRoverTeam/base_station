@@ -69,21 +69,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_plugged">
+             <widget class="KLed" name="led_radio0_plugged" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -118,21 +118,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio0_paired">
+             <widget class="KLed" name="led_radio0_paired" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -225,21 +225,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_plugged">
+             <widget class="KLed" name="led_radio1_plugged" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -274,21 +274,21 @@
              </spacer>
             </item>
             <item>
-             <widget class="KLed" name="led_radio1_paired">
+             <widget class="KLed" name="led_radio1_paired" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="color">
+              <property name="color" stdset="0">
                <color>
                 <red>0</red>
                 <green>255</green>
                 <blue>0</blue>
                </color>
               </property>
-              <property name="darkFactor">
+              <property name="darkFactor" stdset="0">
                <number>400</number>
               </property>
              </widget>
@@ -371,21 +371,21 @@
          <widget class="QWidget" name="cam0_pane" native="true">
           <layout class="QHBoxLayout" name="cam0">
            <item>
-            <widget class="KLed" name="led_cam0">
+            <widget class="KLed" name="led_cam0" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color">
+             <property name="color" stdset="0">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor">
+             <property name="darkFactor" stdset="0">
               <number>400</number>
              </property>
             </widget>
@@ -498,21 +498,21 @@
          <widget class="QWidget" name="cam1_pane" native="true">
           <layout class="QHBoxLayout" name="cam1">
            <item>
-            <widget class="KLed" name="led_cam1">
+            <widget class="KLed" name="led_cam1" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color">
+             <property name="color" stdset="0">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor">
+             <property name="darkFactor" stdset="0">
               <number>400</number>
              </property>
             </widget>
@@ -619,7 +619,7 @@
          <widget class="QWidget" name="cam2_pane" native="true">
           <layout class="QHBoxLayout" name="cam2">
            <item>
-            <widget class="KLed" name="led_cam2">
+            <widget class="KLed" name="led_cam2" native="true">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -629,14 +629,14 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color">
+             <property name="color" stdset="0">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor">
+             <property name="darkFactor" stdset="0">
               <number>400</number>
              </property>
             </widget>
@@ -746,21 +746,21 @@
          <widget class="QWidget" name="cam3_pane" native="true">
           <layout class="QHBoxLayout" name="cam3">
            <item>
-            <widget class="KLed" name="led_cam3">
+            <widget class="KLed" name="led_cam3" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color">
+             <property name="color" stdset="0">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor">
+             <property name="darkFactor" stdset="0">
               <number>400</number>
              </property>
             </widget>
@@ -867,21 +867,21 @@
          <widget class="QWidget" name="cam4_pane" native="true">
           <layout class="QHBoxLayout" name="cam4">
            <item>
-            <widget class="KLed" name="led_cam4">
+            <widget class="KLed" name="led_cam4" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="color">
+             <property name="color" stdset="0">
               <color>
                <red>0</red>
                <green>255</green>
                <blue>0</blue>
               </color>
              </property>
-             <property name="darkFactor">
+             <property name="darkFactor" stdset="0">
               <number>400</number>
              </property>
             </widget>
@@ -1016,14 +1016,14 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
                 <item>
-                 <widget class="KLed" name="led_xbox">
+                 <widget class="KLed" name="led_xbox" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="darkFactor">
+                  <property name="darkFactor" stdset="0">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1062,14 +1062,14 @@
                  <enum>QLayout::SetMaximumSize</enum>
                 </property>
                 <item>
-                 <widget class="KLed" name="led_haptic">
+                 <widget class="KLed" name="led_haptic" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="darkFactor">
+                  <property name="darkFactor" stdset="0">
                    <number>400</number>
                   </property>
                  </widget>
@@ -1239,7 +1239,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_mission">
           <property name="currentIndex">
-           <number>5</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="page_setup">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -1963,6 +1963,230 @@
             </item>
            </layout>
           </widget>
+          <widget class="QWidget" name="page_radio">
+           <layout class="QVBoxLayout" name="verticalLayout_14" stretch="1,4,6,3,1,1">
+            <item>
+             <widget class="QLabel" name="label_125">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Radio</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_23">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
+              <item>
+               <layout class="QVBoxLayout" name="video_feed">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetNoConstraint</enum>
+                </property>
+                <property name="bottomMargin">
+                 <number>20</number>
+                </property>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_29">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_17">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_31">
+                  <item>
+                   <widget class="QLabel" name="yaw_min">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDial" name="dial_yaw">
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="value">
+                     <number>30</number>
+                    </property>
+                    <property name="sliderPosition">
+                     <number>30</number>
+                    </property>
+                    <property name="invertedAppearance">
+                     <bool>false</bool>
+                    </property>
+                    <property name="invertedControls">
+                     <bool>false</bool>
+                    </property>
+                    <property name="wrapping">
+                     <bool>false</bool>
+                    </property>
+                    <property name="notchTarget">
+                     <double>3.000000000000000</double>
+                    </property>
+                    <property name="notchesVisible">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="yaw_max">
+                    <property name="text">
+                     <string>360</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QLabel" name="yaw_label">
+                  <property name="text">
+                   <string>Yaw: 0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_16">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_32">
+                  <item>
+                   <widget class="QLabel" name="pitch_min">
+                    <property name="text">
+                     <string>-95</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDial" name="dial_pitch2">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="wrapping">
+                     <bool>false</bool>
+                    </property>
+                    <property name="notchesVisible">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="pitch_max">
+                    <property name="text">
+                     <string>90</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QLabel" name="pitch_label">
+                  <property name="text">
+                   <string>Pitch: 0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_30" stretch="0,0">
+              <property name="spacing">
+               <number>5</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetFixedSize</enum>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="modeButton">
+                <property name="text">
+                 <string>Manual Mode</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="activeButton">
+                <property name="text">
+                 <string>Active</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_18">
+              <item>
+               <widget class="QLabel" name="label_49">
+                <property name="text">
+                 <string>GPS: 127.32321, 192.3292128</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_47">
+                <property name="text">
+                 <string>Bandwidth: 560 Hz</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_48">
+                <property name="text">
+                 <string>Transmitting : 5.78</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
         <item>
@@ -2032,7 +2256,7 @@
              <bool>false</bool>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToContents</enum>
@@ -2070,6 +2294,11 @@
             <item>
              <property name="text">
               <string>Debug</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Radio</string>
              </property>
             </item>
            </widget>
@@ -2271,14 +2500,14 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <widget class="KLed" name="led_battery">
+           <widget class="KLed" name="led_battery" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>
@@ -2398,21 +2627,21 @@
            </spacer>
           </item>
           <item>
-           <widget class="KLed" name="led_relay">
+           <widget class="KLed" name="led_relay" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="color">
+            <property name="color" stdset="0">
              <color>
               <red>0</red>
               <green>255</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>
@@ -2924,14 +3153,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="KLed" name="led_GPS">
+               <widget class="KLed" name="led_GPS" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -2970,14 +3199,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="KLed" name="led_LIDAR">
+               <widget class="KLed" name="led_LIDAR" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -3020,14 +3249,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_17">
               <item>
-               <widget class="KLed" name="led_IMU">
+               <widget class="KLed" name="led_IMU" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -3066,14 +3295,14 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
-               <widget class="KLed" name="led_Raman">
+               <widget class="KLed" name="led_Raman" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="darkFactor">
+                <property name="darkFactor" stdset="0">
                  <number>400</number>
                 </property>
                </widget>
@@ -3159,21 +3388,21 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_20">
           <item>
-           <widget class="KLed" name="led_rosbag">
+           <widget class="KLed" name="led_rosbag" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="color">
+            <property name="color" stdset="0">
              <color>
               <red>255</red>
               <green>0</green>
               <blue>0</blue>
              </color>
             </property>
-            <property name="darkFactor">
+            <property name="darkFactor" stdset="0">
              <number>400</number>
             </property>
            </widget>

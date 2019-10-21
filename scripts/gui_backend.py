@@ -63,6 +63,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
     self.setupConnections()
     self.initialiseGUI()
     self.GuiVis.configureMap()
+    self.GuiVis.configureRadioWidgets()
     # Register sigint handler
     signal.signal(signal.SIGINT, self.signalHandler) 
                 
@@ -89,7 +90,7 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
   #   Setup widget initial values.
   #--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--      
   def initialiseGUI(self):     
-
+    return
     # Get and set default drive limits
     rpm_limit, steer_limit = self.GuiRos.getDriveLimits("private")    
     self.GuiRos.setDriveLimits(rpm_limit, steer_limit)
@@ -274,6 +275,43 @@ class MainDialog(QtGui.QMainWindow, Ui_MainWindow):
        self.GuiRos.drillCmd(31)
        for drill_checkbox in self.GuiVis.drill_checkboxes:
             drill_checkbox.setChecked(False) 
+
+
+  def dialChanged(self,value=-1):
+      slider = self.sender()
+      name = slider.objectName()
+      if name=='dial_pitch2':
+          self.pitch_label.setText('Pitch: '+str(value))
+      else:
+          self.yaw_label.setText('Yaw: '+str(value))
+  def dialReleased(self,value=-1):
+      slider = self.sender()
+      name = slider.objectName()
+      value = slider.value()
+      if name=='dial_pitch2':
+          self.GuiRos.radioCmd(1,value)
+      else:
+          self.GuiRos.radioCmd(2,value)
+
+
+  def radioButton(self):
+      button = self.sender()
+      name = button.objectName()
+      if name == 'activeButton':
+          if button.text() == 'DeActive':
+            button.setText('Active')
+            self.GuiRos.radioCmd(3,1)  
+          else:
+            button.setText('DeActive')
+            self.GuiRos.radioCmd(3,0)
+      else:
+          if button.text() == 'Manual Mode':
+            button.setText('Auto Mode')
+            self.GuiRos.radioCmd(4,1)  
+          else:
+            button.setText('Manual Mode') 
+            self.GuiRos.radioCmd(4,0)  
+
   #--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--..--**--
   # initStartup(): 
   #   Disable and enable buttons and panes on startup.
