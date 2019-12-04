@@ -10,8 +10,7 @@ gi.require_version('Gst', '1.0')
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gtk', '3.0')
 
-from gi.repository import Gst, GObject, Gtk
-from gi.repository import GdkX11, GstVideo
+from gi.repository import Gst, GObject, GstVideo
 
 
 # Initialise the GStreamer library with arguments
@@ -28,7 +27,6 @@ layout_L = QGridLayout() # Left column
 layout_R = QHBoxLayout() # Right column
 layout = QGridLayout() # Main layout
 layout.setSpacing(10)
-
 
 
 
@@ -59,8 +57,12 @@ pipelines = []
 buses = []
 
 
-def getGSTCommand (_port):
-	return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! autovideosink".format(_port))
+def getGSTCommand (_port, _flip):
+	if _flip:
+		return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! videoflip method=rotate-180 ! autovideosink".format(_port))
+
+	else:
+		return ("udpsrc port={} ! queue ! application/x-rtp, encoding-name=JPEG, payload=26 ! rtpjpegdepay ! jpegdec ! autovideosink".format(_port))
 
 
 
@@ -70,18 +72,38 @@ def getGSTCommand (_port):
 ####################################
 
 # Ports for each camera
-cam_ports = (5000, 5001, 5002, 5003, 5004, 5005, 5006)
+cam_ports = []#(5000, 5002, 5003, 5021, 5022, 5023, 5024, 5025, 5001, 5033, 5031, 5032)
+flipFeeds = []#(False, False, False, True, False, False, False, False, False, False, False, False)
 
 # Set GST command
-streams = [getGSTCommand(idx) for idx in cam_ports]
-
+streams = []
 # Set Feed names
-feedNames = ('Stereo Camera', 'Telescopic Camera', 'Black Foscam', 'White Foscam', 'Arm Camera 1', 'Arm Camera 2', 'Arm Stereo Camera')
+feedNames = []#('Stereo Camera', 'Black Foscam', 'White Foscam', 'Telescopic Camera 1', 'Telescopic Camera 2', 'Telescopic Camera 3', 'Telescopic Camera 4', 'Telescopic Camera 5', 'Arm Stereo Camera', 'Real Sense', 'USB 3.0 Camera 1', 'USB 3.0 Camera 2')
 
 
 # Set Feed Playing States
-feedPlaying = [False, False, False, False, False, False, False]
+feedPlaying = []
 
+# Reads the camera CSV file
+with open('../../core_rover/scripts/cameras.csv', 'r') as file:
+  content = file.readlines()
+  attributes = content[0].replace('\n','').split(",")
+  
+  # Loop through each camera line, after the header line
+  if (len(content) > 1):
+    for camera in content[1:]:
+      # Create a dictionary for the data
+      data_dict = {}
+      data = camera.replace('\n','').split(",")
+      for i in range(0, len(data)):
+        data_dict[attributes[i]] = data[i]
+      
+      # Set variables
+      cam_ports.append(data_dict['Port'])
+      flipFeeds.append(False)
+      feedNames.append(data_dict['ID'])
+      feedPlaying.append(False)
+      streams.append(getGSTCommand(data_dict['Port'], False))
 
 # Create a pipeline from each command
 for stream in streams:
@@ -101,8 +123,8 @@ for stream in streams:
 
 
 # Key Variables for Cameras
-port = 5000
 cameraIndex = 0
+port = cam_ports[cameraIndex]
 
 
 
@@ -125,7 +147,7 @@ def camera_status():
 	# For each camera
 	for idx, camera in enumerate(feedNames):
 		# Add camera name
-		text += '\n{}'.format(camera)
+		text += '\n{}  [{}]'.format(camera, cam_ports[idx])
 
 		# Get camera playing status
 		if feedPlaying[idx]:
@@ -135,7 +157,7 @@ def camera_status():
 		text += '\n\tStatus: {}'.format(camPlaying)
 
 		# Get port of camera
-		text += '\n\tPort: {}\n'.format(cam_ports[idx])
+		text += '\n'#'\n\tPort: {}\n'.format(cam_ports[idx])
 	return text
 
 label_status = QLabel(camera_status())
