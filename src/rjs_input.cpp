@@ -103,19 +103,27 @@ int main(int argc, char **argv)
     msg.bump_l_dwn = GamepadButtonDown(controller, BUTTON_LEFT_SHOULDER);
     msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
     if(twist_lock and GamepadTriggerLength(controller, TRIGGER_LEFT)<0.1){
-        msg.trig_l_val = 0.435;
+        msg.trig_l_val = 0.0;
     }
     else{
-        msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT);
-        twist_lock = false;
+      msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - 0.435;
+      msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-0.435): msg.trig_l_val/(0.435);
+      if (abs(msg.trig_l_val) < 0.01) {
+      	msg.trig_l_val = 0.0;
+      }
+      twist_lock = false;
         }
 
     if(hat_lock and GamepadTriggerLength(controller, TRIGGER_RIGHT)<0.1){
-       msg.trig_r_val = 0.435;
+    	msg.trig_r_val = 0.0;
     }
     else{
-    msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT);
-    hat_lock = false;
+			msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT)-0.435;
+			msg.trig_r_val = (msg.trig_r_val>0.0) ? msg.trig_r_val/(1-0.435): msg.trig_r_val/(0.435);
+      if (abs(msg.trig_r_val) < 0.01) {
+      	msg.trig_r_val = 0.0;
+      }
+			hat_lock = false;
     }
     //When the joystick is first connected the twist and hat give a 0.0 until moved, whereas their actual centre is 0.435. This ensures that they have been moved first so they don't make a full negative power to twist and hat on connection
    
@@ -134,8 +142,8 @@ int main(int argc, char **argv)
     else{
     msg.axis_lx_val = 0.0;
     msg.axis_ly_val = 0.0;
-    msg.trig_l_val = 0.435;
-    msg.trig_r_val = 0.435;
+    msg.trig_l_val = 0.0;
+    msg.trig_r_val = 0.0;
     twist_lock = true;
     hat_lock = true;
     }
