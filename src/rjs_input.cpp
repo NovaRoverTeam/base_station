@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     nova_common::RawCtrl msg; // Msg to use for stick vals
-    GAMEPAD_DEVICE controller = GAMEPAD_1;
+    GAMEPAD_DEVICE controller = GAMEPAD_2;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
     if(msg.connected){
     // Grab the stick values
@@ -119,8 +119,8 @@ int main(int argc, char **argv)
     }
     else{
 			msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT)-0.435;
-			msg.trig_r_val = (msg.trig_r_val>0.0) ? msg.trig_r_val/(1-0.435): msg.trig_r_val/(0.435);
-      if (abs(msg.trig_r_val) < 0.01) {
+			msg.trig_r_val = (msg.trig_r_val>0.0) ? msg.trig_r_val/(1-0.435): msg.trig_r_val/(0.435); //Re-scale offset value
+      if (abs(msg.trig_r_val) < 0.01) { // Get rid of tiny floats
       	msg.trig_r_val = 0.0;
       }
 			hat_lock = false;
