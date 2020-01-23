@@ -55,6 +55,7 @@ int main(int argc, char **argv)
   const int dead_r = GAMEPAD_DEADZONE_RIGHT_STICK;
   const float stick_max_l = 32767 - dead_l;
   const float stick_max_r = 32767 - dead_r;
+  const float offset = 0.435;
 
   // Initialising variables to be refreshed during loop
   int stick_lx = 0;
@@ -106,8 +107,8 @@ int main(int argc, char **argv)
     msg.trig_l_val = 0.0;
     }
     else{
-      msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - 0.435;
-      msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-0.435): msg.trig_l_val/(0.435); //Re-scale offset value
+      msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - offset;
+      msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-offset): msg.trig_l_val/(offset); //Re-scale offset value
       if (abs(msg.trig_l_val) < 0.01) { // Get rid of tiny floats
       	msg.trig_l_val = 0.0;
       }
