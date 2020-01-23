@@ -55,6 +55,7 @@ int main(int argc, char **argv)
   const int dead_r = GAMEPAD_DEADZONE_RIGHT_STICK;
   const float stick_max_l = 32767 - dead_l;
   const float stick_max_r = 32767 - dead_r;
+  const float offset = 0.435;
 
   // Initialising variables to be refreshed during loop
   int stick_lx = 0;
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     nova_common::RawCtrl msg; // Msg to use for stick vals
-    GAMEPAD_DEVICE controller = GAMEPAD_0;
+    GAMEPAD_DEVICE controller = GAMEPAD_1;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
     if(msg.connected){
     // Grab the stick values
@@ -103,11 +104,15 @@ int main(int argc, char **argv)
     msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
 
     if(twist_lock==true and (GamepadTriggerLength(controller, TRIGGER_LEFT)<0.1)){
-    msg.trig_l_val = 0.435;
+    msg.trig_l_val = 0.0;
     }
     else{
-    msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT);
-    twist_lock = false;
+      msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - offset;
+      msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-offset): msg.trig_l_val/(offset); //Re-scale offset value
+      if (abs(msg.trig_l_val) < 0.01) { // Get rid of tiny floats
+      	msg.trig_l_val = 0.0;
+      }
+      twist_lock = false;
     }
     msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT);
 
@@ -126,8 +131,8 @@ int main(int argc, char **argv)
     else{
     msg.axis_lx_val = 0.0;
     msg.axis_ly_val = 0.0;
-    msg.trig_l_val = 0.435;
-    msg.trig_r_val = 0.435;
+    msg.trig_l_val = 0.0;
+    msg.trig_r_val = 0.0;
     twist_lock = true;
     }
     raw_ctrl_pub.publish(msg); // Publish the ROS msg

@@ -56,6 +56,7 @@ int main(int argc, char **argv)
   const int dead_r = GAMEPAD_DEADZONE_RIGHT_STICK;
   const float stick_max_l = 32767 - dead_l;
   const float stick_max_r = 32767 - dead_r;
+  const float offset = 0.435;
 
   // Initialising variables to be refreshed during loop
   int stick_lx = 0;
@@ -68,7 +69,7 @@ int main(int argc, char **argv)
     GamepadUpdate(); // Updates the state of the gamepad
 
     nova_common::RawCtrl msg; // Msg to use for stick vals
-    GAMEPAD_DEVICE controller = GAMEPAD_1;
+    GAMEPAD_DEVICE controller = GAMEPAD_2;
     msg.connected = GamepadIsConnected(controller); // Check Xbox connection
     if(msg.connected){
     // Grab the stick values
@@ -103,19 +104,27 @@ int main(int argc, char **argv)
     msg.bump_l_dwn = GamepadButtonDown(controller, BUTTON_LEFT_SHOULDER);
     msg.bump_r_dwn = GamepadButtonDown(controller, BUTTON_RIGHT_SHOULDER);
     if(twist_lock and GamepadTriggerLength(controller, TRIGGER_LEFT)<0.1){
-        msg.trig_l_val = 0.435;
+        msg.trig_l_val = 0.0;
     }
     else{
-        msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT);
-        twist_lock = false;
+      msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - offset;
+      msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-offset): msg.trig_l_val/(offset);
+      if (abs(msg.trig_l_val) < 0.01) {
+      	msg.trig_l_val = 0.0;
+      }
+      twist_lock = false;
         }
 
     if(hat_lock and GamepadTriggerLength(controller, TRIGGER_RIGHT)<0.1){
-       msg.trig_r_val = 0.435;
+    	msg.trig_r_val = 0.0;
     }
     else{
-    msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT);
-    hat_lock = false;
+			msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT)-offset;
+			msg.trig_r_val = (msg.trig_r_val>0.0) ? msg.trig_r_val/(1-offset): msg.trig_r_val/(offset); //Re-scale offset value
+      if (abs(msg.trig_r_val) < 0.01) { // Get rid of tiny floats
+      	msg.trig_r_val = 0.0;
+      }
+			hat_lock = false;
     }
     //When the joystick is first connected the twist and hat give a 0.0 until moved, whereas their actual centre is 0.435. This ensures that they have been moved first so they don't make a full negative power to twist and hat on connection
    
@@ -134,8 +143,8 @@ int main(int argc, char **argv)
     else{
     msg.axis_lx_val = 0.0;
     msg.axis_ly_val = 0.0;
-    msg.trig_l_val = 0.435;
-    msg.trig_r_val = 0.435;
+    msg.trig_l_val = 0.0;
+    msg.trig_r_val = 0.0;
     twist_lock = true;
     hat_lock = true;
     }
