@@ -109,7 +109,7 @@ int main(int argc, char **argv)
     else{
       msg.trig_l_val = GamepadTriggerLength(controller, TRIGGER_LEFT) - offset;
       msg.trig_l_val = (msg.trig_l_val>0.0) ? msg.trig_l_val/(1-offset): msg.trig_l_val/(offset);
-      if (abs(msg.trig_l_val) < 0.01) {
+      if (fabsf(msg.trig_l_val) < 0.01) {
       	msg.trig_l_val = 0.0;
       }
       twist_lock = false;
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
     else{
 			msg.trig_r_val = GamepadTriggerLength(controller, TRIGGER_RIGHT)-offset;
 			msg.trig_r_val = (msg.trig_r_val>0.0) ? msg.trig_r_val/(1-offset): msg.trig_r_val/(offset); //Re-scale offset value
-      if (abs(msg.trig_r_val) < 0.01) { // Get rid of tiny floats
+      if (fabsf(msg.trig_r_val) < 0.01) { // Get rid of tiny floats
       	msg.trig_r_val = 0.0;
       }
 			hat_lock = false;
